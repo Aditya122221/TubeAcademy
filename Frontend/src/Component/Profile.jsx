@@ -1,10 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Profile = () => {
+    const Navigate = useNavigate()
     const token = JSON.parse(localStorage.getItem('token'))
     const [settingUp, setSettingUp] = useState(false);
     const [userData, setUserData] = useState('')
+
+    useEffect(() => {
+        if (localStorage.getItem('token') === null) {
+            window.location.href = '/';
+        }
+    })
 
     const fetchData = () => {
         const header = {
@@ -22,13 +30,21 @@ const Profile = () => {
         })
     }
 
-    console.log(setUserData)
+    console.log(userData)
 
     useEffect(() => {
         fetchData()
     }, [])
+
+    const handleLogOut = () => {
+        localStorage.removeItem('token');
+        Navigate('/')
+    }
     return (
-        <h1></h1>
+        <div className="profile">
+            <Link to='/'>Home</Link>
+            <button onClick={handleLogOut}>Log Out</button>
+        </div>
     )
 }
 
