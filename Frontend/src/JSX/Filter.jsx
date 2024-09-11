@@ -1,0 +1,14 @@
+import React from "react";
+import F from '../CSS/Filter.module.css';
+
+export default function Filter({ filterationMethod, item, filterItem, setData, vid }) {
+    return (
+        <div className={F.titleAndFilteration}>
+            <div className={F.title}>{filterationMethod}</div>
+            {item.map((val) => (
+                <button className={F.filt} onClick={() => filterItem(val)}>{val}</button>
+            ))}
+            <button className={F.filt} onClick={() => setData(vid)}>All</button>
+        </div>
+    );
+}

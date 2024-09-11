@@ -1,0 +1,177 @@
+/* importing*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
+
+
+.LogInPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background: linear-gradient(120deg, orange, #daad59, #a97006, #422b01);
+}
+
+header {
+    position: absolute;
+    right: 38cm;
+    top: 0.6cm;
+}
+
+.logo {
+    border-radius: 50%;
+    height: 2cm;
+    width: 2cm;
+}
+
+.overall {
+    display: flex;
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.socialmedia {
+    padding: 1cm;
+    width: 7cm;
+}
+
+.text {
+    color: black;
+    text-align: center;
+    font-family: 'Lemon';
+    font-weight: 400;
+    user-select: none;
+}
+
+#socmed {
+    margin-top: 1cm;
+}
+
+.button {
+    display: flex;
+    flex-direction: column;
+}
+
+.but {
+    height: 1cm;
+    margin-top: 0.2cm;
+    border-radius: 5px;
+    border: 2px solid white;
+    font-family: 'Russo One';
+    font-size: 1rem;
+}
+
+.link {
+    color: black;
+    text-decoration: none;
+}
+
+#facebook {
+    margin-top: 3cm;
+}
+
+.log {
+    padding: 1.5cm;
+    user-select: none;
+    background-color: white;
+    border-radius: 20px;
+}
+
+form {
+    margin-top: 2cm;
+    display: flex;
+    flex-direction: column;
+}
+
+.but:hover {
+    background-color: #004b23;
+    border: 2px solid #004b23;
+
+}
+
+#logIn {
+    background-color: orange;
+    border: 2px solid orange;
+    color: white;
+    width: 86%;
+    margin-top: 1cm;
+}
+
+#logIn:hover {
+    background-color: #a97006;
+    border: 2px solid #a97006;
+}
+
+#forpass {
+    border: 2px solid orange;
+    width: 77%;
+    margin-left: 0.8cm;
+}
+
+#forpass:hover {
+    background-color: #a97006;
+    border: 2px solid #a97006;
+}
+
+.sign {
+    text-decoration: none;
+    color: orange;
+}
+
+.sign:hover {
+    color: #a97006;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 0.8cm;
+    width: 14cm;
+}
+
+input {
+    height: 1cm;
+    width: 80%;
+    border-radius: 5px;
+    padding: 2px;
+    padding-left: 0.4cm;
+    border: 2px solid black;
+    margin-top: 6px;
+    outline: 0;
+    background-color: transparent;
+    color: black;
+    font-family: 'Chakra Petch';
+    font-size: 1.3rem;
+}
+
+label {
+    margin-top: 6px;
+    color: black;
+    font-family: 'Chakra Petch';
+    font-size: 1.3rem;
+    user-select: none;
+}
+
+.submit {
+    cursor: pointer;
+    display: inline;
+    margin-top: 4px;
+    height: 1cm;
+    border-radius: 5px;
+    font-family: 'Black Ops One';
+    font-size: 1rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+span {
+    color: red;
+}

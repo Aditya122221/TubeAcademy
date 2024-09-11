@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.titleAndFilteration {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: 2px solid grey;
+    height: 8cm;
+}
+
+.filt {
+    font-family: "SUSE";
+    width: 3cm;
+    margin: 5px;
+}

@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+.videosClassNine {
+    display: flex;
+    padding: 15px;
+    padding-left: 25px;
+    margin-top: 1cm;
+    color: white;
+}
+
+.ClassNineVideos {
+    height: 10cm;
+    width: 10cm;
+    display: flex;
+    gap: 2.4cm;
+}
+
+.ClassNine {
+    background-color: #ffffff1a;
+    padding: 15px;
+    user-select: none;
+    border-radius: 10px;
+    backdrop-filter: blur(50px);
+    border: 2px solid #ffffff33;
+}
+
+.ClassNine:hover {
+    box-shadow: #04eaeaf6 0px 54px 55px, #04eaeaf6 0px -12px 30px, #04eaeaf6 0px 4px 6px, #04eaeaf6 0px 12px 13px, #04eaea5b 0px -3px 5px;
+}
+
+button {
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px;
+    font-family: "Anton SC", sans-serif;
+    font-size: 18px;
+}
+
+button:hover {
+    background-color: #bde0fe;
+}
+
+.videoName {
+    font-family: "Anton SC", sans-serif;
+}
+
+.subjectClass {
+    display: flex;
+    font-family: "Chakra Petch", sans-serif;
+    justify-content: space-between;
+}
+
+.ChannelName {
+    font-family: "Chakra Petch", sans-serif;
+}
+
+.arrowCircle {
+    text-decoration: none;
+    display: flex;
+    border-radius: 50%;
+    border: 2px solid white;
+    width: 2cm;
+    height: 2cm;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    top: 4.1cm;
+    right: -25cm;
+}
+
+.minus {
+    position: relative;
+    left: 5px;
+    transition: .3s;
+    color: white;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.right {
+    position: relative;
+    right: 5px;
+    transition: .3s;
+    color: white;
+    font-weight: bold;
+    font-size: 35px;
+}
+
+.arrowCircle:hover {
+    background-color: #14213d;
+}
+
+.arrowCircle:hover .minus {
+    transform: translateX(-9px);
+}
+
+.arrowCircle:hover .right {
+    transform: translateX(9px);
+}

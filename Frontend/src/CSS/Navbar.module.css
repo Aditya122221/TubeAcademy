@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+
+.navbar {
+    background: #0082e6;
+    height: 80px;
+}
+
+.menu {
+    display: flex;
+    float: right;
+    margin-right: 20px;
+    font-family: "Chakra Petch";
+}
+
+.s {
+    text-decoration: none;
+    line-height: 80px;
+    margin: 0 5px;
+    color: white;
+    font-size: 17px;
+    padding-right: 13px;
+    padding-left: 13px;
+    border-radius: 3px;
+}
+
+.s:hover {
+    background-color: #1b9bff;
+    transition: .5s;
+}
+
+.checkbtn {
+    line-height: 80px;
+    float: right;
+    font-size: 30px;
+    color: white;
+    margin-right: 40px;
+    cursor: pointer;
+    display: none;
+}
+
+#ham {
+    color: white;
+    font-size: 30px;
+}
+
+#check {
+    display: none;
+}
+
+.logo {
+    height: 2cm;
+    width: 2cm;
+    margin-left: 4cm;
+}
+
+/* --------------------------------Responsivness---------------------------------- */
+
+@media (max-width: 952px) {
+    .s {
+        font-size: 16px;
+    }
+}
+
+@media (max-width:858px) {
+    .checkbtn {
+        display: block;
+    }
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        background: #2c3e50;
+        top: 80px;
+        left: 100%;
+        transition: all .5s;
+        text-align: center;
+        z-index: 9999;
+    }
+
+    .s {
+        font-size: 20px;
+        margin: 50px 0;
+        line-height: 30px;
+    }
+
+    .s:hover {
+        background: none;
+        color: #0082e6;
+    }
+
+    #check:checked~.menu {
+        left: 0;
+    }
+
+    #check:checked~body {
+        overflow: hidden;
+    }
+}
