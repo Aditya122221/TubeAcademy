@@ -113,12 +113,12 @@ const SignUp = () => {
                             <div className={S.fName}>
                                 <label htmlFor="password" className={S.labell}>Password:</label>
                                 {errors.password && <p>{errors.password}</p>}
-                                <input type="text" name="password" value={formData.password} onChange={handleChange} required className={errors.password ? S.errr : S.inputt} />
+                                <input type="password" name="password" value={formData.password} onChange={handleChange} required className={errors.password ? S.errr : S.inputt} />
                             </div>
                             <div className={S.lName}>
                                 <label htmlFor="cPassword" className={S.labell}>Confirm Password:</label>
                                 {errors.cPassword && <p>{errors.cPassword}</p>}
-                                <input onChange={handleChange} type="text" name="cPassword" value={formData.cPassword} required className={errors.cPassword ? S.errr : S.inputt} />
+                                <input onChange={handleChange} type="password" name="cPassword" value={formData.cPassword} required className={errors.cPassword ? S.errr : S.inputt} />
                             </div>
                         </div>
                         <button type="submit" className={S.signin}>
