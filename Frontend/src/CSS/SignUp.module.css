@@ -1,122 +1,139 @@
 @import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
-.container {
+/* styles.css */
+.sigern {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
     display: flex;
-    min-height: 100vh;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(120deg, orange, #daad59, #a97006, #422b01);
-    font-family: 'Lemon';
-}
-
-.logo {
-    height: 2cm;
-    width: 2cm;
-    position: absolute;
-    top: 2cm;
-    left: 2cm;
-}
-
-.box1 {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.box {
-    display: flex;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
-
-.iim {
-    width: 8cm;
-    height: 9cm;
-    position: relative;
-    top: 3cm;
-    left: 3cm;
-}
-
-.box2 {
-    background-color: white;
-    border-radius: 15px;
-    padding: 50px;
-}
-
-.box2 h1 {
-    text-align: center;
-}
-
-.Name {
-    display: flex;
-}
-
-.labell {
+    height: 100vh;
     margin: 0;
-    color: black;
 }
 
-.inputt {
-    height: 1cm;
-    width: 80%;
-    border-radius: 5px;
-    padding: 2px;
-    padding-left: 0.4cm;
-    border: 2px solid black;
-    margin-top: 6px;
-    outline: 0;
-    background-color: transparent;
-    color: black;
-    font-family: 'Chakra Petch';
-    font-size: 1.3rem;
+.logoType {
+    width: 7cm;
+    height: 7cm;
+    animation: roundaboat 10s linear infinite;
+    transition: .5s;
+    cursor: pointer;
+
+    &:hover {
+        animation: none;
+    }
 }
 
-#pn {
-    width: 90%;
+@keyframes roundaboat {
+
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
-.signin {
-    width: 20%;
+.container {
+    display: flex;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    max-width: 900px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.illustration {
+    flex: 1;
     display: flex;
     justify-content: center;
-    margin: auto;
-    margin-top: 1cm;
-    background-color: orange;
-    border: 2px solid orange;
+    align-items: center;
 }
 
-.signin:hover {
-    background-color: #a97006;
-    border: 2px solid #a97006;
+.formContainer {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .form {
-    margin: 0;
     display: flex;
     flex-direction: column;
-    padding: 0.8cm;
-    width: 14cm;
 }
 
-.alre {
+.h2 {
+    margin-bottom: 20px;
     text-align: center;
-    font-size: 1.5rem;
+    font-family: 'Lemon';
 }
 
-.log {
-    color: orange;
+.label {
+    margin-bottom: 5px;
 }
 
-.log:hover {
-    color: #a97006;
+.inputField {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 70%;
+    outline: none;
+
+    &:focus {
+        border: 2px solid #ff7e5f;
+    }
 }
 
-.errr {
-    border: 2px solid red;
+.button {
+    background: #ff7e5f;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 75%;
 }
 
-p {
+.button:hover {
+    background: #feb47b;
+}
+
+.p {
+    font-family: 'Lemon';
+    margin-top: 10px;
+}
+
+.a {
+    color: #ff7e5f;
+    text-decoration: none;
+}
+
+.a:hover {
+    text-decoration: underline;
+}
+
+.eeror {
     color: red;
     font-family: 'Ubuntu';
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .illustration {
+        display: none;
+    }
 }
