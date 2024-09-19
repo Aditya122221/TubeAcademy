@@ -83,21 +83,21 @@ const Profile = () => {
                         <div className={P.right3}>
                             <div className={P.right4}>
                                 <div className={P.right5}>First Name</div>
-                                <input type="text" name="firstname" className={P.right6} disabled />
+                                <input type="text" name="firstname" className={`${P.right6} ${P.inputt}`} disabled />
                             </div>
                             <div className={P.right7}>
                                 <div className={P.right8}>Last Name</div>
-                                <input type="text" name="lasttname" className={P.right9} disabled />
+                                <input type="text" name="lasttname" className={`${P.right9} ${P.inputt}`} disabled />
                             </div>
                         </div>
                         <div className={P.right3}>
                             <div className={P.right4}>
                                 <div className={P.right5}>Email</div>
-                                <input type="email" name="email" className={P.right6} disabled />
+                                <input type="email" name="email" className={`${P.right6} ${P.inputt}`} disabled />
                             </div>
                             <div className={P.right7}>
                                 <div className={P.right8}>Phone Number</div>
-                                <input type="text" name="lasttname" className={P.right9} disabled />
+                                <input type="text" name="lasttname" className={`${P.right9} ${P.inputt}`} disabled />
                             </div>
                         </div>
                         <div className={P.right11}>
