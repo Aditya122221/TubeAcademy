@@ -11,14 +11,13 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    width: 100%;
-    background: linear-gradient(120deg, orange, #daad59, #a97006, #422b01);
+    background: linear-gradient(120deg, #ffa500, #daad59, #a97006, #422b01);
 }
 
 header {
-    position: absolute;
-    right: 38cm;
-    top: 0.6cm;
+    position: relative;
+    right: 4cm;
+    top: -7cm;
 }
 
 .logo {
@@ -32,11 +31,12 @@ header {
     backdrop-filter: blur(15px);
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    width: 65%;
 }
 
 .socialmedia {
     padding: 1cm;
-    width: 7cm;
+    width: 35%;
 }
 
 .text {
@@ -79,6 +79,7 @@ header {
     user-select: none;
     background-color: white;
     border-radius: 20px;
+    width: 65%;
 }
 
 form {
@@ -94,8 +95,8 @@ form {
 }
 
 #logIn {
-    background-color: orange;
-    border: 2px solid orange;
+    background-color: #ffa500;
+    border: 2px solid #ffa500;
     color: white;
     width: 86%;
     margin-top: 1cm;
@@ -126,14 +127,14 @@ form {
     color: #a97006;
 }
 
-form {
+.formm {
     display: flex;
     flex-direction: column;
     padding: 0.8cm;
     width: 14cm;
 }
 
-input {
+.inputt {
     height: 1cm;
     width: 80%;
     border-radius: 5px;
@@ -172,6 +173,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-span {
+.required::after {
+    content: '*';
     color: red;
 }
