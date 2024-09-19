@@ -1,4 +1,4 @@
-/* importing*/
+/* importing */
 
 @import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
@@ -6,174 +6,201 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
 
 
-.LogInPage {
+.logger {
+    background-color: #cf9138;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(120deg, #ffa500, #daad59, #a97006, #422b01);
 }
 
-header {
-    position: relative;
-    right: 4cm;
-    top: -7cm;
-}
-
-.logo {
-    border-radius: 50%;
-    height: 2cm;
-    width: 2cm;
-}
-
-.overall {
+.container {
     display: flex;
-    backdrop-filter: blur(15px);
-    border-radius: 20px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    width: 65%;
+    justify-content: space-between;
+    width: 80%;
+    max-width: 1200px;
+    background-color: #cf9138;
+    border-radius: 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
 }
 
-.socialmedia {
-    padding: 1cm;
-    width: 35%;
+/* Left Section (Social Media Login) */
+.socialLogin {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.text {
-    color: black;
+.looggo {
+    height: 1.5cm;
+    width: 1.5cm;
+    cursor: pointer;
+}
+
+.socialLogin header {
+    margin-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.socialLogin h3 {
+    margin-bottom: 30px;
+    color: #000;
+    font-size: 20px;
     text-align: center;
     font-family: 'Lemon';
-    font-weight: 400;
-    user-select: none;
 }
 
-#socmed {
-    margin-top: 1cm;
-}
-
-.button {
-    display: flex;
-    flex-direction: column;
-}
-
-.but {
-    height: 1cm;
-    margin-top: 0.2cm;
+.socialLogin button {
+    background-color: #ffffff;
+    border: none;
+    padding: 15px;
+    margin-bottom: 20px;
     border-radius: 5px;
-    border: 2px solid white;
-    font-family: 'Russo One';
-    font-size: 1rem;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
 }
 
-.link {
+.socialLogin button:hover {
+    background-color: #f4f4f4;
+}
+
+/* Right Section (Phone Number Login) */
+.loginForm {
+    flex: 1.5;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.loginForm h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: 'Lemon';
+}
+
+.loginForm p {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #888;
+    font-family: 'Lemon';
+}
+
+.signer {
+    text-decoration: none;
     color: black;
-    text-decoration: none;
-}
 
-#facebook {
-    margin-top: 3cm;
-}
-
-.log {
-    padding: 1.5cm;
-    user-select: none;
-    background-color: white;
-    border-radius: 20px;
-    width: 65%;
-}
-
-form {
-    margin-top: 2cm;
-    display: flex;
-    flex-direction: column;
-}
-
-.but:hover {
-    background-color: #004b23;
-    border: 2px solid #004b23;
-
-}
-
-#logIn {
-    background-color: #ffa500;
-    border: 2px solid #ffa500;
-    color: white;
-    width: 86%;
-    margin-top: 1cm;
-}
-
-#logIn:hover {
-    background-color: #a97006;
-    border: 2px solid #a97006;
-}
-
-#forpass {
-    border: 2px solid orange;
-    width: 77%;
-    margin-left: 0.8cm;
-}
-
-#forpass:hover {
-    background-color: #a97006;
-    border: 2px solid #a97006;
-}
-
-.sign {
-    text-decoration: none;
-    color: orange;
-}
-
-.sign:hover {
-    color: #a97006;
+    &:hover {
+        color: #cf9138;
+    }
 }
 
 .formm {
-    display: flex;
-    flex-direction: column;
-    padding: 0.8cm;
-    width: 14cm;
+    width: 70%;
 }
 
-.inputt {
-    height: 1cm;
-    width: 80%;
+.loginForm input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 2px;
-    padding-left: 0.4cm;
-    border: 2px solid black;
-    margin-top: 6px;
-    outline: 0;
+    font-size: 16px;
     background-color: transparent;
-    color: black;
-    font-family: 'Chakra Petch';
-    font-size: 1.3rem;
 }
 
-label {
-    margin-top: 6px;
-    color: black;
-    font-family: 'Chakra Petch';
-    font-size: 1.3rem;
-    user-select: none;
+.loginForm input:focus {
+    border-color: #e5a341;
+    outline: none;
 }
 
-.submit {
-    cursor: pointer;
-    display: inline;
-    margin-top: 4px;
-    height: 1cm;
-    border-radius: 5px;
+.loginButton {
+    width: 100%;
+    padding: 15px;
     font-family: 'Black Ops One';
-    font-size: 1rem;
+    background-color: #cf9138;
+    color: white;
+    font-size: 1.2rem;
+
+    &:hover {
+        background-color: #7a4b04;
+    }
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+.forgotPassword {
+    width: 100%;
+    padding: 15px;
+    font-family: 'Black Ops One';
+    font-size: 1.2rem;
+    margin-top: 10px;
+
+    &:hover {
+        background-color: #7a4b04;
+        color: white;
+    }
+
 }
 
-.required::after {
-    content: '*';
-    color: red;
+.logFor {
+    display: flex;
+    gap: 25px;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .socialLogin,
+    .loginForm {
+        padding: 20px;
+    }
+
+    .socialLogin button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .loginForm input {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .loginForm .loginBtn {
+        padding: 10px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .looggo {
+        display: none;
+    }
+
+    .socialLogin h3 {
+        font-size: 18px;
+    }
+
+    .loginForm h2 {
+        font-size: 20px;
+    }
+
+    .loginForm input {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .loginForm .loginBtn {
+        padding: 10px;
+        font-size: 14px;
+    }
 }
