@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import S from '../CSS/SignUp.module.css';
 import Logo from '../Images/Logo.png'
-import Img from '../Images/SignUpImg.png'
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -18,6 +17,12 @@ const SignUp = () => {
     })
     const [settingUp, setSettingUp] = useState(false);
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        if (localStorage.getItem('token') !== null) {
+            window.location.href = '/gotLost';
+        }
+    })
 
     const validateForm = () => {
         let newErrors = {}
@@ -84,48 +89,35 @@ const SignUp = () => {
 
 
     return (
-        <div className={S.container}>
-            <Link to='/'><img src={Logo} alt="Logo" className={S.logo} /></Link>
-            <div className={S.box}>
-                <div className={S.box1}>
-                    <h1 className={S.title}>Sign Up for free</h1>
-                    <img src={Img} className={S.iim} alt="img" />
+        <div className={S.sigern}>
+            <div className={S.container}>
+                <div className={S.illustration}>
+                    <Link to='/'> <img className={S.logoType} src={Logo} alt="Illustration" /></Link>
                 </div>
-                <div className={S.box2}>
-                    <h1>Create Account</h1>
-                    <form onSubmit={handleForm} className={S.form}>
-                        <div className={S.Name}>
-                            <div className={S.fName}>
-                                <label htmlFor="fName" className={S.labell}>First Name:</label>
-                                {errors.fName && <p>{errors.fName}</p>}
-                                <input type="text" name="fName" value={formData.fName} onChange={handleChange} required className={errors.fName ? S.errr : S.inputt} />
-                            </div>
-                            <div className={S.lName}>
-                                <label htmlFor="lName" className={S.labell}>Last Name:</label>
-                                {errors.lName && <p>{errors.lName}</p>}
-                                <input type="text" name="lName" value={formData.lName} onChange={handleChange} required className={errors.lName ? S.errr : S.inputt} />
-                            </div>
-                        </div>
-                        <label htmlFor="pNumber" className={S.labell}>Phone Number:</label>
-                        {errors.pNumber && <p>{errors.pNumber}</p>}
-                        <input type="text" name="pNumber" value={formData.pNumber} onChange={handleChange} required className={errors.pNumber ? S.errr : S.inputt} id={S.pn} minLength={10} maxLength={10} />
-                        <div className={S.Name}>
-                            <div className={S.fName}>
-                                <label htmlFor="password" className={S.labell}>Password:</label>
-                                {errors.password && <p>{errors.password}</p>}
-                                <input type="password" name="password" value={formData.password} onChange={handleChange} required className={errors.password ? S.errr : S.inputt} />
-                            </div>
-                            <div className={S.lName}>
-                                <label htmlFor="cPassword" className={S.labell}>Confirm Password:</label>
-                                {errors.cPassword && <p>{errors.cPassword}</p>}
-                                <input onChange={handleChange} type="password" name="cPassword" value={formData.cPassword} required className={errors.cPassword ? S.errr : S.inputt} />
-                            </div>
-                        </div>
-                        <button type="submit" className={S.signin}>
-                            Sign Up
-                        </button>
+                <div className={S.formContainer}>
+                    <h2 className={S.h2}>Create Account</h2>
+                    <form className={S.form} onSubmit={handleForm}>
+                        <label className={S.label} htmlFor="fName">First Name:</label>{errors.fName && <span className={S.eeror}>{errors.fName}</span>}
+                        <input type="text" id="first-name" name="fName" required value={formData.fName} onChange={handleChange} className={S.inputField} />
+
+                        <label className={S.label} htmlFor="lName">Last Name:</label>{errors.lName && <span className={S.eeror}>{errors.lName}</span>}
+                        <input type="text" id="last-name" name="lName" required value={formData.lName} onChange={handleChange} className={S.inputField} />
+
+                        <label className={S.label} htmlFor="pNumber">Phone Number:</label>{errors.pNumber && <span className={S.eeror}>{errors.pNumber}</span>}
+                        <input type="text" id="phone" name="pNumber" required value={formData.pNumber} onChange={handleChange} className={S.inputField} minLength={10} maxLength={10} />
+
+                        <label className={S.label} htmlFor="password">Password:</label>{errors.password && <span className={S.password}>{errors.fName}</span>}
+                        <input type="password" id="password" name="password" required value={formData.password} onChange={handleChange}
+                            className={S.inputField} />
+
+                        <label className={S.label} htmlFor="cPassword">Confirm Password:</label>{errors.cPassword && <span className={S.eeror}>{errors.cPassword}</span>}
+                        <input type="password" id="confirm-password" name="cPassword" required
+                            value={formData.cPassword} onChange={handleChange}
+                            className={S.inputField} />
+
+                        <button className={S.button} type="submit">Sign Up</button>
                     </form>
-                    <div className={S.alre}>Already have an account! <Link to='/login' className={S.log}>Log In</Link></div>
+                    <p className={S.p}>Already have an account? <Link className={S.a} to="/login">Log In</Link></p>
                 </div>
             </div>
         </div>
@@ -133,3 +125,5 @@ const SignUp = () => {
 }
 
 export default SignUp;
+
+//{error.fName ? S.errorClassName : Simple ClassName}
