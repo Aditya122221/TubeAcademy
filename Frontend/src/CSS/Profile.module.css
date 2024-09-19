@@ -152,6 +152,21 @@
     font-size: 1.3rem;
 }
 
+.inputt {
+    height: 1cm;
+    width: 80%;
+    border-radius: 5px;
+    padding: 2px;
+    padding-left: 0.4cm;
+    border: 2px solid black;
+    margin-top: 6px;
+    outline: 0;
+    background-color: transparent;
+    color: black;
+    font-family: 'Chakra Petch';
+    font-size: 1.3rem;
+}
+
 /* --------------------------Responsiveness Property--------------------------------- */
 
 @media (max-width: 700px) {
