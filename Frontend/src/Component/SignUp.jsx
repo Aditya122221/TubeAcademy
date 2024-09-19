@@ -29,9 +29,9 @@ const SignUp = () => {
         const numregex = /^[0-9]+$/
         if (!(numregex.test(formData.pNumber))) newErrors.pNumber = "Phone Number is not valid"
 
-        const lowerregex = /^[a-z]+$/
-        const upperregex = /^[A-Z]+$/
-        const specialregex = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
+        // const lowerregex = /^[a-z]+$/
+        // const upperregex = /^[A-Z]+$/
+        // const specialregex = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
 
         if (formData.password.length < 8) newErrors.password = "Length should atleast be 8 character long"
         // else if (!(lowerregex.test(formData.password))) newErrors.password = "Password should contain atleast one lowercase letter"
