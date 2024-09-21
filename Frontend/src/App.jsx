@@ -1,6 +1,7 @@
 import React from "react";
 import HomePage from './Component/HomePage';
 import AboutPage from './Component/AboutPage';
+import Contact from "./Component/ContactUs";
 import LogIn from "./Component/LogIn";
 import ClassNine from './Component/ClassNine';
 import ClassTen from "./Component/ClassTen";
@@ -23,6 +24,10 @@ function App() {
     {
       path: "/about",
       element: <AboutPage />
+    },
+    {
+      path: "/contact",
+      element: <Contact />
     },
     {
       path: '/classnine',
