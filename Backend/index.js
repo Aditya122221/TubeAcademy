@@ -25,5 +25,5 @@ mongoose.connect('mongodb://localhost:27017/TubeAcademy')
     .catch((err) => console.log("Failed to connect to Database", err))
 
 app.listen(3000, () => {
-    console.log("Server running")
+    console.log("Server running at http://localhost:3000")
 })
