@@ -6,6 +6,10 @@ const jwt = require('jsonwebtoken')
 
 const secretCode = "dadsfS@#@$#$#@$1351425431"
 
+router.post('/', async (req, res) => {
+    res.json("Server Running")
+})
+
 //------------------------------Signup or Register--------------------------------------
 
 router.post('/signup', async (req, res) => {
