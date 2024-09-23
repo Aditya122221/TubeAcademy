@@ -26,7 +26,7 @@ const LogIn = () => {
         };
 
         setSettingUp(true);
-        axios.post('http://localhost:3000/login', payload)
+        axios.post('https://tube-academy-server.vercel.app/login', payload)
             .then((res) => {
                 setSettingUp(false);
                 toast("Log in Successful");
