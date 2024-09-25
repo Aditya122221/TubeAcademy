@@ -31,3 +31,8 @@
 .container:hover::before {
     left: 100%;
 }
+
+.HomeContainer {
+    position: relative;
+    z-index: 1;
+}
