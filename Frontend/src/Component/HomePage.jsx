@@ -1,5 +1,5 @@
 import React from 'react';
-import { VideosClassNine, VideosClassTen, VideosClassEleven, VideosClassTwelve, Arrow } from '../JSX/Classes';
+import { VideosClassNine, VideosClassTen, VideosClassEleven, VideosClassTwelve } from '../JSX/Classes';
 import { VideosNine } from '../JSX/Function';
 import { ClassArray } from '../JSX/Heading';
 import Navbar from '../JSX/Navbar';
@@ -20,25 +20,21 @@ export default function HomePage() {
                     <div className={B.ClassNineVideos}>
                         {VideosClassNine.map(VideosNine)}
                     </div>
-                    <Arrow addr={ClassArray[0].addr} />
                 </div>
                 <div className={B.videosClassNine}>
                     <div className={B.ClassNineVideos}>
                         {VideosClassTen.map(VideosNine)}
                     </div>
-                    <Arrow addr={ClassArray[1].addr} />
                 </div>
                 <div className={B.videosClassNine}>
                     <div className={B.ClassNineVideos}>
                         {VideosClassEleven.map(VideosNine)}
                     </div>
-                    <Arrow addr={ClassArray[2].addr} />
                 </div>
                 <div className={B.videosClassNine}>
                     <div className={B.ClassNineVideos}>
                         {VideosClassTwelve.map(VideosNine)}
                     </div>
-                    <Arrow addr={ClassArray[3].addr} />
                 </div>
             </div>
             <Footer />
