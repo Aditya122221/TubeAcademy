@@ -12,9 +12,8 @@
 .footerFooter {
     background-color: #ab2346;
     display: flex;
-    gap: 6cm;
     padding: 15px;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .lang {
