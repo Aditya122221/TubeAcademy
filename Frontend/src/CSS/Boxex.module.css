@@ -7,13 +7,13 @@
     padding-left: 25px;
     margin-top: 1cm;
     color: white;
+    justify-content: space-between;
 }
 
 .ClassNineVideos {
-    height: 10cm;
-    width: 10cm;
     display: flex;
-    gap: 2.4cm;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .ClassNine {
@@ -23,10 +23,17 @@
     border-radius: 10px;
     backdrop-filter: blur(50px);
     border: 2px solid #ffffff33;
+    width: 22%;
+    height: fit-content;
+    text-wrap: wrap;
 }
 
 .ClassNine:hover {
     box-shadow: #04eaeaf6 0px 54px 55px, #04eaeaf6 0px -12px 30px, #04eaeaf6 0px 4px 6px, #04eaeaf6 0px 12px 13px, #04eaea5b 0px -3px 5px;
+}
+
+.imgSrc {
+    width: 100%;
 }
 
 button {
