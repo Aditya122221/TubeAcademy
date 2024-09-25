@@ -126,7 +126,7 @@ function Classes(props) {
     return (
         <>
             <div className={B.ClassNine} key={props.id}>
-                <img src={props.imgSrc} alt="Nothing" />
+                <img src={props.imgSrc} alt="Nothing" className={B.imgSrc} />
                 <div className={B.videoName}>{props.videoName}</div>
                 <div className={B.subjectClass}>
                     <div className={B.subjectName}>{props.subjectName}</div>
@@ -136,17 +136,6 @@ function Classes(props) {
                 <a href={props.videoLink} target="_blank"><button>Video Link</button></a>
             </div>
         </>
-    );
-}
-
-export function Arrow(props) {
-    return (
-        <Link to={props.addr} className={B.arrowCircle}>
-            <div>
-                <i className={`fa-solid fa-minus ${B.minus}`}></i>
-                <i className={`fa-solid fa-chevron-right ${B.right}`}></i>
-            </div>
-        </Link>
     );
 }
 
