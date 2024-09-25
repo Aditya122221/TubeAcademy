@@ -4,22 +4,27 @@ import H from '../CSS/Heading.module.css'
 
 export const ClassArray = [
     {
-        standard: "Class IX",
+        id: 1,
+        standard: "IX",
         addr: '/classnine'
     },
     {
-        standard: "Class X",
+        id: 2,
+        standard: "X",
         addr: '/classten'
     },
     {
-        standard: "Class XI",
+        id: 3,
+        standard: "XI",
         addr: '/classeleven'
     },
     {
-        standard: "Class XII",
+        id: 4,
+        standard: "XII",
         addr: '/classtwelve'
     },
     {
+        id: 5,
         standard: "Competition",
         addr: '/competition'
     }
@@ -28,7 +33,7 @@ export const ClassArray = [
 function Heading(props) {
     return (
         <>
-            <Link to={props.addr} className={H.classin}>
+            <Link to={props.addr} className={H.classin} key={props.id}>
                 {props.standard}
             </Link>
         </>
