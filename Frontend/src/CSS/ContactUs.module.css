@@ -1,7 +1,8 @@
 .button {
     display: flex;
-    gap: 3cm;
-    justify-content: center;
+    justify-content: space-around;
+    width: 50%;
+    margin: auto;
     margin-top: 4cm;
 }
 
@@ -119,11 +120,10 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     margin: auto;
     margin-top: 24px;
-    gap: 2cm;
     padding: 25px;
-    width: 30%;
+    width: 50%;
     border-radius: 15px;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .b1 {
@@ -145,4 +145,31 @@
 
 .phoo:hover {
     color: #00d5ff;
+}
+
+@media (max-width: 600px) {
+    .reachBox {
+        width: 60%;
+    }
+
+    .button {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .contacting {
+        width: 60%;
+        margin: auto;
+    }
+
+    .reachUs {
+        width: 60%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 1200px) {
+    .button {
+        width: 100%;
+    }
 }
