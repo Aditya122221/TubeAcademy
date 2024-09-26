@@ -28,7 +28,7 @@ const Profile = () => {
                 Authorization: `Bearer ${token}`
             }
         }
-        axios.post('https://tube-academy-server.vercel.app/profile', {}, header).then((res) => {
+        axios.post('https://tube-academy-backend.onrender.com/profile', {}, header).then((res) => {
             setSettingUp(false);
             console.log("Data fetched");
             setUserData(res.data.data);
