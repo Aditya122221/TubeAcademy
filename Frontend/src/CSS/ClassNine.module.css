@@ -15,7 +15,7 @@
 .filterOption {
     width: 25%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     padding: 15px;
 }
 
@@ -33,6 +33,7 @@
     display: flex;
     flex-wrap: wrap;
     padding: 15px;
+    justify-content: space-around;
 }
 
 .ClassNineee {
@@ -40,14 +41,21 @@
     background-color: purple;
     flex-direction: column;
     width: 8cm;
-    height: 9cm;
+    height: fit-content;
     padding: 15px;
-    margin-left: 1cm;
-    margin-top: 0.5cm;
+    margin-top: .3cm;
 }
 
 .ClassNineee:hover {
     box-shadow: #ef07ef 0px 54px 55px, #ef07ef 0px -12px 30px, #ef07ef 0px 4px 6px, #ef07ef 0px 12px 13px, #ef07ef 0px -3px 5px;
+}
+
+.imgSrcc {
+    width: 100%;
+}
+
+.h {
+    text-wrap: wrap;
 }
 
 .videoNameee {
@@ -66,4 +74,22 @@
 
 .selected {
     background-color: green;
+}
+
+@media (max-width: 930px) {
+    .ClassNineee {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .contaner {
+        flex-direction: column;
+    }
+
+    .filterOption {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+    }
 }
