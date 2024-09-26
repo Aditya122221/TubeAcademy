@@ -68,7 +68,7 @@ const SignUp = () => {
                 pNumber: formData.pNumber,
                 password: formData.password
             }
-            axios.post('https://tube-academy-server.vercel.app/signup', payload).then((res) => {
+            axios.post('https://tube-academy-backend.onrender.com/signup', payload).then((res) => {
                 toast("Registration Successful");
                 console.log("User register", res);
                 setSettingUp(false);
