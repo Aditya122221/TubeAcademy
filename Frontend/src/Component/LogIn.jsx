@@ -26,7 +26,7 @@ const LogIn = () => {
         };
 
         setSettingUp(true);
-        axios.post('https://tube-academy-server.vercel.app/login', payload)
+        axios.post('https://tube-academy-backend.onrender.com/login', payload)
             .then((res) => {
                 setSettingUp(false);
                 toast("Log in Successful");
