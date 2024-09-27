@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Sofadi+One&display=swap');
 
 .videosClassNine {
@@ -6,13 +6,13 @@
     padding: 15px;
     padding-left: 25px;
     margin-top: 1cm;
-    color: white;
+    color: black;
     justify-content: space-between;
 }
 
 .ClassNineVideos {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -23,43 +23,54 @@
     user-select: none;
     border-radius: 10px;
     backdrop-filter: blur(50px);
-    border: 2px solid #ffffff33;
+    border: 2px solid #7ef00533;
     width: 22%;
     text-wrap: wrap;
-}
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: .3s;
 
-.ClassNine:hover {
-    box-shadow: #04eaeaf6 0px 54px 55px, #04eaeaf6 0px -12px 30px, #04eaeaf6 0px 4px 6px, #04eaeaf6 0px 12px 13px, #04eaea5b 0px -3px 5px;
+    &:hover {
+        transform: scale(1.05);
+    }
 }
 
 .imgSrc {
-    width: 100%;
+    width: 94%;
+    border: 11px solid black;
 }
 
 .button {
     cursor: pointer;
     border-radius: 5px;
-    padding: 10px;
-    font-family: "Anton SC", sans-serif;
+    padding: 4px 10px;
+    font-family: "Exo 2";
     font-size: 18px;
-}
+    margin-top: 10px;
+    background-color: transparent;
 
-.button:hover {
-    background-color: #bde0fe;
+    &:hover {
+        background-color: black;
+        color: white;
+    }
 }
 
 .videoName {
     font-family: 'Rubik';
+    font-weight: bold;
 }
 
 .subjectClass {
     display: flex;
     font-family: "Chakra Petch", sans-serif;
     justify-content: space-between;
+    color: #d5d5d5;
+    font-weight: bold;
 }
 
 .ChannelName {
     font-family: "Chakra Petch", sans-serif;
+    color: #d5d5d5;
+    font-weight: bold;
 }
 
 /* ------------------------Responsive------------------------------ */
