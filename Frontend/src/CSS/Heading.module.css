@@ -1,52 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 
 .classin {
     color: white;
     display: flex;
     padding: 5px;
-    font-family: "Pacifico", cursive;
+    font-family: "Fredoka";
     font-size: 28px;
-    border: 2px solid #cec9c91d;
+    border: 5px solid #333;
     cursor: pointer;
-    transition: 2s;
     text-decoration: none;
-}
 
-.classin:hover {
-    color: #da11c9;
-    animation: borderCreate 10s 1;
-}
-
-@keyframes borderCreate {
-    0% {
-        border-left: 2px solid red;
+    &:hover {
+        text-decoration: underline 2px;
     }
-
-    35% {
-        border-left: 2px solid red;
-        border-bottom: 2px solid red;
-    }
-
-    70% {
-        border-left: 2px solid red;
-        border-bottom: 2px solid red;
-        border-right: 2px solid red;
-    }
-
-    100% {
-        border-left: 2px solid red;
-        border-bottom: 2px solid red;
-        border-right: 2px solid red;
-        border-top: 2px solid red;
-    }
-}
-
-.rot {
-    margin-top: 10px;
-    margin-left: 5px;
-    transition: transform .5s ease-in-out;
-}
-
-.classin:hover .rot {
-    transform: rotate(180deg);
 }
