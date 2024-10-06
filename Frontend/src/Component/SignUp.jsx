@@ -34,15 +34,11 @@ const SignUp = () => {
         const numregex = /^[0-9]+$/
         if (!(numregex.test(formData.pNumber))) newErrors.pNumber = "Phone Number is not valid"
 
-        // const lowerregex = /^[a-z]+$/
-        // const upperregex = /^[A-Z]+$/
-        // const specialregex = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
-
         if (formData.password.length < 8) newErrors.password = "Length should atleast be 8 character long"
-        // else if (!(lowerregex.test(formData.password))) newErrors.password = "Password should contain atleast one lowercase letter"
-        // else if (!(upperregex.test(formData.password))) newErrors.password = "Password should contain atleast one uppercase letter"
-        // else if (!(numregex.test(formData.password))) newErrors.password = "Password should contain atleast one digit"
-        // else if (!(specialregex.test(formData.password))) newErrors.password = "Password should contain atleast one special character"
+        else if (!(lowerCaseE(formData.password))) newErrors.password = "Password should contain atleast one lowercase letter"
+        else if (!(upperCaseE(formData.password))) newErrors.password = "Password should contain atleast one uppercase letter"
+        else if (!(numberE(formData.password))) newErrors.password = "Password should contain atleast one digit"
+        else if (!(specialCharE(formData.password))) newErrors.password = "Password should contain atleast one special character"
 
         if (formData.password !== formData.cPassword) newErrors.cPassword = "Password did not matched"
 
@@ -68,7 +64,7 @@ const SignUp = () => {
                 pNumber: formData.pNumber,
                 password: formData.password
             }
-            axios.post('https://tube-academy-backend.onrender.com/signup', payload).then((res) => {
+            axios.post('http://localhost:3000/signup', payload).then((res) => {
                 toast("Registration Successful");
                 console.log("User register", res);
                 setSettingUp(false);
@@ -85,6 +81,40 @@ const SignUp = () => {
     const handleChange = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
+    }
+
+    //---------------------Function to validate Password------------------------
+
+    function lowerCaseE(str) {
+        const lowerregex = /^[a-z]+$/
+        for (var i = 0; i < str.length; i++) {
+            if (lowerregex.test(str[i])) return true
+        }
+        return false
+    }
+
+    function upperCaseE(str) {
+        const upperregex = /^[A-Z]+$/
+        for (var i = 0; i < str.length; i++) {
+            if (upperregex.test(str[i])) return true
+        }
+        return false
+    }
+
+    function numberE(str) {
+        const numberregex = /^[0-9]+$/
+        for (var i = 0; i < str.length; i++) {
+            if (numberregex.test(str[i])) return true
+        }
+        return false
+    }
+
+    function specialCharE(str) {
+        const specialregex = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
+        for (var i = 0; i < str.length; i++) {
+            if (specialregex.test(str[i])) return true
+        }
+        return false
     }
 
 
@@ -106,7 +136,7 @@ const SignUp = () => {
                         <label className={S.label} htmlFor="pNumber">Phone Number:</label>{errors.pNumber && <span className={S.eeror}>{errors.pNumber}</span>}
                         <input type="text" id="phone" name="pNumber" required value={formData.pNumber} onChange={handleChange} className={S.inputField} minLength={10} maxLength={10} />
 
-                        <label className={S.label} htmlFor="password">Password:</label>{errors.password && <span className={S.password}>{errors.fName}</span>}
+                        <label className={S.label} htmlFor="password">Password:</label>{errors.password && <span className={S.eeror}>{errors.password}</span>}
                         <input type="password" id="password" name="password" required value={formData.password} onChange={handleChange}
                             className={S.inputField} />
 
@@ -125,5 +155,3 @@ const SignUp = () => {
 }
 
 export default SignUp;
-
-//{error.fName ? S.errorClassName : Simple ClassName}
