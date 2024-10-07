@@ -36,3 +36,22 @@
     position: relative;
     z-index: 1;
 }
+
+.fArrow {
+    display: flex;
+    height: 19%;
+    border: 2px solid #dcdcdc;
+    padding: 25px;
+    cursor: pointer;
+    position: absolute;
+    background-color: #dcdcdc;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+    right: 1%;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
