@@ -13,9 +13,9 @@ export default function Contact() {
     const [unsucc, setUnSucc] = useState("");
 
     const [contactData, setContactData] = useState({
-        fullname: "Aditya Kumar",
-        email: "adityakumar122221@gmail.com",
-        message: "This is a test message"
+        fullname: "",
+        email: "",
+        message: ""
     });
 
     const handleA = () => {
@@ -49,9 +49,9 @@ export default function Contact() {
             }
             console.log(dataSend);
             axios.post("http://localhost:3000/email", dataSend).then((res) => {
-                setSucc = "Email sent"
+                setSucc("Email sent")
             }).catch((err) => {
-                setUnSucc = "Something went wrong";
+                setUnSucc("Something went wrong");
                 console.log(err);
             })
         }
@@ -92,8 +92,8 @@ export default function Contact() {
                         <textarea value={contactData.message} onChange={handleChange} required name="message" className={C.textArea}></textarea>
                         <button onClick={handleSend} className={C.sendButton}>Send</button>
                     </form>
-                    <div className={C.succ}>{succ}</div>
-                    <div className={C.unsucc}>{unsucc}</div>
+                    <div className={C.successful}>{succ}</div>
+                    <div className={C.unsuccessful}>{unsucc}</div>
                 </div>
                 <div ref={reachRef} className={C.reachBox}>
                     <a href="#" className={`${C.b1} ${C.instaa}`}>
