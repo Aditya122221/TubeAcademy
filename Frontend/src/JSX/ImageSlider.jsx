@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import '../CSS/Slider.css'
+import S from "../CSS/Slider.module.css";
 
 export default function ImageSlider() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -36,15 +36,15 @@ export default function ImageSlider() {
     };
 
     return (
-        <div className="slider" ref={sliderRef} onAnimationEnd={handleAnimationEnd}>
-            <div className="list">
+        <div className={S.slider} ref={sliderRef} onAnimationEnd={handleAnimationEnd}>
+            <div className={S.list}>
                 {items.map((item, index) => (
-                    <div key={index} className="item">
+                    <div key={index} className={S.item}>
                         <img src={item.src} alt={item.alt} />
-                        <div className="content">
-                            <div className="title">{item.title}</div>
-                            <div className="type">{item.type}</div>
-                            <div className="button">
+                        <div className={S.content}>
+                            <div className={S.title}>{item.title}</div>
+                            <div className={S.type}>{item.type}</div>
+                            <div className={S.button}>
                                 <button>Video Link</button>
                             </div>
                         </div>
@@ -52,19 +52,19 @@ export default function ImageSlider() {
                 ))}
             </div>
 
-            <div className="thumbnail">
+            <div className={S.thumbnail}>
                 {items.map((item, index) => (
-                    <div key={index} className="item">
+                    <div key={index} className={S.item}>
                         <img src={item.src} alt={item.alt} />
                     </div>
                 ))}
             </div>
 
-            <div className="nextPrevArrows">
-                <button className="prev" onClick={handlePrev}>
+            <div className={S.nextPrevArrows}>
+                <button className={S.prev} onClick={handlePrev}>
                     &lt;
                 </button>
-                <button className="next" onClick={handleNext}>
+                <button className={S.next} onClick={handleNext}>
                     &gt;
                 </button>
             </div>
