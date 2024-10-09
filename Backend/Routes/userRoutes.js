@@ -1,8 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const userSchema = require('../Modal/mongoModal.js')
+const email_from_client = require('../Modal/email_from_client.js')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const cors = require('cors');
 
 const secretCode = "dadsfS@#@$#$#@$1351425431"
 
@@ -95,6 +97,40 @@ router.post('/profile', async (req, res) => {
     }
 })
 
+//-------------------------------Email Sending-------------------------------------
+
+router.post('/email', cors(), async (req, res) => {
+    try {
+        const { name, email, message } = req.body;
+        if (!name || !email || !message) {
+            return res.status(400).json({ status: false, message: "All fields are required" });
+        }
+
+        const newUser = new email_from_client({ name, email, message });
+        await newUser.save();
+
+        return res.status(201).json({ status: true, message: "Email sent!" });
+
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
+    }
+})
+
 //------------------------------------Exporting-----------------------------------------
 
 module.exports = router;
+
+// var mailOption = {
+//     from: email,
+//     to: "adityaking23head@gmail.com",
+//     subject: "Contact Us",
+//     message: message
+// }
+
+// transporter.sendMail(mailOption, (error, info) => {
+//     if (error) {
+//         console.log(error);
+//     } else {
+//         console.log("Email sent successful");
+//     }
+// })
