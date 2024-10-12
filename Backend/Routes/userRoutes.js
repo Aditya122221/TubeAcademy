@@ -12,12 +12,19 @@ router.post('/', async (req, res) => {
     res.json("Server Running")
 })
 
-//------------------------------Signup or Register--------------------------------------
+//---------------------------Signup or Register--------------------------------------
 
 router.post('/signup', async (req, res) => {
     try {
         // Validate required fields
         const { fName, lName, pNumber, password } = req.body;
+        const email = ""
+        const address = ""
+        console.log(fName)
+        console.log(lName)
+        console.log(pNumber)
+        console.log(email)
+        console.log(address)
         if (!fName || !lName || !pNumber || !password) {
             return res.status(400).json({ status: false, message: "All fields are required" });
         }
@@ -33,7 +40,7 @@ router.post('/signup', async (req, res) => {
         const hashPassword = await bcrypt.hash(password, 10);
 
         // Create and save new user using newUser.save()
-        const newUser = new userSchema({ fName, lName, pNumber, password: hashPassword });
+        const newUser = new userSchema({ fName, lName, pNumber, email, address, password: hashPassword });
         await newUser.save();
 
         return res.status(201).json({ status: true, message: "Registration Successful!" });
@@ -43,7 +50,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-//---------------------------------------Log In-----------------------------------------
+//------------------------------------Log In-----------------------------------------
 
 router.post('/login', async (req, res) => {
     try {
@@ -88,7 +95,9 @@ router.post('/profile', async (req, res) => {
                 id: user.id,
                 fName: user?.fName,
                 lName: user?.lName,
-                pNumber: user?.pNumber
+                pNumber: user?.pNumber,
+                email: user?.email,
+                address: user?.address
             }
             return res.status(201).json({ status: true, message: "Profile Data", data: userData })
         })
@@ -116,21 +125,23 @@ router.post('/email', cors(), async (req, res) => {
     }
 })
 
+//--------------------------------Update Data----------------------------------------
+
+router.post('/update', async (req, res) => {
+    try {
+        const { fName, lName, pNumber, uEmail, uAddress } = req.body
+        console.log(fName)
+        console.log(lName)
+        console.log(pNumber)
+        console.log(uEmail)
+        console.log(uAddress)
+        const updateData = await userSchema.updateOne({ pNumber }, { fName, lName, uEmail, uAddress })
+
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "It is the error", error: err.message })
+    }
+})
+
 //------------------------------------Exporting-----------------------------------------
 
 module.exports = router;
-
-// var mailOption = {
-//     from: email,
-//     to: "adityaking23head@gmail.com",
-//     subject: "Contact Us",
-//     message: message
-// }
-
-// transporter.sendMail(mailOption, (error, info) => {
-//     if (error) {
-//         console.log(error);
-//     } else {
-//         console.log("Email sent successful");
-//     }
-// })
