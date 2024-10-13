@@ -95,26 +95,26 @@ const Profile = () => {
                         <div className={P.right3}>
                             <div className={P.right4}>
                                 <div className={P.right5}>First Name</div>
-                                <input type="text" name="firstname" className={`${P.right6} ${P.inputt}`} disabled value={userData.fName} />
+                                <input type="text" name="firstname" className={`${P.right6} ${P.inputt}`} disabled defaultValue={userData.fName} />
                             </div>
                             <div className={P.right7}>
                                 <div className={P.right8}>Last Name</div>
-                                <input type="text" name="lasttname" className={`${P.right9} ${P.inputt}`} disabled value={userData.lName} />
+                                <input type="text" name="lasttname" className={`${P.right9} ${P.inputt}`} disabled defaultValue={userData.lName} />
                             </div>
                         </div>
                         <div className={P.right3}>
                             <div className={P.right4}>
                                 <div className={P.right5}>Email</div>
-                                <input type="email" name="email" className={`${P.right6} ${P.inputt}`} disabled value={userData.email} />
+                                <input type="email" name="email" className={`${P.right6} ${P.inputt}`} disabled defaultValue={userData.email} />
                             </div>
                             <div className={P.right7}>
                                 <div className={P.right8}>Phone Number</div>
-                                <input type="text" name="lasttname" className={`${P.right9} ${P.inputt}`} disabled value={userData.pNumber} />
+                                <input type="text" name="lasttname" className={`${P.right9} ${P.inputt}`} disabled defaultValue={userData.pNumber} />
                             </div>
                         </div>
                         <div className={P.right11}>
                             <div className={P.right12}>Address</div>
-                            <textarea value={userData.address} disabled className={P.right13}></textarea>
+                            <textarea defaultValue={userData.address} disabled className={P.right13}></textarea>
                         </div>
                     </div>
                 </div>
