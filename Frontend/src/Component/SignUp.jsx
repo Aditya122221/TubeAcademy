@@ -62,7 +62,9 @@ const SignUp = () => {
                 fName: formData.fName,
                 lName: formData.lName,
                 pNumber: formData.pNumber,
-                password: formData.password
+                password: formData.password,
+                email: "",
+                address: ""
             }
             axios.post('http://localhost:3000/signup', payload).then((res) => {
                 toast("Registration Successful");
@@ -155,3 +157,5 @@ const SignUp = () => {
 }
 
 export default SignUp;
+
+//{error.fName ? S.errorClassName : Simple ClassName}
