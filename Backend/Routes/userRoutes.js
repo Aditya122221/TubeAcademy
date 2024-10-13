@@ -17,12 +17,11 @@ router.post('/', async (req, res) => {
 router.post('/signup', async (req, res) => {
     try {
         // Validate required fields
-        const { fName, lName, pNumber, password } = req.body;
-        const email = ""
-        const address = ""
+        const { fName, lName, pNumber, password, email, address } = req.body;
         console.log(fName)
         console.log(lName)
         console.log(pNumber)
+        console.log(password)
         console.log(email)
         console.log(address)
         if (!fName || !lName || !pNumber || !password) {
@@ -135,8 +134,10 @@ router.post('/update', async (req, res) => {
         console.log(pNumber)
         console.log(uEmail)
         console.log(uAddress)
-        const updateData = await userSchema.updateOne({ pNumber }, { fName, lName, uEmail, uAddress })
-
+        const updateData = await userSchema.updateOne({ pNumber: pNumber }, { $set: { fName: fName, lName: lName, email: uEmail, address: uAddress } })
+        console.log(updateData)
+        if (!updateData) return res.status(404).json({ status: false, message: "Updating Error", error: err.message })
+        return res.status(201).json({ status: true, message: uEmail })
     } catch (err) {
         return res.status(500).json({ status: false, message: "It is the error", error: err.message })
     }
