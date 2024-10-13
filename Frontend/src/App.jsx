@@ -10,6 +10,7 @@ import ClassTwelve from "./Component/ClassTwelve";
 import Error404 from "./Component/Error404";
 import SignUp from './Component/SignUp'
 import Profile from "./Component/Profile";
+import UpdateUser from './Component/UpdateUser';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
@@ -57,6 +58,10 @@ function App() {
     {
       path: '/profile',
       element: <Profile />
+    },
+    {
+      path: '/updatedata',
+      element: <UpdateUser />
     },
     {
       path: '*',
