@@ -114,7 +114,7 @@ router.post('/email', cors(), async (req, res) => {
             return res.status(400).json({ status: false, message: "All fields are required" });
         }
 
-        const newUser = new email_from_client({ name, email, message });
+        const newUser = new email_from_client({ fullName: name, email, message });
         await newUser.save();
 
         return res.status(201).json({ status: true, message: "Email sent!" });
