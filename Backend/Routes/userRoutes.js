@@ -139,10 +139,40 @@ router.post('/update', async (req, res) => {
         if (!updateData) return res.status(404).json({ status: false, message: "Updating Error", error: err.message })
         return res.status(201).json({ status: true, message: uEmail })
     } catch (err) {
-        return res.status(500).json({ status: false, message: "It is the error", error: err.message })
+        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
     }
 })
 
-//------------------------------------Exporting-----------------------------------------
+//--------------------------------User Check-----------------------------------------
+
+router.post('/usercheck', async (req, res) => {
+    try {
+        const { fpnumber } = req.body
+        console.log(fpnumber)
+        const user = await userSchema.findOne({ pNumber: fpnumber })
+        if (!user) return res.status(404).json({ status: false, message: "User does not exists" })
+        return res.status(201).json({ status: true, message: "User exists" })
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
+    }
+})
+
+//------------------------------Password Update--------------------------------------
+
+router.post('/passwordupdate', async (req, res) => {
+    try {
+        const { pnumber, newpassword } = req.body
+        const hashPassword = await bcrypt.hash(newpassword, 10);
+        const upPas = await userSchema.updateOne({ pNumber: pnumber }, { $set: { password: hashPassword } })
+        if (!upPas) return res.status(404).json({ status: false, message: "Password not updated" })
+
+        return res.status(201).json({ status: true, message: "Password Updated" })
+
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
+    }
+})
+
+//---------------------------------Exporting-----------------------------------------
 
 module.exports = router;
