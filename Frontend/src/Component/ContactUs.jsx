@@ -8,6 +8,8 @@ export default function Contact() {
     const formRef = useRef(null);
     const bRef = useRef(null);
     const reachRef = useRef(null);
+    const succRef = useRef()
+    const unsuccRef = useRef()
 
     const [succ, setSucc] = useState("");
     const [unsucc, setUnSucc] = useState("");
@@ -38,23 +40,36 @@ export default function Contact() {
 
     const handleSend = async (e) => {
         e.preventDefault();
-        const alpharegex = /^[a-z A-Z]+$/
-        if (!(alpharegex.test(contactData.name))) {
+        if (!(nameValidate(contactData.fullname))) {
             setUnSucc("Name is not valid");
+            unsuccRef.current.style.display = "block"
+            succRef.current.style.display = "none"
         } else {
             let dataSend = {
                 name: contactData.fullname,
                 email: contactData.email,
                 message: contactData.message
             }
-            console.log(dataSend);
             axios.post("http://localhost:3000/email", dataSend).then((res) => {
                 setSucc("Email sent")
+                succRef.current.style.display = "block"
+                unsuccRef.current.style.display = "none"
             }).catch((err) => {
                 setUnSucc("Something went wrong");
                 console.log(err);
+                unsuccRef.current.display = "block"
+                succRef.current.style.display = "none"
             })
         }
+    }
+
+    function nameValidate(str) {
+        const alpharegex = /^[a-z A-Z]+$/
+        for (var i = 0; i < str.length; i++) {
+            if (!alpharegex.test(str[i])) return false
+        }
+        if (str.length < 3) return false
+        return true
     }
     return (
         <>
@@ -92,8 +107,8 @@ export default function Contact() {
                         <textarea value={contactData.message} onChange={handleChange} required name="message" className={C.textArea}></textarea>
                         <button onClick={handleSend} className={C.sendButton}>Send</button>
                     </form>
-                    <div className={C.successful}>{succ}</div>
-                    <div className={C.unsuccessful}>{unsucc}</div>
+                    <div ref={succRef} className={C.successful}>{succ}</div>
+                    <div ref={unsuccRef} className={C.unsuccessful}>{unsucc}</div>
                 </div>
                 <div ref={reachRef} className={C.reachBox}>
                     <a href="#" className={`${C.b1} ${C.instaa}`}>
