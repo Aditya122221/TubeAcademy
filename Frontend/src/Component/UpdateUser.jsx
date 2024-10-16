@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import U from '../CSS/UpdateUser.module.css'
 import Leader from '../Images/TeamLeader.png'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -14,7 +14,9 @@ export default function UpdateUser() {
     const [uaddress, setaddress] = useState('')
     const [fnameerror, setfnameerror] = useState('')
     const [lnameerror, setlnameerror] = useState('')
-    const [updated, setupdated] = useState('')
+
+    const updateRef = useRef()
+    const updateERef = useRef()
 
     useEffect(() => {
         setfname(location.state.fName)
@@ -41,9 +43,11 @@ export default function UpdateUser() {
                 uAddress: uaddress
             }
             axios.post("http://localhost:3000/update", payload).then((res) => {
-                setupdated("Data updated")
+                updateRef.current.style.display = "block"
+                updateERef.current.style.display = "none"
             }).catch((err) => {
-                setupdated("Updation failed");
+                updateRef.current.style.display = "none"
+                updateERef.current.style.display = "block"
                 console.log(err);
             })
             console.log(payload);
@@ -75,9 +79,9 @@ export default function UpdateUser() {
                             </span>
                             <div className={U.left11}>Edit</div>
                         </div>
-                        <div className={U.left12}>
-                            <Link to='/' className={U.left13}>Home</Link>
-                        </div>
+                        <Link to='/' className={U.left12}>
+                            <div className={U.left13}>Home</div>
+                        </Link>
                     </div>
                 </div>
                 <div className={U.right}>
@@ -111,7 +115,8 @@ export default function UpdateUser() {
                         <button onClick={updateData} type="submit" className={U.right8}>Update</button>
                     </form>
 
-                    <span className={U.right9}>{updated}</span>
+                    <span ref={updateRef} className={U.right9}>Updated</span>
+                    <span ref={updateERef} className={U.right11}>Updation Failed</span>
                 </div>
             </div>
         </div>
