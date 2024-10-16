@@ -94,7 +94,7 @@ export default function PasswordUpdate() {
                     <span className={PA.error}>{cpassworderror}</span>
                     <input onChange={(e) => setcpassword(e.target.value)} value={cpassword} type="password" placeholder="Re-enter Password" required className={PA.phoneNumberInput} />
                     <button onClick={handleUpdate} className={PA.loginButton}>Update Password</button>
-                    <button onClick={handleNav} className={PA.forgotPassword}>Got Remembered</button>
+                    <button onClick={handleNav} className={PA.forgotPassword}>Back to LogIn</button>
                 </div>
             </div>
         </div>
