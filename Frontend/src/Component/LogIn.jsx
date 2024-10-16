@@ -11,11 +11,11 @@ const LogIn = () => {
     const [pNumber, setpNumber] = useState('');
     const [password, setPassword] = useState('');
     const [settingUp, setSettingUp] = useState(false);
-    const [Error, setError] = useState("")
     const [fpnumber, setfpnumber] = useState('')
 
     const loginRef = useRef()
     const forgotRef = useRef()
+    const EuserRef = useRef()
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -37,11 +37,12 @@ const LogIn = () => {
                 toast("Log in Successful");
                 console.log("User logged in:", res);
                 localStorage.setItem('token', JSON.stringify(res.data.token));
+                EuserRef.current.style.display = "none"
                 Navigate('/');
             })
             .catch((err) => {
                 setSettingUp(false);
-                setError("User does not exists")
+                EuserRef.current.style.display = "block"
                 console.error(err);
             });
 
@@ -51,11 +52,13 @@ const LogIn = () => {
     const handleShowHide = () => {
         loginRef.current.style.display = "none"
         forgotRef.current.style.display = "block"
+        EuserRef.current.style.display = "none"
     }
 
     const handleL = () => {
         loginRef.current.style.display = "block"
         forgotRef.current.style.display = "none"
+        EuserRef.current.style.display = "none"
     }
 
     const handleForgot = (e) => {
@@ -64,9 +67,9 @@ const LogIn = () => {
         axios.post('http://localhost:3000/usercheck', payload).then((res) => {
             console.log(res)
             Navigate('/forgotpas', { state: fpnumber })
-            setError("")
+            EuserRef.current.style.display = "none"
         }).catch((e) => {
-            setError("User does not exist")
+            EuserRef.current.style.display = "block"
             console.log(e)
         })
     }
@@ -86,7 +89,7 @@ const LogIn = () => {
                 <div className={L.loginForm}>
                     <h2>Login to your account</h2>
                     <p>Don’t have an account? <Link className={L.signer} to="/signup">Sign up for free!</Link></p>
-                    <span className={L.e}>{Error}</span>
+                    <span ref={EuserRef} className={L.e}>User does not exist. SignUp first</span>
                     <div ref={loginRef} className={L.formm}>
                         <input onChange={(e) => setpNumber(e.target.value)} type="text" placeholder="Enter Phone Number" required className={L.phoneNumberInput} />
                         <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Password" required className={L.passwordInput} />
@@ -96,7 +99,7 @@ const LogIn = () => {
                     <div ref={forgotRef} className={L.forgotPas}>
                         <input onChange={(e) => setfpnumber(e.target.value)} type="text" placeholder="Enter phone number" required className={L.phoneNumberInput} />
                         <button onClick={handleForgot} className={L.loginButton}>Next</button>
-                        <button onClick={handleL} className={L.forgotPassword}>Got Remembered</button>
+                        <button onClick={handleL} className={L.forgotPassword}>Back to LogIn</button>
                     </div>
                 </div>
             </div>
