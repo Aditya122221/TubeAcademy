@@ -6,8 +6,8 @@ import axios from "axios";
 export default function PasswordUpdate() {
     const location = useLocation()
     const Navigate = useNavigate()
-    const [newpassword, setnewpassword] = useState("Asdfghjk@2")
-    const [cpassword, setcpassword] = useState("Asdfghjk@2")
+    const [newpassword, setnewpassword] = useState("")
+    const [cpassword, setcpassword] = useState("")
     const [npassworderror, setnpassworderror] = useState("")
     const [cpassworderror, setcpassworderror] = useState()
     const [pnumber, setpnumber] = useState()
