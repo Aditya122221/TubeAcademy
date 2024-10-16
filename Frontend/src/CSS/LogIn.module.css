@@ -4,6 +4,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
 
 .logger {
@@ -155,7 +156,16 @@
 }
 
 .e {
+    display: none;
+    border-radius: 0.375rem;
     color: red;
+    font-weight: 550;
+    font-style: italic;
+    font-family: "Source Code Pro", monospace;
+    font-size: 1rem;
+    padding: 10px 5px;
+    margin-top: 5px;
+    margin-bottom: 10px;
 }
 
 .forgotPas {
