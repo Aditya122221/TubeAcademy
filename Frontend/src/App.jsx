@@ -1,6 +1,6 @@
 import React from "react";
 import HomePage from './Component/HomePage';
-import AboutPage from './Component/AboutPage';
+import AskAI from './Component/AskAI';
 import Contact from "./Component/ContactUs";
 import LogIn from "./Component/LogIn";
 import ClassNine from './Component/ClassNine';
@@ -24,8 +24,8 @@ function App() {
       element: <HomePage />
     },
     {
-      path: "/about",
-      element: <AboutPage />
+      path: "/askai",
+      element: <AskAI />
     },
     {
       path: "/contact",
