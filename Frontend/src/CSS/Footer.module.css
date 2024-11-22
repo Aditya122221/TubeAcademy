@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Pacifico&display=swap');
+
+.footer {
+    background-color: #ab2345b7;
+    color: white;
+    user-select: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-top: 2cm;
+}
+
+.footerFooter {
+    background-color: #ab2346;
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
+}
+
+.lang {
+    display: flex;
+    gap: 0.2cm;
+}
+
+.term {
+    text-decoration: none;
+    color: white;
+}
+
+.soccc {
+    display: flex;
+    gap: 0.5cm;
+}
+
+.ll {
+    cursor: pointer;
+}
+
+.footerHeader {
+    padding: 15px;
+}

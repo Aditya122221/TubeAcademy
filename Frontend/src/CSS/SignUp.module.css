@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* styles.css */
+.sigern {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.logoType {
+    width: 7cm;
+    height: 7cm;
+    animation: roundaboat 10s linear infinite;
+    transition: .5s;
+    cursor: pointer;
+
+    &:hover {
+        animation: none;
+    }
+}
+
+@keyframes roundaboat {
+
+    0% {
+        transform: rotate(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.container {
+    display: flex;
+    background: transparent;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    max-width: 900px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.illustration {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formContainer {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: 'Lemon';
+}
+
+.label {
+    margin-bottom: 5px;
+}
+
+.inputField {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 70%;
+    outline: none;
+
+    &:focus {
+        border: 2px solid #ff7e5f;
+    }
+}
+
+.button {
+    background: #ff7e5f;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 75%;
+}
+
+.button:hover {
+    background: #feb47b;
+}
+
+.p {
+    font-family: 'Lemon';
+    margin-top: 10px;
+}
+
+.a {
+    color: #ff7e5f;
+    text-decoration: none;
+}
+
+.a:hover {
+    text-decoration: underline;
+}
+
+.eeror {
+    color: red;
+    font-family: 'Ubuntu';
+}
+
+.role {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    width: 70%;
+    margin-bottom: 15px;
+}
+
+.para {
+    display: flex;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .illustration {
+        display: none;
+    }
+}

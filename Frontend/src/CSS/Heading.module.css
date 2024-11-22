@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
+.classin {
+    color: white;
+    display: flex;
+    padding: 5px;
+    font-family: "Fredoka";
+    font-size: 28px;
+    border: 5px solid #333;
+    cursor: pointer;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline 2px;
+    }
+}
