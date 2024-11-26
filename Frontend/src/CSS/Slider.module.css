@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+.Slider {
+    width: 90%;
+    margin: 0 auto
+}
+
+.ImageSlider {
+    height: 100%;
+    position: relative;
+    border-radius: 10px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.a {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(255 255 255 / 72%);
+    animation: scalingup ease-in-out 1;
+    transition: .4s;
+}
+
+.video {
+    margin: 30px auto;
+}
+
+.b {
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+    font-family: 'Itim';
+}
+
+.c {
+    font-size: 1.5rem;
+    text-align: center;
+    color: #06e206;
+    font-family: 'Bungee';
+}
+
+.d {
+    margin: 5px auto;
+    text-decoration: none;
+}
+
+.e {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #0436ee;
+    font-size: 1.2rem;
+    color: white;
+    border: 2px solid #0436ee;
+    cursor: pointer;
+    font-family: 'Rubik Wet Paint'
+}
+
+.f {
+    display: flex;
+    position: relative;
+    gap: 10px;
+    background-color: rgb(255 255 255 / 72%);
+    padding: 15px;
+    justify-content: center;
+}
+
+.g {
+    width: 3cm;
+    height: 2cm;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@keyframes scalingup {
+    0% {
+        transform: scale(0);
+    }
+
+    50% {
+        transform: scale(0.5);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

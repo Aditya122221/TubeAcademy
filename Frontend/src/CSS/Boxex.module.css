@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Sofadi+One&display=swap');
+
+.videosClassNine {
+    display: flex;
+    padding: 15px;
+    padding-left: 25px;
+    margin-top: 1cm;
+    color: black;
+    justify-content: space-between;
+}
+
+.ClassNineVideos {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: 100%;
+    animation: fade-in linear;
+    animation-timeline: view();
+    animation-range-end: 28%;
+}
+
+@keyframes fade-in {
+    from {
+        scale: .5;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+.ClassNine {
+    background-color: #ffffff1a;
+    padding: 15px;
+    user-select: none;
+    border-radius: 10px;
+    backdrop-filter: blur(50px);
+    border: 2px solid #7ef00533;
+    width: 22%;
+    text-wrap: wrap;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    transition: .3s;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.imgSrc {
+    width: 94%;
+    border: 11px solid black;
+}
+
+.button {
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-family: "Exo 2";
+    font-size: 18px;
+    margin-top: 10px;
+    background-color: transparent;
+
+    &:hover {
+        background-color: black;
+        color: white;
+    }
+}
+
+.videoName {
+    font-family: 'Rubik';
+    font-weight: bold;
+}
+
+.subjectClass {
+    display: flex;
+    font-family: "Chakra Petch", sans-serif;
+    justify-content: space-between;
+    color: #d5d5d5;
+    font-weight: bold;
+}
+
+.ChannelName {
+    font-family: "Chakra Petch", sans-serif;
+    color: #d5d5d5;
+    font-weight: bold;
+}
+
+/* ------------------------Responsive------------------------------ */
+
+@media (max-width: 1030px) {
+    body {
+        overflow-x: hidden;
+    }
+}
+
+@media (max-width: 701px) {
+    .ClassNineVideos {
+        flex-direction: column;
+        gap: 0.5cm;
+    }
+
+    .ClassNine {
+        width: 80%;
+        margin: auto;
+    }
+}

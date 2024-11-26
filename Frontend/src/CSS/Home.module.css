@@ -1,0 +1,57 @@
+.MainHome {
+    background-color: white;
+}
+
+.container {
+    margin-top: 1cm;
+    padding: 10px;
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 1cm;
+    user-select: none;
+    backdrop-filter: blur(25px);
+    border-bottom: 2px solid #ffffff33;
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, #ffffff66, transparent);
+    transition: .5s;
+}
+
+.container:hover::before {
+    left: 100%;
+}
+
+.HomeContainer {
+    position: relative;
+    z-index: 1;
+}
+
+.fArrow {
+    display: flex;
+    height: 19%;
+    border: 2px solid #dcdcdc;
+    padding: 25px;
+    cursor: pointer;
+    position: absolute;
+    background-color: #dcdcdc;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+    right: 1%;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
