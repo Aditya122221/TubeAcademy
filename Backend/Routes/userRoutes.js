@@ -275,17 +275,16 @@ router.post('/usercheck', async (req, res) => {
     try {
         const { fpnumber, regis, frole } = req.body
         let r = Number(regis);
-        // console.log("-----------------User Check--------------------------")
         if (frole === "fadmin") {
             const user = await adminUserData.findOne({ pNumber: fpnumber })
             if (!user) {
                 // console.log("User does not exists")
-                return res.status(404).json({ status: false, data: "User does not exists" })
+                return res.status(404).json({ status: false, message: "User does not exists" })
             }
             else {
                 if (user.Registration_ID !== r) {
                     // console.log("Registration Id is incorrect")
-                    return res.status(404).json({ status: false, data: "Registration Id is incorrect" })
+                    return res.status(404).json({ status: false, message: "Registration Id is incorrect" })
                 }
                 const userData = {
                     fpnumber: user?.pNumber,
@@ -302,8 +301,8 @@ router.post('/usercheck', async (req, res) => {
                     return res.status(404).json({ status: false, message: "Registration Id is incorrect" })
                 }
                 const userData = {
-                    pnumber: user?.pNumber,
-                    role: user?.role
+                    fpnumber: user?.pNumber,
+                    frole: user?.role
                 }
                 return res.status(201).json({ status: true, data: userData })
             }
@@ -330,8 +329,6 @@ router.post('/usercheck', async (req, res) => {
 router.post('/passwordupdate', async (req, res) => {
     try {
         const { pnumber, newpassword, urole } = req.body
-        console.log("Update Password")
-        console.log(req.body)
         // const hashPassword = await bcrypt.hash(newpassword, 10);
 
         if (urole === "admin") {
@@ -352,6 +349,36 @@ router.post('/passwordupdate', async (req, res) => {
             return res.status(201).json({ status: true, message: "Password Updated" })
         }
 
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
+    }
+})
+
+router.post('/teacherDetails', async (req, res) => {
+    try {
+        const teacherData = await teacherUserData.find();
+        return res.status(201).json({ status: true, data: teacherData })
+        
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
+    }
+})
+
+router.post('/studentDetails', async (req, res) => {
+    try {
+        const studentData = await studentUserData.find();
+        return res.status(201).json({ status: true, data: studentData })
+        
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
+    }
+})
+
+router.post('/queryDetails', async (req, res) => {
+    try {
+        const Query = await email_from_client.find();
+        return res.status(201).json({ status: true, data: Query })
+        
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
     }
