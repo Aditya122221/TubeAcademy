@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+CO+Guides&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&display=swap');
 
 .adminProfile {
     display: flex;
@@ -9,7 +10,6 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #15b468;
     align-items: flex-end;
     padding: 5px;
 }
@@ -18,20 +18,19 @@
     margin-top: 20px;
     padding: 15px;
     width: 70%;
-    color: white;
     font-family: "Roboto Condensed";
     font-size: 1.2rem;
     cursor: pointer;
     text-align: center;
+    color: rgb(190, 188, 188);
 }
 
 .left2 {
     text-decoration: none;
 
     &:hover {
-        border-radius: 10px;
-        background-color: #f08d03;
-        color: black;
+        color: #f08d03;
+        font-size: 1.3rem;
     }
 }
 
@@ -43,17 +42,79 @@
 }
 
 .selectedOne {
-    border-radius: 10px;
-    background-color: #f08d03;
-    color: black;
+    color: #f08d03;
+    font-size: 1.3rem;
 }
 
-.righta {
+.right {
+    width: 80%;
+}
+
+.aright{
     display: flex;
+    flex-direction: column;
+}
+
+.account {
+    border-radius: 25px;
+    background-color: #f08d0394;
+    padding: 50px;
 }
 
 .bright {
     display: none;
+}
+
+.Ttdd{
+    border-radius: 25px;
+    background-color: #f08d0394;
+    padding: 50px;
+}
+
+.td {
+    display: flex;
+    align-items: center;
+    font-family: "Roboto Condensed", serif;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 2.5rem;
+    padding: 25px;
+}
+
+.brightOne {
+    width: 100%;
+}
+
+.brightTwo {
+    margin-top: 25px;
+    border: 2px solid black;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+th,
+td {
+    border: 1px solid #cccccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.TableHead {
+    background-color: #e0e0e0;
+    font-size: 18px;
+    color: #333333;
+    font-weight: bold;
+}
+
+td {
+    font-size: 16px;
+    color: #333333;
 }
 
 .cright {
