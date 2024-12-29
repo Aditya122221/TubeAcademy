@@ -10,13 +10,13 @@ const studentUserData = require('../Modal/studentUserData.js')
 
 const secretCode = "dadsfS@#@$#$#@$1351425431"
 
-router.post('/', async (req, res) => {
+router.post('/api', async (req, res) => {
     res.json("Server Running")
 })
 
 //---------------------------Signup or Register--------------------------------------
 
-router.post('/signup', async (req, res) => {
+router.post('/api/signup', async (req, res) => {
     try {
         // Validate required fields
         const { fName, lName, pNumber, role, password, email, address } = req.body;
@@ -84,7 +84,7 @@ router.post('/signup', async (req, res) => {
 
 //------------------------------------Log In-----------------------------------------
 
-router.post('/login', async (req, res) => {
+router.post('/api/login', async (req, res) => {
     try {
         // Validate required fields
         const { pNumber, password, role } = req.body;
@@ -152,7 +152,7 @@ router.post('/login', async (req, res) => {
 
 //------------------------------------Profile-------------------------------------------
 
-router.post('/profile', async (req, res) => {
+router.post('/api/profile', async (req, res) => {
     try {
 
         const token = req.headers?.authorization?.split(' ')[1];
@@ -225,7 +225,7 @@ router.post('/profile', async (req, res) => {
 
 //-------------------------------Email Sending-------------------------------------
 
-router.post('/email', cors(), async (req, res) => {
+router.post('/api/email', cors(), async (req, res) => {
     try {
         const { name, email, message } = req.body;
         const date = Date.now()
@@ -246,7 +246,7 @@ router.post('/email', cors(), async (req, res) => {
 
 //--------------------------------Update Data----------------------------------------
 
-router.post('/update', async (req, res) => {
+router.post('/api/update', async (req, res) => {
     try {
         const { fName, lName, pNumber, uEmail, uAddress, urole } = req.body
         if (urole === "admin") {
@@ -271,7 +271,7 @@ router.post('/update', async (req, res) => {
 
 //--------------------------------User Check-----------------------------------------
 
-router.post('/usercheck', async (req, res) => {
+router.post('/api/usercheck', async (req, res) => {
     try {
         const { fpnumber, regis, frole } = req.body
         let r = Number(regis);
@@ -326,7 +326,7 @@ router.post('/usercheck', async (req, res) => {
 
 //------------------------------Password Update--------------------------------------
 
-router.post('/passwordupdate', async (req, res) => {
+router.post('/api/passwordupdate', async (req, res) => {
     try {
         const { pnumber, newpassword, urole } = req.body
         // const hashPassword = await bcrypt.hash(newpassword, 10);
@@ -354,7 +354,7 @@ router.post('/passwordupdate', async (req, res) => {
     }
 })
 
-router.post('/teacherDetails', async (req, res) => {
+router.post('/api/teacherDetails', async (req, res) => {
     try {
         const teacherData = await teacherUserData.find();
         return res.status(201).json({ status: true, data: teacherData })
@@ -364,7 +364,7 @@ router.post('/teacherDetails', async (req, res) => {
     }
 })
 
-router.post('/studentDetails', async (req, res) => {
+router.post('/api/studentDetails', async (req, res) => {
     try {
         const studentData = await studentUserData.find();
         return res.status(201).json({ status: true, data: studentData })
@@ -374,7 +374,7 @@ router.post('/studentDetails', async (req, res) => {
     }
 })
 
-router.post('/queryDetails', async (req, res) => {
+router.post('/api/queryDetails', async (req, res) => {
     try {
         const Query = await email_from_client.find();
         return res.status(201).json({ status: true, data: Query })
