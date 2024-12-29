@@ -14,13 +14,8 @@ export default function PasswordUpdate() {
     const [urole, setuRole] = useState()
 
     useEffect(() => {
-        console.log(location, "location")
-        console.log("hiiiiiiiiiii");
-
-        setpnumber(location.state.pnumber)
-        setuRole(location.state.role)
-        console.log(pnumber)
-        console.log(urole)
+        setpnumber(location.state.fpnumber)
+        setuRole(location.state.frole)
         if (localStorage.getItem('token') !== null) {
             window.location.href = '/gotLost';
         }
@@ -47,8 +42,7 @@ export default function PasswordUpdate() {
                 newpassword: newpassword,
                 urole: urole
             }
-            axios.post('http://localhost:3000/passwordupdate', payload).then((res) => {
-                console.log(res.data)
+            axios.post('/api/passwordupdate', payload).then((res) => {
                 Navigate('/login')
             }).catch((e) => {
                 console.log(e)
