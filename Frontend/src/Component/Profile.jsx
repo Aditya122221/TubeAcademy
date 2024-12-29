@@ -1,9 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import P from '../CSS/Profile.module.css'
+import React, { useEffect} from "react";
 import AdminProfile from "./AdminProfile";
-import Leader from '../Images/TeamLeader.png'
 import TeacherProfile from "./TeacherProfile";
 import StudentProfile from "./StudentProfile";
 
