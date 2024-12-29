@@ -41,7 +41,7 @@ export default function TeacherProfile() {
                 role: `${role}`
             }
         }
-        axios.post("http://localhost:3000/profile", {}, header).then((res) => {
+        axios.post("/api/profile", {}, header).then((res) => {
             setUserData(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)
