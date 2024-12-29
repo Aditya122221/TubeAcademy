@@ -50,7 +50,7 @@ export default function Contact() {
                 email: contactData.email,
                 message: contactData.message
             }
-            axios.post("http://localhost:3000/email", dataSend).then((res) => {
+            axios.post("/api/email", dataSend).then((res) => {
                 setSucc("Email sent")
                 succRef.current.style.display = "block"
                 unsuccRef.current.style.display = "none"
