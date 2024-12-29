@@ -68,7 +68,7 @@ const SignUp = () => {
                 email: "",
                 address: ""
             }
-            axios.post('http://localhost:3000/signup', payload).then((res) => {
+            axios.post('/api/signup', payload).then((res) => {
                 toast("Registration Successful");
                 console.log("User register", res);
                 setSettingUp(false);
