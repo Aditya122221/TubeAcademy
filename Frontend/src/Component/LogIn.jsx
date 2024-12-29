@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import L from '../CSS/LogIn.module.css';
 import Logo from '../Images/Logo.png';
-import { toast } from "react-toastify";
 import axios from 'axios';
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const LogIn = () => {
     const Navigate = useNavigate();
-    const location = useLocation();
     const [pNumber, setpNumber] = useState('');
     const [password, setPassword] = useState('');
     const [settingUp, setSettingUp] = useState(false);
@@ -16,7 +14,6 @@ const LogIn = () => {
     const [role, setRole] = useState();
     const [frole, setfRole] = useState();
     const [error, setError] = useState('');
-    const [userData, setUserData] = useState();
 
     const loginRef = useRef()
     const forgotRef = useRef()
@@ -54,7 +51,7 @@ const LogIn = () => {
             };
 
             setSettingUp(true);
-            axios.post('http://localhost:3000/login', payload)
+            axios.post('/api/login', payload)
                 .then((res) => {
                     setSettingUp(false);
                     localStorage.setItem('token', JSON.stringify(res.data.token));
@@ -67,8 +64,6 @@ const LogIn = () => {
                     EuserRef.current.style.display = "block"
                     console.error("Server either not running or disconnected", err);
                 });
-
-            console.log(payload)
         }
     };
 
@@ -89,16 +84,14 @@ const LogIn = () => {
         const payload = { fpnumber: fpnumber, regis: regis, frole: frole }
         axios.post('http://localhost:3000/usercheck', payload).then((res) => {
             if (res.status) {
-                setUserData(res.data.data)
-                console.log(res.data.data)
-                Navigate('/forgotpas', { state: userData })
+                Navigate('/forgotpas', { state: res.data.data })
             }
             else {
                 console.log(res.data.data)
                 setError(res.data.data);
             }
         }).catch((e) => {
-            console.log("Here is the error", e)
+            console.log(e)
         })
     }
 
