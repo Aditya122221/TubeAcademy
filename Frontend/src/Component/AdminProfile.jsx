@@ -77,25 +77,25 @@ export default function AdminProfile() {
                 role: `${role}`
             }
         }
-        axios.post("http://localhost:3000/profile", {}, header).then((res) => {
+        axios.post("/api/profile", {}, header).then((res) => {
             setUserData(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)
         })
 
-        axios.post("http://localhost:3000/teacherDetails").then((res) => {
+        axios.post("/api/teacherDetails").then((res) => {
             setTeacherData(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)
         })
 
-        axios.post("http://localhost:3000/studentDetails").then((res) => {
+        axios.post("/api/studentDetails").then((res) => {
             setStudentData(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)
         })
 
-        axios.post("http://localhost:3000/queryDetails").then((res) => {
+        axios.post("/api/queryDetails").then((res) => {
             setQuery(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)
