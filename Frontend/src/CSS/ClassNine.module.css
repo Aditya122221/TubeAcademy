@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+.contaner {
+    display: flex;
+    padding: 10px;
+    user-select: none;
+}
+
+.filterOption {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.filter_subject {
+    padding: 5px;
+    font-size: 25px;
+    outline: none;
+    border-radius: 5px;
+    background-color: transparent;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.videosbyfilter {
+    width: 70%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 15px;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.ClassNineee {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #7ef00533;
+    width: 22%;
+    padding: 15px;
+    margin-top: .3cm;
+    box-shadow: #00000059 0px 5px 15px;
+    transition: .3s;
+
+    &:hover {
+        transform: scale(1.05);
+    }
+}
+
+.imgSrcc {
+    width: 94%;
+    border: 11px solid black;
+}
+
+.h {
+    text-wrap: wrap;
+}
+
+.videoNameee {
+    font-family: 'Rubik';
+    font-weight: bold;
+}
+
+.subjectClasse {
+    display: flex;
+    font-family: "Chakra Petch", sans-serif;
+    justify-content: space-between;
+    color: #d5d5d5;
+    font-weight: bold;
+}
+
+.ChannelNameee {
+    font-family: "Chakra Petch", sans-serif;
+    color: #d5d5d5;
+    font-weight: bold;
+}
+
+.selected {
+    background-color: green;
+}
+
+.button {
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-family: "Exo 2";
+    font-size: 18px;
+    margin-top: 10px;
+    background-color: transparent;
+
+    &:hover {
+        background-color: black;
+        color: white;
+    }
+}
+
+@media (max-width: 930px) {
+    .ClassNineee {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    .contaner {
+        flex-direction: column;
+    }
+
+    .filterOption {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+    }
+}
