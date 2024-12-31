@@ -4,6 +4,9 @@ const teacherUserData = new mongoose.Schema({
     Registration_ID: {
         type: Number
     },
+    avatar: {
+        type: String
+    },
     fName: {
         type: String
     },
@@ -25,6 +28,6 @@ const teacherUserData = new mongoose.Schema({
     address: {
         type: String
     }
-})
+}, {timestamps: true})
 
 module.exports = mongoose.model("teacherUserData", teacherUserData)

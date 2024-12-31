@@ -25,6 +25,6 @@ const adminUserData = new mongoose.Schema({
     address: {
         type: String
     }
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model("adminUserData", adminUserData)
