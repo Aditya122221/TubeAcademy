@@ -4,6 +4,9 @@ const adminUserData = new mongoose.Schema({
     Registration_ID: {
         type: Number
     },
+    avatar: {
+        type: String
+    },
     fName: {
         type: String
     },

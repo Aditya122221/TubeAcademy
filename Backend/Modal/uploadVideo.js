@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-
+const mongooseAggregat = require('mongoose-aggregate-paginate-v2')
 
 const uploadVideo = new mongoose.Schema(
     {
@@ -22,6 +22,13 @@ const uploadVideo = new mongoose.Schema(
         teacherName: {
             type: String
         },
+        duration: {
+            type: Number
+        },
+        views: {
+            type: Number,
+            default: 0
+        },
         video: {
             type: String
         },
@@ -30,5 +37,7 @@ const uploadVideo = new mongoose.Schema(
         timestamps: true
     }
 )
+
+uploadVideo.plugin(mongooseAggregat)
 
 module.exports = mongoose.model("uploadVideo", uploadVideo)

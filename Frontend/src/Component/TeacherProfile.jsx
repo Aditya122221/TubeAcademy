@@ -1,10 +1,11 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TP from '../CSS/TeacherProfile.module.css'
 import TeacherRightTwo from "../JSX/TeacherUI/TeacherRightTwo";
 import TeacherRightOne from "../JSX/TeacherUI/TeacherRightOne";
 
 export default function TeacherProfile() {
+    const Navigate = useNavigate();
     const [isAccount, setisAccount] = useState(true)
     const [isUpload, setisUpload] = useState(false);
 

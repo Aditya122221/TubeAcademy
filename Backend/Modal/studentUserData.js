@@ -4,6 +4,9 @@ const studentUserData = new mongoose.Schema({
     Registration_ID: {
         type: Number
     },
+    avatar: {
+        type: String
+    },
     fName: {
         type: String
     },
@@ -24,7 +27,13 @@ const studentUserData = new mongoose.Schema({
     },
     address: {
         type: String
-    }
+    },
+    watchHistory: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "uploadVideo"
+        }
+    ],
 }, { timestamp: true })
 
 module.exports = mongoose.model("studentUserData", studentUserData)

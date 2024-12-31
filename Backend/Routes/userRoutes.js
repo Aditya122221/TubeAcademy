@@ -9,8 +9,6 @@ const teacherUserData = require('../Modal/teacherUserData.js')
 const studentUserData = require('../Modal/studentUserData.js')
 const e = require('express')
 
-const secretCode = "dadsfS@#@$#$#@$1351425431"
-
 router.post('/api', async (req, res) => {
     res.json("Server Running")
 })
@@ -122,7 +120,7 @@ router.post('/api/login', async (req, res) => {
             }
 
             // Generate JWT token with appropriate claims
-            const token = jwt.sign({ id: user._id, role: user.role }, secretCode, { expiresIn: '1hr' });
+            const token = jwt.sign({ id: user._id, role: user.role }, process.env.ACCESS_TOKEN);
 
             const roleAction = user.role;
 
@@ -139,7 +137,7 @@ router.post('/api/login', async (req, res) => {
             }
 
             // Generate JWT token with appropriate claims
-            const token = jwt.sign({ id: user._id, role: user.role }, secretCode, { expiresIn: '1hr' });
+            const token = jwt.sign({ id: user._id, role: user.role }, process.env.ACCESS_TOKEN);
 
             const roleAction = user.role;
 
@@ -156,7 +154,7 @@ router.post('/api/login', async (req, res) => {
             }
 
             // Generate JWT token with appropriate claims
-            const token = jwt.sign({ id: user._id, role: user.role }, secretCode, { expiresIn: '1hr' });
+            const token = jwt.sign({ id: user._id, role: user.role }, process.env.ACCESS_TOKEN);
 
             const roleAction = user.role;
 
@@ -248,7 +246,6 @@ router.post('/api/email', cors(), async (req, res) => {
     try {
         const { name, email, message } = req.body;
         const date = Date.now()
-        const time = 50;
         if (!name || !email || !message) {
             return res.status(400).json({ status: false, message: "All fields are required" });
         }
