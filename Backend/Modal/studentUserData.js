@@ -34,6 +34,6 @@ const studentUserData = new mongoose.Schema({
             ref: "uploadVideo"
         }
     ],
-}, { timestamp: true })
+}, { timestamps: true })
 
 module.exports = mongoose.model("studentUserData", studentUserData)

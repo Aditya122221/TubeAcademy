@@ -7,7 +7,8 @@ const cors = require('cors');
 const adminUserData = require('../Modal/adminUserData.js')
 const teacherUserData = require('../Modal/teacherUserData.js')
 const studentUserData = require('../Modal/studentUserData.js')
-const e = require('express')
+
+const secretCode = "Cgjk-3445DERmnhjkloi4526dddAZ-gjhKLKJHN"
 
 router.post('/api', async (req, res) => {
     res.json("Server Running")
@@ -44,7 +45,7 @@ router.post('/api/signup', async (req, res) => {
             const hashPassword = await bcrypt.hash(password, 10);
 
             // Create and save new user using newUser.save()
-            const newUser = new adminUserData({ Registration_ID, fName, lName, pNumber, role, email, address, password });
+            const newUser = new adminUserData({ Registration_ID, avatar: "", fName, lName, pNumber, role, email, address, password });
             await newUser.save();
         }
         else if (role === "Teacher") {
@@ -66,7 +67,7 @@ router.post('/api/signup', async (req, res) => {
             const hashPassword = await bcrypt.hash(password, 10);
 
             // Create and save new user using newUser.save()
-            const newUser = new teacherUserData({ Registration_ID, fName, lName, pNumber, role, email, address, password });
+            const newUser = new teacherUserData({ Registration_ID, avatar: "", fName, lName, pNumber, role, email, address, password });
             await newUser.save();
         }
         else {
@@ -88,7 +89,7 @@ router.post('/api/signup', async (req, res) => {
             const hashPassword = await bcrypt.hash(password, 10);
 
             // Create and save new user using newUser.save()
-            const newUser = new studentUserData({ Registration_ID, fName, lName, pNumber, role, email, address, password });
+            const newUser = new studentUserData({ Registration_ID, avatar: "", fName, lName, pNumber, role, email, address, password });
             await newUser.save();
         }
 
@@ -120,7 +121,7 @@ router.post('/api/login', async (req, res) => {
             }
 
             // Generate JWT token with appropriate claims
-            const token = jwt.sign({ id: user._id, role: user.role }, process.env.ACCESS_TOKEN);
+            const token = jwt.sign({ id: user._id, role: user.role }, secretCode);
 
             const roleAction = user.role;
 
@@ -137,7 +138,7 @@ router.post('/api/login', async (req, res) => {
             }
 
             // Generate JWT token with appropriate claims
-            const token = jwt.sign({ id: user._id, role: user.role }, process.env.ACCESS_TOKEN);
+            const token = jwt.sign({ id: user._id, role: user.role }, secretCode);
 
             const roleAction = user.role;
 
@@ -154,7 +155,7 @@ router.post('/api/login', async (req, res) => {
             }
 
             // Generate JWT token with appropriate claims
-            const token = jwt.sign({ id: user._id, role: user.role }, process.env.ACCESS_TOKEN);
+            const token = jwt.sign({ id: user._id, role: user.role }, secretCode);
 
             const roleAction = user.role;
 
