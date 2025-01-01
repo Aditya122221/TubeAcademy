@@ -40,4 +40,6 @@ const uploadVideoSchema = new mongoose.Schema(
 
 uploadVideoSchema.plugin(mongooseAggregat)
 
-export default uploadVideo = mongoose.model("uploadVideo", uploadVideoSchema)
+const uploadVideo = mongoose.model("uploadVideo", uploadVideoSchema)
+
+export default uploadVideo

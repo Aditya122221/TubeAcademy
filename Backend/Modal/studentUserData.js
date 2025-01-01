@@ -36,4 +36,6 @@ const studentUserDataSchema = new mongoose.Schema({
     ],
 }, { timestamps: true })
 
-export default studentUserData = mongoose.model("studentUserData", studentUserDataSchema)
+const studentUserData = mongoose.model("studentUserData", studentUserDataSchema)
+
+export default studentUserData

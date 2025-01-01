@@ -15,4 +15,6 @@ const email_from_clientSchema = new mongoose.Schema({
     }
 })
 
-export default email_from_client = mongoose.model("email_from_client", email_from_clientSchema)
+const email_from_client = mongoose.model("email_from_client", email_from_clientSchema)
+
+export default email_from_client

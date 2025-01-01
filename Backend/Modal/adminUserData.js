@@ -30,4 +30,6 @@ const adminUserDataSchema = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-export default adminUserData = mongoose.model("adminUserData", adminUserDataSchema)
+const adminUserData = mongoose.model("adminUserData", adminUserDataSchema)
+
+export default adminUserData

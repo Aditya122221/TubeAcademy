@@ -3,7 +3,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
-import userRoutes from './Routes/userRoutes'
+import userRoutes from './Routes/userRoutes.js'
 
 dotenv.config({
   path: './.env'

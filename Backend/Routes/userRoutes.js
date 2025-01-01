@@ -405,4 +405,4 @@ router.post('/api/queryDetails', async (req, res) => {
 
 //---------------------------------Exporting-----------------------------------------
 
-module.exports = router;
+export default router;
