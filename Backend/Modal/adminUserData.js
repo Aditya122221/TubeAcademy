@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const adminUserData = new mongoose.Schema({
+const adminUserDataSchema = new mongoose.Schema({
     Registration_ID: {
         type: Number
     },
@@ -30,4 +30,4 @@ const adminUserData = new mongoose.Schema({
     }
 }, { timestamps: true })
 
-module.exports = mongoose.model("adminUserData", adminUserData)
+export default adminUserData = mongoose.model("adminUserData", adminUserDataSchema)

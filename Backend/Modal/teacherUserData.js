@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const teacherUserData = new mongoose.Schema({
+const teacherUserDataSchema = new mongoose.Schema({
     Registration_ID: {
         type: Number
     },
@@ -30,4 +30,4 @@ const teacherUserData = new mongoose.Schema({
     }
 }, {timestamps: true})
 
-module.exports = mongoose.model("teacherUserData", teacherUserData)
+export default teacherUserData = mongoose.model("teacherUserData", teacherUserDataSchema)

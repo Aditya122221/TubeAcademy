@@ -1,5 +1,5 @@
-const { v2 } = require('cloudinary')
-const fs = require('fs')
+import { v2 } from 'cloudinary'
+import fs from 'fs'
 
 v2.config({
     cloud_name: "tubeacademy",
@@ -19,4 +19,4 @@ const uploadOnCloudinary = async (localFilePath) => {
     }
 }
 
-module.export = uploadOnCloudinary
+export default uploadOnCloudinary

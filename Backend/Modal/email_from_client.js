@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+import mongoose from 'mongoose'
 
-const email_from_client = new mongoose.Schema({
+const email_from_clientSchema = new mongoose.Schema({
     fullName: {
         type: String
     },
@@ -15,4 +15,4 @@ const email_from_client = new mongoose.Schema({
     }
 })
 
-module.exports = mongoose.model("email_from_client", email_from_client)
+export default email_from_client = mongoose.model("email_from_client", email_from_clientSchema)

@@ -1,7 +1,7 @@
-const mongoose = require('mongoose')
-const mongooseAggregat = require('mongoose-aggregate-paginate-v2')
+import mongoose from 'mongoose'
+import mongooseAggregat from 'mongoose-aggregate-paginate-v2'
 
-const uploadVideo = new mongoose.Schema(
+const uploadVideoSchema = new mongoose.Schema(
     {
         Registration_ID: {
             type: mongoose.Schema.Types.Registration_ID,
@@ -38,6 +38,6 @@ const uploadVideo = new mongoose.Schema(
     }
 )
 
-uploadVideo.plugin(mongooseAggregat)
+uploadVideoSchema.plugin(mongooseAggregat)
 
-module.exports = mongoose.model("uploadVideo", uploadVideo)
+export default uploadVideo = mongoose.model("uploadVideo", uploadVideoSchema)

@@ -1,12 +1,12 @@
-const express = require('express')
+import express from 'express'
 const router = express.Router()
-const email_from_client = require('../Modal/email_from_client.js')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-const cors = require('cors');
-const adminUserData = require('../Modal/adminUserData.js')
-const teacherUserData = require('../Modal/teacherUserData.js')
-const studentUserData = require('../Modal/studentUserData.js')
+import email_from_client from '../Modal/email_from_client.js'
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import cors from 'cors';
+import adminUserData from '../Modal/adminUserData.js'
+import teacherUserData from '../Modal/teacherUserData.js'
+import studentUserData from '../Modal/studentUserData.js'
 
 const secretCode = "Cgjk-3445DERmnhjkloi4526dddAZ-gjhKLKJHN"
 
@@ -370,6 +370,8 @@ router.post('/api/passwordupdate', async (req, res) => {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
     }
 })
+
+//-------------------------Details Fetching for Admin--------------------------------
 
 router.post('/api/teacherDetails', async (req, res) => {
     try {
