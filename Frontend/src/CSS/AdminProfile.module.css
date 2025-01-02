@@ -3,6 +3,7 @@
 
 .adminProfile {
     display: flex;
+    margin: 5px;
 }
 
 .left {
