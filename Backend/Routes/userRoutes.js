@@ -11,8 +11,7 @@ import teacherUserData from '../Modal/teacherUserData.js'
 import studentUserData from '../Modal/studentUserData.js'
 import uploadVideo from '../Modal/uploadVideo.js'
 
-const secretCode = process.env.ACCESS_TOKEN
-console.log(secretCode)
+const secretCode = process.env.ACCESS_TOKEN;
 
 router.post('/api', async (req, res) => {
     res.json("Server Running")
@@ -347,8 +346,9 @@ router.post('/api/uploadVideo', upload.fields([
 
         const isSave = await newVideo.save();
 
-        const searchUser = await teacherUserData.findOne({ Registration_ID: Registration_ID })
+        const searchUser = await teacherUserData.findOne({ Registration_ID })
         searchUser.videosOwn.push(isSave._id)
+        await searchUser.save()
 
         if (isSave) {
             return res.status(201).json({ status: true, message: "Video Uploaded" });

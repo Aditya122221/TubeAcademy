@@ -11,7 +11,7 @@ const uploadOnCloudinary = async (localFilePath) => {
     try {
         if (!localFilePath) return null
         const res = await v2.uploader.upload(localFilePath, { resource_type: "auto" })
-        console.log(res, " File uploaded successfully")
+        fs.unlinkSync(localFilePath)
         return res
     } catch (error) {
         fs.unlinkSync(localFilePath) //Remove the locally file saved
