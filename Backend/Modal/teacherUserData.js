@@ -27,7 +27,13 @@ const teacherUserDataSchema = new mongoose.Schema({
     },
     address: {
         type: String
-    }
+    },
+    videosOwn: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'uploadVideo'
+        }
+    ]
 }, {timestamps: true})
 
 const teacherUserData = mongoose.model("teacherUserData", teacherUserDataSchema)

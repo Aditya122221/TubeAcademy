@@ -2,9 +2,9 @@ import { v2 } from 'cloudinary'
 import fs from 'fs'
 
 v2.config({
-    cloud_name: "tubeacademy",
-    api_key: "875927792967197",
-    api_secret: "94X08SI-tbyd8cLqxBUdmVfEACI",
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET,
 })
 
 const uploadOnCloudinary = async (localFilePath) => {

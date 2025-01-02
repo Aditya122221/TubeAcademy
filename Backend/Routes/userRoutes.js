@@ -11,7 +11,8 @@ import teacherUserData from '../Modal/teacherUserData.js'
 import studentUserData from '../Modal/studentUserData.js'
 import uploadVideo from '../Modal/uploadVideo.js'
 
-const secretCode = "Cgjk-3445DERmnhjkloi4526dddAZ-gjhKLKJHN"
+const secretCode = process.env.ACCESS_TOKEN
+console.log(secretCode)
 
 router.post('/api', async (req, res) => {
     res.json("Server Running")
@@ -33,7 +34,7 @@ router.post('/api/signup', async (req, res) => {
                 return res.status(409).json({ status: false, message: "User with this phone number already exists" });
             }
 
-            const Registration_ID = Math.floor(Math.random() * (99 - 10)) + 10
+            let Registration_ID = Math.floor(Math.random() * (99 - 10)) + 10
             const eReg = await adminUserData.findOne({ Registration_ID });
 
             while (Registration_ID === eReg) {
@@ -55,7 +56,7 @@ router.post('/api/signup', async (req, res) => {
                 return res.status(409).json({ status: false, message: "User with this phone number already exists" });
             }
 
-            const Registration_ID = Math.floor(Math.random() * (9999 - 1000)) + 1000
+            let Registration_ID = Math.floor(Math.random() * (9999 - 1000)) + 1000
             const eReg = await teacherUserData.findOne({ Registration_ID });
 
             while (Registration_ID === eReg) {
@@ -77,7 +78,7 @@ router.post('/api/signup', async (req, res) => {
                 return res.status(409).json({ status: false, message: "User with this phone number already exists" });
             }
 
-            const Registration_ID = Math.floor(Math.random() * (999999 - 100000)) + 100000
+            let Registration_ID = Math.floor(Math.random() * (999999 - 100000)) + 100000
             const eReg = await studentUserData.findOne({ Registration_ID });
 
             while (Registration_ID === eReg) {
@@ -334,22 +335,6 @@ router.post('/api/uploadVideo', upload.fields([
         const thumbnailStored = await uploadOnCloudinary(thumbnailPath)
         const videoStored = await uploadOnCloudinary(videoPath)
 
-        const teacherAggregate = await teacherUserData.aggregate([
-            {
-                $match: {
-                    Registration_ID: Registration_ID
-                }
-            },
-            {
-                $lookup: {
-                    from: "uploadvideos",
-                    localField: "Registration_ID",
-                    foreignField: "Registration_ID",
-                    as: "myVideos"
-                }
-            },
-        ])
-
         const newVideo = new uploadVideo({
             Registration_ID: Registration_ID,
             thumbnail: thumbnailStored?.secure_url,
@@ -361,6 +346,9 @@ router.post('/api/uploadVideo', upload.fields([
         });
 
         const isSave = await newVideo.save();
+
+        const searchUser = await teacherUserData.findOne({ Registration_ID: Registration_ID })
+        searchUser.videosOwn.push(isSave._id)
 
         if (isSave) {
             return res.status(201).json({ status: true, message: "Video Uploaded" });
