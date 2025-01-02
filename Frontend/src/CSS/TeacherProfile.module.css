@@ -164,6 +164,11 @@
     height: 1cm;
 }
 
+.errrooor{
+    color: red;
+    font-size: 1rem;
+}
+
 .succ {
     display: none;
     border-radius: 0.375rem;
