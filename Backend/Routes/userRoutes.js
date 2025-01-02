@@ -267,24 +267,32 @@ router.post('/api/update', upload.single('avatar'), async (req, res) => {
         const { fName, lName, pNumber, uEmail, uAddress, urole } = req.body
         console.log(req.body)
         console.log(req.file)
-        const avatarLocalPath = req.file?.avatar[0]?.path
+        const avatarLocalPath = req.file?.path;
 
         const isStored = await uploadOnCloudinary(avatarLocalPath)
 
-        if (urole === "admin") {
-            const updateData = await adminUserData.updateOne({ pNumber: pNumber }, { $set: { avatar: isStored?.url || "", fName: fName, lName: lName, email: uEmail, address: uAddress } })
-            if (!updateData) return res.status(404).json({ status: false, message: "Updating Error", error: err.message })
-            return res.status(201).json({ status: true, message: "Data Updated" })
-        }
-        else if (urole === "Teacher") {
-            const updateData = await teacherUserData.updateOne({ pNumber: pNumber }, { $set: { avatar: isStored?.url || "", fName: fName, lName: lName, email: uEmail, address: uAddress } })
-            if (!updateData) return res.status(404).json({ status: false, message: "Updating Error", error: err.message })
-            return res.status(201).json({ status: true, message: "Data Updated" })
-        }
-        else {
-            const updateData = await studentUserData.updateOne({ pNumber: pNumber }, { $set: { avatar: isStored?.url || "", fName: fName, lName: lName, email: uEmail, address: uAddress } })
-            if (!updateData) return res.status(404).json({ status: false, message: "Updating Error", error: err.message })
-            return res.status(201).json({ status: true, message: "Data Updated" })
+        let updateModel;
+        if (urole === "admin") updateModel = adminUserData;
+        else if (urole === "Teacher") updateModel = teacherUserData;
+        else updateModel = studentUserData;
+
+        const updateData = await updateModel.updateOne(
+            { pNumber: pNumber },
+            {
+                $set: {
+                    avatar: isStored?.url || "",
+                    fName: fName,
+                    lName: lName,
+                    email: uEmail,
+                    address: uAddress,
+                },
+            }
+        );
+
+        if (!updateData.matchedCount) {
+            return res.status(404).json({ status: false, message: "Updating Error" });
+        } else {
+            return res.status(201).json({ status: true, message: "Data Updated" });
         }
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
@@ -410,20 +418,25 @@ router.post('/api/queryDetails', async (req, res) => {
 
 //-------------------------------Upload Video----------------------------------------
 
-router.post('/api/uploadVideo', async (req, res) => {
+router.post('/api/uploadVideo', upload.fields([
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'video', maxCount: 1 },
+]), async (req, res) => {
     try {
-        const { VTitle, SubjectName, classIn } = req.body
-        const video = req.files?.video[0]
-        const thumbnail = req.files?.thumbnail[0]
-        console.log(VTitle)
-        console.log(video)
-        console.log(thumbnail)
+        const { VTitle, SubjectName, classIn } = req.body; // Text data from the request
+        const thumbnail = req.files?.thumbnail?.[0]; // Thumbnail file
+        const video = req.files?.video?.[0]; // Video file
 
-        return res.status(201).json({ status: true, message: "Video Uploaded" })
+        console.log('Request Body:', { VTitle, SubjectName, classIn });
+        console.log('Thumbnail File:', thumbnail);
+        console.log('Video File:', video);
+
+        return res.status(201).json({ status: true, message: "Video Uploaded" });
     } catch (err) {
-        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
+        console.error(err);
+        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message });
     }
-})
+});
 
 //---------------------------------Exporting-----------------------------------------
 

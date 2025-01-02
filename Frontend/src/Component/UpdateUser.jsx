@@ -37,15 +37,19 @@ export default function UpdateUser() {
         if (fname.length < 3 || !alpharegex.test(fname)) setfnameerror("First Name is not valid")
         else if (lname.length < 3 || !alpharegex.test(lname)) setlnameerror("Last Name is not a vailid")
         else {
-            const payload = {
-                fName: fname,
-                lName: lname,
-                pNumber: phone,
-                uEmail: uemail,
-                uAddress: uaddress,
-                urole: role
-            }
-            axios.post("api/update", payload).then((res) => {
+            const payload = new FormData()
+            payload.append("fname", fname)
+            payload.append("lname", lname)
+            payload.append("phone", phone)
+            payload.append("email", uemail)
+            payload.append("address", uaddress)
+            payload.append("role", role)
+            payload.append("avatar", avatar)
+
+            console.log(payload)
+
+
+            axios.post("api/update", payload, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => {
                 updateRef.current.style.display = "block"
                 updateERef.current.style.display = "none"
             }).catch((err) => {

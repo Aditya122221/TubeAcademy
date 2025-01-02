@@ -24,19 +24,12 @@ export default function TeacherRightTwo() {
         console.log(thumbnail)
         console.log(video)
 
-        const payload = {
-            VTitle: upload.VTitle,
-            SubjectName: upload.SubjectName,
-            classIn: upload.classIn,
-        }
+        const payload = new FormData();
+        payload.append('VTitle', upload.VTitle);
+        payload.append("thumbnail", thumbnail);
+        payload.append("video", video);
 
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data',
-            },
-        };
-
-        axios.post("/api/uploadVideo", payload, config).then((res) => {
+        axios.post("/api/uploadVideo", payload, {headers:{'Content-Type': 'multipart/form-data'}}).then((res) => {
             console.log("This part has no error", res.data);
             succRef.current.style.display = "flex";
             unsuccRef.current.style.display = "none";
