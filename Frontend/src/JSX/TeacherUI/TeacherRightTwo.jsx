@@ -1,6 +1,7 @@
 import { useState, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import TP from '../../CSS/TeacherProfile.module.css'
+import { RegId } from "./TeacherRightOne"
 import axios from 'axios'
 
 export default function TeacherRightTwo() {
@@ -24,11 +25,8 @@ export default function TeacherRightTwo() {
         e.preventDefault();
         const val = validateForm();
         if (val) {
-
-            console.log(thumbnail)
-            console.log(video)
-
             const payload = new FormData();
+            payload.append('Registration_ID', RegId);
             payload.append('VTitle', upload.VTitle);
             payload.append('SubjectName', upload.SubjectName);
             payload.append('classIn', upload.classIn);

@@ -4,8 +4,7 @@ import mongooseAggregat from 'mongoose-aggregate-paginate-v2'
 const uploadVideoSchema = new mongoose.Schema(
     {
         Registration_ID: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'teacherUserData'
+            type: Number
         },
         thumbnail: {
             type: String
@@ -18,10 +17,6 @@ const uploadVideoSchema = new mongoose.Schema(
         },
         forClass: {
             type: String
-        },
-        teacherName: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'teacherUserData'
         },
         duration: {
             type: Number

@@ -10,6 +10,7 @@ import adminUserData from '../Modal/adminUserData.js'
 import teacherUserData from '../Modal/teacherUserData.js'
 import studentUserData from '../Modal/studentUserData.js'
 import uploadVideo from '../Modal/uploadVideo.js'
+
 const secretCode = "Cgjk-3445DERmnhjkloi4526dddAZ-gjhKLKJHN"
 
 router.post('/api', async (req, res) => {
@@ -276,8 +277,8 @@ router.post('/api/passwordupdate', async (req, res) => {
         else modelSchema = studentUserData;
 
         const upPas = await modelSchema.updateOne({ pNumber: pnumber }, { $set: { password: newpassword } })
-            if (!upPas) return res.status(404).json({ status: false, message: "Password not updated" })
-            return res.status(201).json({ status: true, message: "Password Updated" })
+        if (!upPas) return res.status(404).json({ status: false, message: "Password not updated" })
+        return res.status(201).json({ status: true, message: "Password Updated" })
 
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
@@ -323,7 +324,7 @@ router.post('/api/uploadVideo', upload.fields([
     { name: 'video', maxCount: 1 },
 ]), async (req, res) => {
     try {
-        const { VTitle, SubjectName, classIn } = req.body
+        const { Registration_ID, VTitle, SubjectName, classIn } = req.body
         const thumbnail = req.files?.thumbnail?.[0]
         const video = req.files?.video?.[0]
 
@@ -333,13 +334,28 @@ router.post('/api/uploadVideo', upload.fields([
         const thumbnailStored = await uploadOnCloudinary(thumbnailPath)
         const videoStored = await uploadOnCloudinary(videoPath)
 
+        const teacherAggregate = await teacherUserData.aggregate([
+            {
+                $match: {
+                    Registration_ID: Registration_ID
+                }
+            },
+            {
+                $lookup: {
+                    from: "uploadvideos",
+                    localField: "Registration_ID",
+                    foreignField: "Registration_ID",
+                    as: "myVideos"
+                }
+            },
+        ])
+
         const newVideo = new uploadVideo({
-            Registration_ID: req.user.Registration_ID,
+            Registration_ID: Registration_ID,
             thumbnail: thumbnailStored?.secure_url,
             title: VTitle,
             subjectName: SubjectName,
             forClass: classIn,
-            teacherName: (req.user.fName + " " + req.user.lName),
             duration: thumbnailPath?.duration,
             video: videoStored?.secure_url
         });

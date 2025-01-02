@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom"
 import TP from '../../CSS/TeacherProfile.module.css'
 import axios from "axios";
 
+var RegId;
+
 export default function TeacherRightOne() {
     const Navigate = useNavigate();
     const token = JSON.parse(localStorage.getItem('token'))
@@ -30,6 +32,9 @@ export default function TeacherRightOne() {
     useEffect(() => {
         fetchData()
     }, [])
+
+    RegId = userData.Registration_ID
+    
     return (
         <div className={TP.rightone}>
             <div className={TP.aaa}>
@@ -43,3 +48,5 @@ export default function TeacherRightOne() {
         </div>
     )
 }
+
+export { RegId }
