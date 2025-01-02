@@ -1,0 +1,64 @@
+entity-relationship-diagram
+
+adminUserData [icon: user, color: pink] {
+  id Int
+  Registration_ID Int
+  avatar string
+  fName string
+  lName string
+  pNumber string
+  role string
+  password string
+  email string
+  address string
+}
+
+teacherUserData [icon: user, color: green] {
+  id Int
+  Registration_ID Int
+  avatar string
+  fName string
+  lName string
+  pNumber string
+  role string
+  password string
+  email string
+  address string
+}
+
+studentUserData [icon: user, color: yellow]{
+  id Int
+  Registration_ID Int
+  avatar string
+  fName string
+  lName string
+  pNumber string
+  role string
+  password string
+  email string
+  address string
+  watchHistory string
+}
+
+email_from_client [icon: mail, color: blue] {
+  id Int
+  fullName string
+  email string
+  message string
+  date date
+}
+
+uploadVideos [color: green]{
+  id Int
+  thumbnail string
+  title string
+  subjectName string
+  forClass string
+  duration Int
+  views Int
+  videos Int
+}
+
+teacherUserData.Registration_ID - uploadVideos.id
+
+studentUserData.watchHistory - uploadVideos.id
