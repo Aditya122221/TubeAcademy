@@ -11,6 +11,7 @@ export default function UpdateUser() {
     const [uemail, setemail] = useState('')
     const [phone, setphone] = useState('')
     const [uaddress, setaddress] = useState('')
+    const [avatar, setAvatar] = useState('')
     const [fnameerror, setfnameerror] = useState('')
     const [lnameerror, setlnameerror] = useState('')
     const [role, setRole] = useState('')
@@ -44,7 +45,7 @@ export default function UpdateUser() {
                 uAddress: uaddress,
                 urole: role
             }
-            axios.post("http://localhost:3000/update", payload).then((res) => {
+            axios.post("api/update", payload).then((res) => {
                 updateRef.current.style.display = "block"
                 updateERef.current.style.display = "none"
             }).catch((err) => {
@@ -58,7 +59,7 @@ export default function UpdateUser() {
     return (
         <div className={U.update}>
             <div className={U.updateHeader}>
-                {/* ----------------------------left------------------------------- */}
+                {/* --------------------------left------------------------------- */}
                 <div className={U.left}>
                     <div className={U.left1}>
                         <div className={U.left2}>
@@ -88,13 +89,15 @@ export default function UpdateUser() {
                 <div className={U.right}>
                     <div className={U.right1}>Update Data</div>
 
-                    <form className={U.right2}>
+                    <form onSubmit={updateData} encType="multipart/form-data" className={U.right2} >
                         <div className={U.right3}>
+
                             <div className={U.right4}>
                                 <label htmlFor="fname" className={U.right5}>First Name</label>
                                 <span className={U.right10}>{fnameerror}</span>
                                 <input type="text" defaultValue={fname} onChange={(e) => setfname(e.target.value)} className={U.right6} name="fname" required />
                             </div>
+
                             <div className={U.right4}>
                                 <label htmlFor="lname" className={U.right5}>Last Name</label>
                                 <span className={U.right10}>{lnameerror}</span>
@@ -102,18 +105,24 @@ export default function UpdateUser() {
                             </div>
                         </div>
                         <div className={U.right3}>
+
                             <div className={U.right4}>
                                 <label htmlFor="email" className={U.right5}>Email</label>
                                 <input type="text" defaultValue={uemail} onChange={(e) => setemail(e.target.value)} className={U.right6} name="email" required />
                             </div>
+
                             <div className={U.right4}>
                                 <label htmlFor="pnumber" className={U.right5}>Phone Number</label>
                                 <input type="text" defaultValue={phone} className={U.right6} name="pnumber" disabled />
                             </div>
                         </div>
+
                         <label htmlFor="address" className={U.right5}>Address</label>
                         <textarea required defaultValue={uaddress} onChange={(e) => setaddress(e.target.value)} className={U.right7}></textarea>
-                        <button onClick={updateData} type="submit" className={U.right8}>Update</button>
+
+                        <input type="file" name="avatar" onChange={(e) => setAvatar(e.target.files[0])} />
+
+                        <button type="submit" className={U.right8}>Update</button>
                     </form>
 
                     <span ref={updateRef} className={U.right9}>Updated</span>

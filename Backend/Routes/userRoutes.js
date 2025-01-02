@@ -4,6 +4,8 @@ import email_from_client from '../Modal/email_from_client.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import cors from 'cors';
+import upload from './multer.js'
+import uploadOnCloudinary from './cloudinary.js'
 import adminUserData from '../Modal/adminUserData.js'
 import teacherUserData from '../Modal/teacherUserData.js'
 import studentUserData from '../Modal/studentUserData.js'
@@ -20,9 +22,6 @@ router.post('/api/signup', async (req, res) => {
     try {
         // Validate required fields
         const { fName, lName, pNumber, role, password, email, address } = req.body;
-        if (!fName || !lName || !pNumber || !password || !role) {
-            return res.status(400).json({ status: false, message: "All fields are required" });
-        }
 
         // Check for existing user using findOne instead of find
 
@@ -263,23 +262,29 @@ router.post('/api/email', cors(), async (req, res) => {
 
 //--------------------------------Update Data----------------------------------------
 
-router.post('/api/update', async (req, res) => {
+router.post('/api/update', upload.single('avatar'), async (req, res) => {
     try {
         const { fName, lName, pNumber, uEmail, uAddress, urole } = req.body
+        console.log(req.body)
+        console.log(req.file)
+        const avatarLocalPath = req.file?.avatar[0]?.path
+
+        const isStored = await uploadOnCloudinary(avatarLocalPath)
+
         if (urole === "admin") {
-            const updateData = await adminUserData.updateOne({ pNumber: pNumber }, { $set: { fName: fName, lName: lName, email: uEmail, address: uAddress } })
+            const updateData = await adminUserData.updateOne({ pNumber: pNumber }, { $set: { avatar: isStored?.url || "", fName: fName, lName: lName, email: uEmail, address: uAddress } })
             if (!updateData) return res.status(404).json({ status: false, message: "Updating Error", error: err.message })
-            return res.status(201).json({ status: true, message: uEmail })
+            return res.status(201).json({ status: true, message: "Data Updated" })
         }
         else if (urole === "Teacher") {
-            const updateData = await teacherUserData.updateOne({ pNumber: pNumber }, { $set: { fName: fName, lName: lName, email: uEmail, address: uAddress } })
+            const updateData = await teacherUserData.updateOne({ pNumber: pNumber }, { $set: { avatar: isStored?.url || "", fName: fName, lName: lName, email: uEmail, address: uAddress } })
             if (!updateData) return res.status(404).json({ status: false, message: "Updating Error", error: err.message })
-            return res.status(201).json({ status: true, message: uEmail })
+            return res.status(201).json({ status: true, message: "Data Updated" })
         }
         else {
-            const updateData = await studentUserData.updateOne({ pNumber: pNumber }, { $set: { fName: fName, lName: lName, email: uEmail, address: uAddress } })
+            const updateData = await studentUserData.updateOne({ pNumber: pNumber }, { $set: { avatar: isStored?.url || "", fName: fName, lName: lName, email: uEmail, address: uAddress } })
             if (!updateData) return res.status(404).json({ status: false, message: "Updating Error", error: err.message })
-            return res.status(201).json({ status: true, message: uEmail })
+            return res.status(201).json({ status: true, message: "Data Updated" })
         }
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
@@ -377,7 +382,7 @@ router.post('/api/teacherDetails', async (req, res) => {
     try {
         const teacherData = await teacherUserData.find();
         return res.status(201).json({ status: true, data: teacherData })
-        
+
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
     }
@@ -387,7 +392,7 @@ router.post('/api/studentDetails', async (req, res) => {
     try {
         const studentData = await studentUserData.find();
         return res.status(201).json({ status: true, data: studentData })
-        
+
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
     }
@@ -397,7 +402,24 @@ router.post('/api/queryDetails', async (req, res) => {
     try {
         const Query = await email_from_client.find();
         return res.status(201).json({ status: true, data: Query })
-        
+
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
+    }
+})
+
+//-------------------------------Upload Video----------------------------------------
+
+router.post('/api/uploadVideo', async (req, res) => {
+    try {
+        const { VTitle, SubjectName, classIn } = req.body
+        const video = req.files?.video[0]
+        const thumbnail = req.files?.thumbnail[0]
+        console.log(VTitle)
+        console.log(video)
+        console.log(thumbnail)
+
+        return res.status(201).json({ status: true, message: "Video Uploaded" })
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
     }

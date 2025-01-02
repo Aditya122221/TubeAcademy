@@ -30,6 +30,7 @@ export default function TeacherRightOne() {
     return (
         <div className={TP.rightone}>
             <div className={TP.Tthh}>Account Details</div>
+            <img src={userData.avatar} alt="Profile Photo"/>
             <div className={TP.account}>
                 {userData.Registration_ID} {userData.fName} {userData.lName} {userData.email} {userData.address}
                 <div className={TP.update} onClick={() => Navigate('/updatedata', { state: userData })}>Update Data</div>
