@@ -46,6 +46,10 @@
     color: #7a15b4;
 }
 
+.right{
+    width: 85%;
+}
+
 .aright {
     display: flex;
     flex-direction: column;
@@ -66,6 +70,20 @@
     border-radius: 25px;
     background-color: #7a15b494;
     padding: 50px;
+}
+
+.aaa{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-right: 50px;
+}
+
+.profile{
+    display: flex;
+    border-radius: 50%;
+    height: 2cm;
+    width: 2cm;
 }
 
 .bright {

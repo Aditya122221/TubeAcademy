@@ -18,7 +18,6 @@ export default function TeacherRightOne() {
             }
         }
         axios.post("/api/profile", {}, header).then((res) => {
-            console.log(res.data.data)
             setUserData(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)
@@ -30,8 +29,10 @@ export default function TeacherRightOne() {
     }, [])
     return (
         <div className={TP.rightone}>
-            <div className={TP.Tthh}>Account Details</div>
-            <img src={userData.avatar} alt="Profile Photo"/>
+            <div className={TP.aaa}>
+                <div className={TP.Tthh}>Account Details</div>
+                <img className={TP.profile} src={userData.avatar} alt="Profile Photo" />
+            </div>
             <div className={TP.account}>
                 {userData.Registration_ID} {userData.fName} {userData.lName} {userData.email} {userData.address}
                 <div className={TP.update} onClick={() => Navigate('/updatedata', { state: userData })}>Update Data</div>

@@ -9,7 +9,7 @@ import uploadOnCloudinary from './cloudinary.js'
 import adminUserData from '../Modal/adminUserData.js'
 import teacherUserData from '../Modal/teacherUserData.js'
 import studentUserData from '../Modal/studentUserData.js'
-
+import uploadVideo from '../Modal/uploadVideo.js'
 const secretCode = "Cgjk-3445DERmnhjkloi4526dddAZ-gjhKLKJHN"
 
 router.post('/api', async (req, res) => {
@@ -109,58 +109,27 @@ router.post('/api/login', async (req, res) => {
             return res.status(400).json({ status: false, message: "All fields are required" });
         }
 
-        if (role === "admin") {
+        let modelSchema;
 
-            // Find user by pNumber
-            const user = await adminUserData.findOne({ pNumber });
+        if (role === "admin") modelSchema = adminUserData;
+        else if (role === "Teacher") modelSchema = teacherUserData;
+        else modelSchema = studentUserData;
 
-            // Check user existence and password validity
-            if (!user || !user.password || !(password === user.password)) {
-                return res.status(401).json({ status: false, message: "Invalid credentials" });
-            }
+        // Find user by pNumber
+        const user = await modelSchema.findOne({ pNumber });
 
-            // Generate JWT token with appropriate claims
-            const token = jwt.sign({ id: user._id, role: user.role }, secretCode);
-
-            const roleAction = user.role;
-
-            // Send successful login response
-            return res.status(200).json({ status: true, message: "Login Successful!", token, roleAction });
+        // Check user existence and password validity
+        if (!user || !user.password || !(password === user.password)) {
+            return res.status(401).json({ status: false, message: "Invalid credentials" });
         }
-        else if (role === "Teacher") {
-            // Find user by pNumber
-            const user = await teacherUserData.findOne({ pNumber });
 
-            // Check user existence and password validity
-            if (!user || !user.password || !(password === user.password)) {
-                return res.status(401).json({ status: false, message: "Invalid credentials" });
-            }
+        // Generate JWT token with appropriate claims
+        const token = jwt.sign({ id: user._id, role: user.role }, secretCode);
 
-            // Generate JWT token with appropriate claims
-            const token = jwt.sign({ id: user._id, role: user.role }, secretCode);
+        const roleAction = user.role;
 
-            const roleAction = user.role;
-
-            // Send successful login response
-            return res.status(200).json({ status: true, message: "Login Successful!", token, roleAction });
-        }
-        else {
-            // Find user by pNumber
-            const user = await studentUserData.findOne({ pNumber });
-
-            // Check user existence and password validity
-            if (!user || !user.password || !(password === user.password)) {
-                return res.status(401).json({ status: false, message: "Invalid credentials" });
-            }
-
-            // Generate JWT token with appropriate claims
-            const token = jwt.sign({ id: user._id, role: user.role }, secretCode);
-
-            const roleAction = user.role;
-
-            // Send successful login response
-            return res.status(200).json({ status: true, message: "Login Successful!", token, roleAction });
-        }
+        // Send successful login response
+        return res.status(200).json({ status: true, message: "Login Successful!", token, roleAction });
     } catch (err) {
         console.error(err); // Log the error for debugging
         return res.status(500).json({ status: false, message: "Internal server error" });
@@ -175,70 +144,30 @@ router.post('/api/profile', async (req, res) => {
         const token = req.headers?.authorization?.split(' ')[1];
         const role = req.headers?.role;
 
-        if (role === "admin") {
+        if (!token) return res.status(404).json({ status: false, message: "Access Denied" })
 
-            if (!token) return res.status(404).json({ status: false, message: "Access Denied" })
+        let modelSchema;
 
-            jwt.verify(token, secretCode, async (err, decode) => {
-                const user = await adminUserData.findById(decode?.id)
-                console.log(user)
-                if (!user) return res.status(404).json({ status: false, message: "Invalid Token" })
-                const userData = {
-                    id: user.id,
-                    Registration_ID: user?.Registration_ID,
-                    avatar: user?.avatar,
-                    fName: user?.fName,
-                    lName: user?.lName,
-                    pNumber: user?.pNumber,
-                    email: user?.email,
-                    address: user?.address
-                }
+        if (role === "admin") modelSchema = adminUserData;
+        else if (role === "Teacher") modelSchema = teacherUserData;
+        else modelSchema = studentUserData;
 
-                return res.status(201).json({ status: true, message: "Profile Data", data: userData })
-            })
-        }
-        else if (role === "Teacher") {
+        jwt.verify(token, secretCode, async (err, decode) => {
+            const user = await modelSchema.findById(decode?.id)
+            if (!user) return res.status(404).json({ status: false, message: "Invalid Token" })
+            const userData = {
+                id: user.id,
+                Registration_ID: user?.Registration_ID,
+                avatar: user?.avatar,
+                fName: user?.fName,
+                lName: user?.lName,
+                pNumber: user?.pNumber,
+                email: user?.email,
+                address: user?.address
+            }
 
-            if (!token) return res.status(404).json({ status: false, message: "Access Denied" })
-
-            jwt.verify(token, secretCode, async (err, decode) => {
-                const user = await teacherUserData.findById(decode?.id)
-                if (!user) return res.status(404).json({ status: false, message: "Invalid Token" })
-                const userData = {
-                    id: user.id,
-                    avatar: user?.avatar,
-                    Registration_ID: user?.Registration_ID,
-                    fName: user?.fName,
-                    lName: user?.lName,
-                    pNumber: user?.pNumber,
-                    email: user?.email,
-                    address: user?.address
-                }
-
-                return res.status(201).json({ status: true, message: "Profile Data", data: userData })
-            })
-        }
-        else {
-
-            if (!token) return res.status(404).json({ status: false, message: "Access Denied" })
-
-            jwt.verify(token, secretCode, async (err, decode) => {
-                const user = await studentUserData.findById(decode?.id)
-                if (!user) return res.status(404).json({ status: false, message: "Invalid Token" })
-                const userData = {
-                    id: user.id,
-                    Registration_ID: user?.Registration_ID,
-                    avatar: user?.avatar,
-                    fName: user?.fName,
-                    lName: user?.lName,
-                    pNumber: user?.pNumber,
-                    email: user?.email,
-                    address: user?.address
-                }
-
-                return res.status(201).json({ status: true, message: "Profile Data", data: userData })
-            })
-        }
+            return res.status(201).json({ status: true, message: "Profile Data", data: userData })
+        })
     } catch (err) {
         return res.status(404).json({ status: false, message: "Something went wrong", error: err.message })
     }
@@ -307,49 +236,26 @@ router.post('/api/usercheck', async (req, res) => {
     try {
         const { fpnumber, regis, frole } = req.body
         let r = Number(regis);
-        if (frole === "fadmin") {
-            const user = await adminUserData.findOne({ pNumber: fpnumber })
-            if (!user) {
-                // console.log("User does not exists")
-                return res.status(404).json({ status: false, message: "User does not exists" })
-            }
-            else {
-                if (user.Registration_ID !== r) {
-                    // console.log("Registration Id is incorrect")
-                    return res.status(404).json({ status: false, message: "Registration Id is incorrect" })
-                }
-                const userData = {
-                    fpnumber: user?.pNumber,
-                    frole: user?.role
-                }
-                return res.status(201).json({ status: true, data: userData })
-            }
-        }
-        else if (frole === "fTeacher") {
-            const user = await teacherUserData.findOne({ pNumber: fpnumber })
-            if (!user) return res.status(404).json({ status: false, message: "User does not exists" })
-            else {
-                if (user.Registration_ID !== r) {
-                    return res.status(404).json({ status: false, message: "Registration Id is incorrect" })
-                }
-                const userData = {
-                    fpnumber: user?.pNumber,
-                    frole: user?.role
-                }
-                return res.status(201).json({ status: true, data: userData })
-            }
+
+        let modelSchema;
+
+        if (frole === "fadmin") modelSchema = adminUserData;
+        else if (frole === "fTeacher") modelSchema = teacherUserData;
+        else modelSchema = studentUserData;
+
+        const user = await modelSchema.findOne({ pNumber: fpnumber })
+        if (!user) {
+            return res.status(404).json({ status: false, message: "User does not exists" })
         }
         else {
-            const user = await studentUserData.findOne({ pNumber: fpnumber })
-            if (!user) return res.status(404).json({ status: false, message: "User does not exists" })
-            else {
-                if (user.Registration_ID !== r) return res.status(404).json({ status: false, message: "Registration Id is incorrect" })
-                const userData = {
-                    fpnumber: user?.pNumber,
-                    frole: user?.role
-                }
-                return res.status(201).json({ status: true, data: userData })
+            if (user.Registration_ID !== r) {
+                return res.status(404).json({ status: false, message: "Registration Id is incorrect" })
             }
+            const userData = {
+                fpnumber: user?.pNumber,
+                frole: user?.role
+            }
+            return res.status(201).json({ status: true, data: userData })
         }
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
@@ -363,23 +269,15 @@ router.post('/api/passwordupdate', async (req, res) => {
         const { pnumber, newpassword, urole } = req.body
         // const hashPassword = await bcrypt.hash(newpassword, 10);
 
-        if (urole === "admin") {
-            const upPas = await adminUserData.updateOne({ pNumber: pnumber }, { $set: { password: newpassword } })
-            if (!upPas) return res.status(404).json({ status: false, message: "Password not updated" })
-            return res.status(201).json({ status: true, message: "Password Updated" })
-        }
+        let modelSchema;
 
-        else if (urole === "Teacher") {
-            const upPas = await teacherUserData.updateOne({ pNumber: pnumber }, { $set: { password: newpassword } })
-            if (!upPas) return res.status(404).json({ status: false, message: "Password not updated" })
-            return res.status(201).json({ status: true, message: "Password Updated" })
-        }
+        if (urole === "admin") modelSchema = adminUserData;
+        else if (urole === "Teacher") modelSchema = teacherUserData;
+        else modelSchema = studentUserData;
 
-        else {
-            const upPas = await studentUserData.updateOne({ pNumber: pnumber }, { $set: { password: newpassword } })
+        const upPas = await modelSchema.updateOne({ pNumber: pnumber }, { $set: { password: newpassword } })
             if (!upPas) return res.status(404).json({ status: false, message: "Password not updated" })
             return res.status(201).json({ status: true, message: "Password Updated" })
-        }
 
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message })
@@ -425,15 +323,34 @@ router.post('/api/uploadVideo', upload.fields([
     { name: 'video', maxCount: 1 },
 ]), async (req, res) => {
     try {
-        const { VTitle, SubjectName, classIn } = req.body; // Text data from the request
-        const thumbnail = req.files?.thumbnail?.[0]; // Thumbnail file
-        const video = req.files?.video?.[0]; // Video file
+        const { VTitle, SubjectName, classIn } = req.body
+        const thumbnail = req.files?.thumbnail?.[0]
+        const video = req.files?.video?.[0]
 
-        console.log('Request Body:', { VTitle, SubjectName, classIn });
-        console.log('Thumbnail File:', thumbnail);
-        console.log('Video File:', video);
+        const thumbnailPath = thumbnail?.path;
+        const videoPath = video?.path;
 
-        return res.status(201).json({ status: true, message: "Video Uploaded" });
+        const thumbnailStored = await uploadOnCloudinary(thumbnailPath)
+        const videoStored = await uploadOnCloudinary(videoPath)
+
+        const newVideo = new uploadVideo({
+            Registration_ID: req.user.Registration_ID,
+            thumbnail: thumbnailStored?.secure_url,
+            title: VTitle,
+            subjectName: SubjectName,
+            forClass: classIn,
+            teacherName: (req.user.fName + " " + req.user.lName),
+            duration: thumbnailPath?.duration,
+            video: videoStored?.secure_url
+        });
+
+        const isSave = await newVideo.save();
+
+        if (isSave) {
+            return res.status(201).json({ status: true, message: "Video Uploaded" });
+        } else {
+            return res.status(404).json({ status: false, message: "Video not uploaded" });
+        }
     } catch (err) {
         console.error(err);
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message });
