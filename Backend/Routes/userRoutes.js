@@ -167,7 +167,7 @@ router.post('/api/login', async (req, res) => {
     }
 });
 
-//------------------------------------Profile-------------------------------------------
+//---------------------------------Profile-------------------------------------------
 
 router.post('/api/profile', async (req, res) => {
     try {
@@ -181,10 +181,12 @@ router.post('/api/profile', async (req, res) => {
 
             jwt.verify(token, secretCode, async (err, decode) => {
                 const user = await adminUserData.findById(decode?.id)
+                console.log(user)
                 if (!user) return res.status(404).json({ status: false, message: "Invalid Token" })
                 const userData = {
                     id: user.id,
                     Registration_ID: user?.Registration_ID,
+                    avatar: user?.avatar,
                     fName: user?.fName,
                     lName: user?.lName,
                     pNumber: user?.pNumber,
@@ -204,6 +206,7 @@ router.post('/api/profile', async (req, res) => {
                 if (!user) return res.status(404).json({ status: false, message: "Invalid Token" })
                 const userData = {
                     id: user.id,
+                    avatar: user?.avatar,
                     Registration_ID: user?.Registration_ID,
                     fName: user?.fName,
                     lName: user?.lName,
@@ -225,6 +228,7 @@ router.post('/api/profile', async (req, res) => {
                 const userData = {
                     id: user.id,
                     Registration_ID: user?.Registration_ID,
+                    avatar: user?.avatar,
                     fName: user?.fName,
                     lName: user?.lName,
                     pNumber: user?.pNumber,
@@ -265,8 +269,6 @@ router.post('/api/email', cors(), async (req, res) => {
 router.post('/api/update', upload.single('avatar'), async (req, res) => {
     try {
         const { fName, lName, pNumber, uEmail, uAddress, urole } = req.body
-        console.log(req.body)
-        console.log(req.file)
         const avatarLocalPath = req.file?.path;
 
         const isStored = await uploadOnCloudinary(avatarLocalPath)
@@ -280,7 +282,7 @@ router.post('/api/update', upload.single('avatar'), async (req, res) => {
             { pNumber: pNumber },
             {
                 $set: {
-                    avatar: isStored?.url || "",
+                    avatar: isStored?.secure_url || "",
                     fName: fName,
                     lName: lName,
                     email: uEmail,
@@ -289,7 +291,7 @@ router.post('/api/update', upload.single('avatar'), async (req, res) => {
             }
         );
 
-        if (!updateData.matchedCount) {
+        if (!updateData) {
             return res.status(404).json({ status: false, message: "Updating Error" });
         } else {
             return res.status(201).json({ status: true, message: "Data Updated" });

@@ -26,6 +26,8 @@ export default function TeacherRightTwo() {
 
         const payload = new FormData();
         payload.append('VTitle', upload.VTitle);
+        payload.append('SubjectName', upload.SubjectName);
+        payload.append('classIn', upload.classIn);
         payload.append("thumbnail", thumbnail);
         payload.append("video", video);
 

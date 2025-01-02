@@ -25,6 +25,7 @@ export default function UpdateUser() {
         setemail(location.state.email)
         setphone(location.state.pNumber)
         setaddress(location.state.address)
+        setAvatar(location.state.avatar)
         setRole(JSON.parse(localStorage.getItem('role')))
         if (localStorage.getItem('token') === null) {
             window.location.href = '/gotLost';
@@ -40,14 +41,11 @@ export default function UpdateUser() {
             const payload = new FormData()
             payload.append("fname", fname)
             payload.append("lname", lname)
-            payload.append("phone", phone)
-            payload.append("email", uemail)
-            payload.append("address", uaddress)
-            payload.append("role", role)
+            payload.append("pNumber", phone)
+            payload.append("uEmail", uemail)
+            payload.append("uAddress", uaddress)
+            payload.append("urole", role)
             payload.append("avatar", avatar)
-
-            console.log(payload)
-
 
             axios.post("api/update", payload, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => {
                 updateRef.current.style.display = "block"
@@ -112,7 +110,7 @@ export default function UpdateUser() {
 
                             <div className={U.right4}>
                                 <label htmlFor="email" className={U.right5}>Email</label>
-                                <input type="text" defaultValue={uemail} onChange={(e) => setemail(e.target.value)} className={U.right6} name="email" required />
+                                <input type="text" defaultValue={uemail} onChange={(e) => setemail(e.target.value)} className={U.right6} name="email" />
                             </div>
 
                             <div className={U.right4}>
@@ -122,7 +120,7 @@ export default function UpdateUser() {
                         </div>
 
                         <label htmlFor="address" className={U.right5}>Address</label>
-                        <textarea required defaultValue={uaddress} onChange={(e) => setaddress(e.target.value)} className={U.right7}></textarea>
+                        <textarea defaultValue={uaddress} onChange={(e) => setaddress(e.target.value)} className={U.right7}></textarea>
 
                         <input type="file" name="avatar" onChange={(e) => setAvatar(e.target.files[0])} />
 

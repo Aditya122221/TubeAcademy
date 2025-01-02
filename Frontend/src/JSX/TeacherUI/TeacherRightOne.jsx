@@ -18,6 +18,7 @@ export default function TeacherRightOne() {
             }
         }
         axios.post("/api/profile", {}, header).then((res) => {
+            console.log(res.data.data)
             setUserData(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)
