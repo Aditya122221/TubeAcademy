@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import TeamLeader from '../../Images/TeamLeader.png'
 import { useNavigate } from "react-router-dom"
 import TP from '../../CSS/TeacherProfile.module.css'
 import axios from "axios";
@@ -23,6 +24,8 @@ export default function TeacherRightOne() {
             console.log("Error while fetching the data", err)
         })
     }
+
+    if(userData.avatar === "") setUserData({...userData, avatar: TeamLeader})
 
     useEffect(() => {
         fetchData()

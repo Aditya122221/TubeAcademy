@@ -50,7 +50,7 @@
     width: 80%;
 }
 
-.aright{
+.aright {
     display: flex;
     flex-direction: column;
 }
@@ -61,11 +61,25 @@
     padding: 50px;
 }
 
+.aaa {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 2cm;
+    height: 2cm;
+    margin-top: 10px;
+    margin-right: 25px;
+}
+
 .bright {
     display: none;
 }
 
-.Ttdd{
+.Ttdd {
     border-radius: 25px;
     background-color: #f08d0394;
     padding: 50px;
