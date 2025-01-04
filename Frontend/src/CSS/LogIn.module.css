@@ -136,6 +136,97 @@
     }
 }
 
+.radioInput {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    background-color: #908e8e;
+    padding: 4px;
+    border-radius: 10px;
+    width: fit-content;
+    z-index: -1;
+}
+
+.radioInput input {
+    display: none;
+}
+
+.radioInput .label {
+    width: 90px;
+    height: 60px;
+    background: linear-gradient(to bottom, #fafafa, rgb(245, 149, 4));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    transition: all 0.1s linear;
+    border-top: 1px solid #4e4d4d;
+    background-color: #333333;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0px 17px 5px 1px rgba(241, 182, 2, 0.2);
+}
+
+.label:has(input[type="radio"]:checked) {
+    box-shadow: 0px 17px 5px 1px rgba(0, 0, 0, 0);
+    background: linear-gradient(to bottom, #cf9138, #cf903841);
+    border-top: none;
+}
+
+.label:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.label:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.label::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 103%;
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(to bottom,
+            transparent 10%,
+            transparent,
+            transparent 90%);
+    transition: all 0.1s linear;
+    z-index: -1;
+}
+
+.label:has(input[type="radio"]:checked)::before {
+    background: linear-gradient(to bottom,
+            transparent 10%,
+            #cae2fd63,
+            transparent 90%);
+}
+
+.label .text {
+    color: black;
+    font-size: 15px;
+    line-height: 12px;
+    padding: 0px;
+    font-weight: 800;
+    text-transform: uppercase;
+    transition: all 0.1s linear;
+    text-shadow:
+        -1px -1px 1px rgb(224, 224, 224, 0.1),
+        0px 2px 3px rgb(0, 0, 0, 0.3);
+}
+
+.label input[type="radio"]:checked+.text {
+    color: rgb(202, 226, 253);
+    text-shadow: 0px 0px 12px #cae2fd;
+}
+
+
 .forgotPassword {
     cursor: pointer;
     width: 100%;
@@ -186,6 +277,7 @@
 
 .forgotPas {
     display: none;
+    width: 70%;
 }
 
 .upP {
@@ -201,23 +293,6 @@
     &:hover {
         background-color: #7a4b04;
     }
-}
-
-.roles {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    width: 70%;
-    margin-bottom: 15px;
-}
-
-.para {
-    display: flex;
-    gap: 10px;
-}
-
-.roleLabel {
-    font-family: 'Chakra Petch';
 }
 
 .forPas {

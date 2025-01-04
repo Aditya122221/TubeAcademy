@@ -140,19 +140,19 @@ const SignUp = () => {
                         <label className={S.label} htmlFor="pNumber">Phone Number:</label>{errors.pNumber && <span className={S.eeror}>{errors.pNumber}</span>}
                         <input type="text" id="phone" name="pNumber" required value={formData.pNumber} onChange={handleChange} className={S.inputField} minLength={10} maxLength={10} />
 
-                        <div className={S.role}>
-                            <p className={S.para}>
-                                <input type="radio" id="admin" name="role" required value="admin" onChange={handleChange} className={S.inputField} />
-                                <label className={S.label}>Admin</label>
-                            </p>
-                            <p className={S.para}>
-                                <input type="radio" id="teacher" name="role" required value="Teacher" onChange={handleChange} className={S.inputField} />
-                                <label className={S.label}>Teacher</label>
-                            </p>
-                            <p className={S.para}>
-                                <input type="radio" id="student" name="role" required value="Student" onChange={handleChange} className={S.inputField} />
-                                <label className={S.label}>Student</label>
-                            </p>
+                        <div className={S.radioInput}>
+                            <label className={S.label}>
+                                <input value="admin" name="role" className={S.value1} type="radio" onChange={handleChange} />
+                                <span className={S.text}>Admin</span>
+                            </label>
+                            <label className={S.label}>
+                                <input value="Teacher" name="role" className={S.value1} type="radio" onChange={handleChange} />
+                                <span className={S.text}>Teacher</span>
+                            </label>
+                            <label className={S.label}>
+                                <input value="Student" name="role" className={S.value1} type="radio" onChange={handleChange} />
+                                <span className={S.text}>Student</span>
+                            </label>
                         </div>
 
                         <label className={S.label} htmlFor="password">Password:</label>{errors.password && <span className={S.eeror}>{errors.password}</span>}

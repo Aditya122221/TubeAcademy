@@ -46,7 +46,7 @@
     color: #7a15b4;
 }
 
-.right{
+.right {
     width: 85%;
 }
 
@@ -72,14 +72,14 @@
     padding: 50px;
 }
 
-.aaa{
+.aaa {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
     margin-right: 50px;
 }
 
-.profile{
+.profile {
     display: flex;
     border-radius: 50%;
     height: 2cm;
@@ -115,20 +115,24 @@
 .form {
     display: flex;
     flex-direction: column;
+    width: 50%;
 }
 
 .input {
-    border: 2px solid #ccc;
-    border-radius: 5px;
+    border: none;
     outline: none;
-    padding: 10px;
-    margin: 5px;
-    background-color: transparent;
-    color: white;
+    border-radius: 15px;
+    padding: 1em;
+    background-color: #ccc;
+    box-shadow: inset 2px 5px 10px rgba(0, 0, 0, 0.3);
+    transition: 300ms ease-in-out;
+}
 
-    &:focus {
-        border: 2px solid #7a15b4;
-    }
+.input:focus {
+    background-color: white;
+    transform: scale(1.05);
+    box-shadow: 13px 13px 100px #969696,
+        -13px -13px 100px #ffffff;
 }
 
 .select {
@@ -145,26 +149,99 @@
     }
 }
 
+.uploader {
+    display: flex;
+    gap: 50px;
+    margin: 15px;
+}
+
+.formm {
+    background-color: #fff;
+    box-shadow: 0 10px 60px rgb(218, 229, 255);
+    border: 1px solid rgb(159, 159, 160);
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.125rem;
+    width: 30%;
+    height: 100%;
+  }
+
+.formTitle {
+    color: #000000;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.formParagraph {
+    font-size: 0.9375rem;
+    color: rgb(105, 105, 105);
+}
+
+.dropContainer {
+    background-color: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 2px dashed rgb(171, 202, 255);
+    color: #444;
+    cursor: pointer;
+    transition: background .2s ease-in-out, border .2s ease-in-out;
+    width: 80%;
+}
+
+.dropContainer:hover {
+    background: rgba(0, 140, 255, 0.164);
+    border-color: rgba(17, 17, 17, 0.616);
+}
+
+.dropContainer:hover .drop-title {
+    color: #222;
+}
+
+.fileInput {
+    width: 100%;
+    height: 100%;
+    color: #444;
+    padding: 2px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid rgba(8, 8, 8, 0.288);
+}
+
+.fileInput::file-selector-button {
+    border: none;
+    background: #084cdf;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s ease-in-out;
+}
+
+.fileInput::file-selector-button:hover {
+    background: #0d45a5;
+}
+
 .option {
     background-color: #7a15b4;
 }
 
-.label {
-    margin-bottom: 5px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1rem;
-}
-
 .button {
     cursor: pointer;
-    margin-top: 5px;
+    margin-top: 25px;
     border-radius: 5px;
     color: white;
     background-color: #7a15b4;
     height: 1cm;
 }
 
-.errrooor{
+.errrooor {
     color: red;
     font-size: 1rem;
 }

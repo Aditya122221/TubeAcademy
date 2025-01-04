@@ -112,21 +112,19 @@ const LogIn = () => {
 
                         <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Password" required className={L.passwordInput} value={password} />
 
-                        <div className={L.roles}>
-                            <p className={L.para}>
-                                <input type="radio" id="user" name="role" value="admin" onChange={(e) => setRole(e.target.value)} />
-                                <label className={L.roleLabel} htmlFor="role">Admin</label>
-                            </p>
-
-                            <p className={L.para}>
-                                <input type="radio" id="user" name="role" value="Teacher" onChange={(e) => setRole(e.target.value)} />
-                                <label className={L.roleLabel} htmlFor="role">Teacher</label>
-                            </p>
-
-                            <p className={L.para}>
-                                <input type="radio" id="user" name="role" value="Student" onChange={(e) => setRole(e.target.value)} />
-                                <label className={L.roleLabel} htmlFor="role">Student</label>
-                            </p>
+                        <div className={L.radioInput}>
+                            <label className={L.label}>
+                                <input value="admin" name="role" className={L.value1} type="radio" onChange={(e) => setRole(e.target.value)} />
+                                <span className={L.text}>Admin</span>
+                            </label>
+                            <label className={L.label}>
+                                <input value="Teacher" name="role" className={L.value1} type="radio" onChange={(e) => setRole(e.target.value)} />
+                                <span className={L.text}>Teacher</span>
+                            </label>
+                            <label className={L.label}>
+                                <input value="Student" name="role" className={L.value1} type="radio" onChange={(e)=>setRole(e.target.value)} />
+                                <span className={L.text}>Student</span>
+                            </label>
                         </div>
 
                         <button onClick={handleSubmit} className={L.loginButton} disabled={settingUp}>Log In</button>
@@ -142,21 +140,19 @@ const LogIn = () => {
 
                         <input onChange={(e) => setRegis(e.target.value)} type="number" placeholder="Enter your Registration ID" required className={L.phoneNumberInput} />
 
-                        <div className={L.roles}>
-                            <p className={L.para}>
-                                <input type="radio" id="user" name="frole" value="fadmin" onChange={(e) => setfRole(e.target.value)} />
-                                <label className={L.roleLabel} htmlFor="frole">Admin</label>
-                            </p>
-
-                            <p className={L.para}>
-                                <input type="radio" id="user" name="frole" value="fTeacher" onChange={(e) => setfRole(e.target.value)} />
-                                <label className={L.roleLabel} htmlFor="frole">Teacher</label>
-                            </p>
-
-                            <p className={L.para}>
-                                <input type="radio" id="user" name="frole" value="fStudent" onChange={(e) => setfRole(e.target.value)} />
-                                <label className={L.roleLabel} htmlFor="frole">Student</label>
-                            </p>
+                        <div className={L.radioInput}>
+                            <label className={L.label}>
+                                <input value="admin" name="frole" className={L.value1} type="radio" onChange={(e) => setfRole(e.target.value)} />
+                                <span className={L.text}>Admin</span>
+                            </label>
+                            <label className={L.label}>
+                                <input value="Teacher" name="frole" className={L.value1} type="radio" onChange={(e) => setfRole(e.target.value)} />
+                                <span className={L.text}>Teacher</span>
+                            </label>
+                            <label className={L.label}>
+                                <input value="Student" name="frole" className={L.value1} type="radio" onChange={(e)=>setfRole(e.target.value)} />
+                                <span className={L.text}>Student</span>
+                            </label>
                         </div>
 
                         <button onClick={handleForgot} className={L.loginButton}>Next</button>

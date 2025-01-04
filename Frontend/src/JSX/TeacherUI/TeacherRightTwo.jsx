@@ -9,8 +9,6 @@ export default function TeacherRightTwo() {
     const [video, setVideo] = useState([])
 
     const [titleError, setTitleError] = useState("")
-    const [thumbnailError, setThumbnailError] = useState("")
-    const [videoError, setVideoError] = useState("")
 
     const [upload, setUpload] = useState({
         VTitle: "",
@@ -60,18 +58,16 @@ export default function TeacherRightTwo() {
         }
 
         if (!fileTypeOne.includes(thumbnail.name.split('.').pop().toLowerCase())) {
-            setThumbnailError("Invalid Image type. Upload only jpeg, jpg or png")
+            alert("Invalid Image type. Upload only jpeg, jpg or png")
             return false
         }
 
         if (!fileTypeTwo.includes(video.name.split('.').pop().toLowerCase())) {
-            setVideoError("Invalid Video type. Upload only mp4, mkv or avi")
+            alert("Invalid Video type. Upload only mp4, mkv or avi")
             return false
         }
 
         setTitleError("")
-        setThumbnailError("")
-        setVideoError("")
         return true;
 
     }
@@ -100,14 +96,22 @@ export default function TeacherRightTwo() {
                         <option className={TP.option} value="XI">XI</option>
                         <option className={TP.option} value="XII">XII</option>
                     </select>
+                    <div className={TP.uploader}>
+                        <div className={TP.formm}>
+                            <span className={TP.formTitle}>Upload Thumbnail</span>
+                            <label htmlFor="file-input" className={TP.dropContainer}>
+                                <input type="file" required="" className={TP.fileInput} onChange={(e)=>setThumbnail(e.target.files[0])} name="thumbnail" />
+                            </label>
+                        </div>
 
-                    <label className={TP.label}>Submit Thumbnail</label>
-                    <span className={TP.errrooor}>{thumbnailError}</span>
-                    <input className={TP.file} type="file" required name="thumbnail" onChange={(e) => setThumbnail(e.target.files[0])} />
 
-                    <label className={TP.label}>Submit Video</label>
-                    <span className={TP.errrooor}>{videoError}</span>
-                    <input className={TP.file} type="file" name="video" onChange={(e) => setVideo(e.target.files[0])} required />
+                        <div className={TP.formm}>
+                            <span className={TP.formTitle}>Upload Video</span>
+                            <label htmlFor="file-input" className={TP.dropContainer}>
+                                <input type="file" required="" className={TP.fileInput} onChange={(e)=>setVideo(e.target.files[0])} name="video" />
+                            </label>
+                        </div>
+                    </div>
 
                     <button className={TP.button} type="submit">Upload Video</button>
                 </form>
