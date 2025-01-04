@@ -18,15 +18,18 @@ const uploadVideoSchema = new mongoose.Schema(
         forClass: {
             type: String
         },
+        teacherName: {
+            type: String
+        },
         duration: {
             type: Number
+        },
+        video: {
+            type: String
         },
         views: {
             type: Number,
             default: 0
-        },
-        video: {
-            type: String
         },
     },
     {

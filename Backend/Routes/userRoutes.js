@@ -334,19 +334,22 @@ router.post('/api/uploadVideo', upload.fields([
         const thumbnailStored = await uploadOnCloudinary(thumbnailPath)
         const videoStored = await uploadOnCloudinary(videoPath)
 
+        const searchUser = await teacherUserData.findOne({ Registration_ID })
+        const teacherName = searchUser?.fName + " " + searchUser?.lName
+
         const newVideo = new uploadVideo({
             Registration_ID: Registration_ID,
             thumbnail: thumbnailStored?.secure_url,
             title: VTitle,
             subjectName: SubjectName,
             forClass: classIn,
-            duration: thumbnailPath?.duration,
+            teacherName: teacherName,
+            duration: videoStored?.duration,
             video: videoStored?.secure_url
         });
 
         const isSave = await newVideo.save();
-
-        const searchUser = await teacherUserData.findOne({ Registration_ID })
+        
         searchUser.videosOwn.push(isSave._id)
         await searchUser.save()
 
