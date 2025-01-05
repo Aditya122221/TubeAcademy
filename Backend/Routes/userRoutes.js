@@ -349,12 +349,12 @@ router.post('/api/uploadVideo', upload.fields([
         });
 
         const isSave = await newVideo.save();
-        
+
         searchUser.videosOwn.push(isSave._id)
         await searchUser.save()
 
         if (isSave) {
-            return res.status(201).json({ status: true, message: "Video Uploaded" });
+            return res.status(201).json({ status: true, message: newVideo.title + " uploaded successfully" });
         } else {
             return res.status(404).json({ status: false, message: "Video not uploaded" });
         }
@@ -363,6 +363,61 @@ router.post('/api/uploadVideo', upload.fields([
         return res.status(500).json({ status: false, message: "Something went wrong", error: err.message });
     }
 });
+
+//--------------------------------Videos Fetching------------------------------------
+
+router.post('/api/classNine', async (req, res) => {
+    try {
+        const classNineVideos = await uploadVideo.find({ forClass: "IX" });
+        return res.status(201).json({ status: true, data: classNineVideos });
+
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong while fetching Class Nine Videos", error: err.message });
+    }
+})
+
+router.post('/api/classTen', async (req, res) => {
+    try {
+        const classTenVideos = await uploadVideo.find({ forClass: "X" });
+        return res.status(201).json({ status: true, data: classTenVideos });
+
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong while fetching Class Ten Videos", error: err.message });
+    }
+})
+
+router.post('/api/classEleven', async (req, res) => {
+    try {
+        const classElevenVideos = await uploadVideo.find({ forClass: "XI" });
+        return res.status(201).json({ status: true, data: classElevenVideos });
+
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong while fetching Class Eleven Videos", error: err.message });
+    }
+})
+
+router.post('/api/classTwelve', async (req, res) => {
+    try {
+        const classTwelveVideos = await uploadVideo.find({ forClass: "XII" });
+        return res.status(201).json({ status: true, data: classTwelveVideos });
+
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong while fetching Class Twelve Videos", error: err.message });
+    }
+})
+
+//--------------------------------Image Slider---------------------------------------
+
+router.post('/api/slider', async (req, res) => {
+    try {
+        const sliderImages = await uploadVideo.find();
+        const selectedImages = sliderImages.slice(0, 4);
+        console.log(selectedImages.thumbnail);
+        return res.status(201).json({ status: true, data: selectedImages });
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong while fetching Slider Images from Backend", error: err.message });
+    }
+})
 
 //---------------------------------Exporting-----------------------------------------
 

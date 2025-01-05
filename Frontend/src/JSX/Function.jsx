@@ -1,6 +1,5 @@
 import React from "react";
 import Heading from "./Heading";
-import Classes from "./Classes";
 import ClassNine from "../Component/ClassNine";
 
 
