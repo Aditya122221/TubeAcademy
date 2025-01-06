@@ -22,7 +22,7 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 app.use(cookieParser())
 
-app.use('/', userRoutes)
+app.use('/', userRoutes);
 
 mongoose.connect('mongodb://localhost:27017/TubeAcademy')
   .then(() => console.log('Connected to MongoDB...'))
