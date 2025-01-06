@@ -2,6 +2,7 @@ import React from "react";
 import F from '../CSS/Filter.module.css';
 
 export default function Filter({ filterationMethod, item, filterItem, setData, vid }) {
+    console.log(vid, "From Filter method")
     return (
         <div className={F.titleAndFilteration}>
             <div className={F.title}>{filterationMethod}</div>

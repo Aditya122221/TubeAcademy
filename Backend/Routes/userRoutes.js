@@ -412,7 +412,7 @@ router.post('/api/slider', async (req, res) => {
     try {
         const sliderImages = await uploadVideo.find();
         const selectedImages = sliderImages.slice(0, 4);
-        console.log(selectedImages.thumbnail);
+        // console.log(selectedImages[0].thumbnail);
         return res.status(201).json({ status: true, data: selectedImages });
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong while fetching Slider Images from Backend", error: err.message });

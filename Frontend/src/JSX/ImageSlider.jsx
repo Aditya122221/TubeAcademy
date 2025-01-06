@@ -1,8 +1,8 @@
 import React, { useState, useRef } from "react";
 import S from '../CSS/Slider.module.css'
-import { Slider } from "../Component/HomePage";
+// import { Slider } from "../Component/HomePage";
 
-export default function ImageSlider() {
+export default function ImageSlider({Slider}) {
     console.log(Slider, "From inside the ImageSlider");
     const [currentSlide, setCurrentSlide] = useState(0)
     const animationRef = useRef()
