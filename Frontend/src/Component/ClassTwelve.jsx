@@ -17,6 +17,9 @@ export default function ClassTwelve() {
         }).catch((err) => {
             console.log("All Class twelve Videos fetching error from Frontend", err);
         })
+        if (localStorage.getItem('token') === null) {
+            window.location.href = '/gotLost';
+        }
     }, [])
 
     const [XIIData, setXIIData] = useState(twelveVideos)

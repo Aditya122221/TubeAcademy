@@ -21,6 +21,10 @@ function App() {
   const navbarRouter = createBrowserRouter([
     {
       path: "/",
+      element: <LogIn />
+    },
+    {
+      path: "/home",
       element: <HomePage />
     },
     {
@@ -47,10 +51,6 @@ function App() {
     {
       path: '/classtwelve',
       element: <ClassTwelve />
-    },
-    {
-      path: '/login',
-      element: <LogIn />
     },
     {
       path: '/signup',

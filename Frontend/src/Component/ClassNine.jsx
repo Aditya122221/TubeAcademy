@@ -36,6 +36,10 @@ export default function ClassNine() {
         }).catch((err) => {
             console.log("All Class Nine Videos fetching error from Frontend", err);
         })
+
+        if (localStorage.getItem('token') === null) {
+            window.location.href = '/gotLost';
+        }
     }, [])
 
     const [IXData, setIXData] = useState(nineVideos)

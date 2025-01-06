@@ -1,13 +1,18 @@
-import React from "react";
+import {useEffect} from "react";
 import AI from '../CSS/AskAI.module.css';
 import Logo from '../Images/Logo.png'
 import { Link } from 'react-router-dom'
 import DisBot from '../Images/DismantledBot.png'
 
 export default function AboutPage() {
+    useEffect(() => {
+        if (localStorage.getItem('token') === null) {
+            window.location.href = '/gotLost';
+        }
+    })
     return (
         <div className={AI.AboutMain}>
-            <Link to='/'>
+            <Link to='/home'>
                 <img src={Logo} alt="Logo" className={AI.logo} />
             </Link>
             <div className={AI.a}>

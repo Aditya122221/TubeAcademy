@@ -40,7 +40,7 @@ export default function StudentProfile() {
             <div className={SP.left}>
                 <div className={`${SP.left1} ${isAccount ? SP.selectedOne : ''}`}>Account</div>
                 <div onClick={handleLogOut} className={`${SP.left1} ${SP.left2}`}>Log Out</div>
-                <Link to='/' className={`${SP.left1} ${SP.left3}`}>Home</Link>
+                <Link to='/home' className={`${SP.left1} ${SP.left3}`}>Home</Link>
             </div>
             <div className={SP.right}>
                 <div className={SP.aright}>

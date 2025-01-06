@@ -57,7 +57,7 @@ const LogIn = () => {
                     localStorage.setItem('token', JSON.stringify(res.data.token));
                     localStorage.setItem('role', JSON.stringify(res.data.roleAction))
                     EuserRef.current.style.display = "none"
-                    Navigate('/');
+                    Navigate('/home');
                 })
                 .catch((err) => {
                     setSettingUp(false);
@@ -82,7 +82,7 @@ const LogIn = () => {
     const handleForgot = (e) => {
         e.preventDefault()
         const payload = { fpnumber: fpnumber, regis: regis, frole: frole }
-        axios.post('http://localhost:3000/usercheck', payload).then((res) => {
+        axios.post('/api/usercheck', payload).then((res) => {
             if (res.status) {
                 Navigate('/forgotpas', { state: res.data.data })
             }

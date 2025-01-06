@@ -81,7 +81,7 @@ export default function AdminProfile() {
 
                 <div onClick={handleLogOut} className={`${AP.left1} ${AP.left2}`}>Log Out</div>
 
-                <Link to='/' className={`${AP.left1} ${AP.left3}`}>Home</Link>
+                <Link to='/home' className={`${AP.left1} ${AP.left3}`}>Home</Link>
             </div>
 
             {/* -----------------------Account Details--------------------------- */}

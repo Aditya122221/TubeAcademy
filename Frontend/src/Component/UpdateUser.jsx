@@ -83,7 +83,7 @@ export default function UpdateUser() {
                             </span>
                             <div className={U.left11}>Edit</div>
                         </div>
-                        <Link to='/' className={U.left12}>
+                        <Link to='/home' className={U.left12}>
                             <div className={U.left13}>Home</div>
                         </Link>
                     </div>

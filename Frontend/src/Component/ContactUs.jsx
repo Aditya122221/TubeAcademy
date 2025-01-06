@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Navbar from "../JSX/Navbar";
 import C from '../CSS/ContactUs.module.css'
 import axios from 'axios';
@@ -73,6 +73,12 @@ export default function Contact() {
         if (str.length < 3) return false
         return true
     }
+
+    useEffect(() => {
+        if (localStorage.getItem('token') === null) {
+            window.location.href = '/gotLost';
+        }
+    })
     return (
         <>
             <Navbar />

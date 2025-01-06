@@ -17,6 +17,10 @@ export default function ClassTen() {
         }).catch((err) => {
             console.log("All Class Ten Videos fetching error from Frontend", err);
         })
+
+        if (localStorage.getItem('token') === null) {
+            window.location.href = '/gotLost';
+        }
     }, [])
 
 

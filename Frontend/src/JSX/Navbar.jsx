@@ -1,10 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import N from '../CSS/Navbar.module.css';
 import { Link } from "react-router-dom";
 import Logo from '../Images/logo.png';
 
 export default function Navbar() {
-    const tk = localStorage.getItem('token')
     const menuRef = useRef(null)
     const handleShowMenu = () => {
         if (menuRef.current.style.display === "none") {
@@ -14,38 +13,20 @@ export default function Navbar() {
             menuRef.current.style.display = "none"
         }
     }
-    if (tk === null) {
-        return (
-            <div className={N.navbar}>
-                <Link to='/'><img src={Logo} alt="Logo" className={N.logo} /></Link>
-                <span onClick={handleShowMenu} className={`material-symbols-outlined ${N.ham}`}>
-                    menu
-                </span>
-                <div ref={menuRef} className={N.menu}>
-                    <Link to='/' className={N.s}>Home</Link>
-                    <Link to='/askai' className={N.s}>Ask AI</Link>
-                    <Link to='/contact' className={N.s}>Contact</Link>
-                    <Link to='/login' className={N.s}>Login</Link>
-                </div>
+    return (
+        <div className={N.navbar}>
+            <Link to='/home'><img src={Logo} alt="Logo" className={N.logo} /></Link>
+            <span onClick={handleShowMenu} className={`material-symbols-outlined ${N.ham}`}>
+                menu
+            </span>
+            <div ref={menuRef} className={N.menu}>
+                <Link to='/home' className={N.s}>Home</Link>
+                <Link to='/askai' className={N.s}>Ask AI</Link>
+                <Link to='/contact' className={N.s}>Contact</Link>
+                <Link to='/profile' className={N.s}>Profile</Link>
             </div>
-        );
-    }
-    else {
-        return (
-            <div className={N.navbar}>
-                <Link to='/'><img src={Logo} alt="Logo" className={N.logo} /></Link>
-                <span onClick={handleShowMenu} className={`material-symbols-outlined ${N.ham}`}>
-                    menu
-                </span>
-                <div ref={menuRef} className={N.menu}>
-                    <Link to='/' className={N.s}>Home</Link>
-                    <Link to='/askai' className={N.s}>Ask AI</Link>
-                    <Link to='/contact' className={N.s}>Contact</Link>
-                    <Link to='/profile' className={N.s}>Profile</Link>
-                </div>
-            </div>
-        )
-    }
+        </div>
+    )
 }
 
 /* <div className="search-container">

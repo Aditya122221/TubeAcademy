@@ -40,7 +40,7 @@ export default function TeacherProfile() {
 
                 <div onClick={handleLogOut} className={`${TP.left1} ${TP.left2}`}>Log Out</div>
 
-                <Link to='/' className={`${TP.left1} ${TP.left3}`}>Home</Link>
+                <Link to='/home' className={`${TP.left1} ${TP.left3}`}>Home</Link>
             </div>
             <div className={TP.right}>
                 <div ref={arightRef} className={TP.aright}>
