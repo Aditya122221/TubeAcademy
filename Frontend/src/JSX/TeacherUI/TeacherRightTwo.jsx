@@ -32,7 +32,6 @@ export default function TeacherRightTwo() {
             payload.append("video", video);
 
             axios.post("/api/uploadVideo", payload, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
-                console.log("This part has no error", res.data);
                 succRef.current.style.display = "flex";
                 unsuccRef.current.style.display = "none";
             }).catch((err) => {

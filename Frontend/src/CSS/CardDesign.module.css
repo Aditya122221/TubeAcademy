@@ -69,6 +69,7 @@
 .actionButton{
     display: flex;
     justify-content: space-between;
+    margin-top: 25px;
 }
 
 .uiBtnEdit {
@@ -89,11 +90,9 @@
   }
   .uiBtnEdit:hover {
     color: rgb(247, 247, 247);
-    background-color: rgb(25, 43, 202);
-    border-color: rgb(25, 43, 202);
+    background-color: #09f3ef;
+    border-color: #09f3ef;
     text-shadow: 0 0 50px white, 0 0 20px white, 0 0 15px white;
-    box-shadow: 0 0 50px rgb(25, 43, 202), 0 0 30px rgb(25, 43, 202),
-      0 0 60px rgb(25, 43, 202), 0 0 120px rgb(25, 43, 202);
     font-size: 20px;
     letter-spacing: 3px;
   }
@@ -122,8 +121,6 @@
     background-color: rgb(202, 25, 25);
     border-color: rgb(202, 25, 25);
     text-shadow: 0 0 50px white, 0 0 20px white, 0 0 15px white;
-    box-shadow: 0 0 50px rgb(202, 25, 25), 0 0 30px rgb(202, 25, 25),
-      0 0 60px rgb(202, 25, 25), 0 0 120px rgb(202, 25, 25);
     font-size: 20px;
     letter-spacing: 3px;
   }

@@ -1,5 +1,6 @@
 import React from "react";
 import HomePage from './Component/HomePage';
+import VideoEdit from "./Component/VideoEdit";
 import AskAI from './Component/AskAI';
 import Contact from "./Component/ContactUs";
 import LogIn from "./Component/LogIn";
@@ -13,7 +14,6 @@ import Profile from "./Component/Profile";
 import PasswordUpdate from "./Component/PasswordUpdate";
 import UpdateUser from './Component/UpdateUser';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
@@ -26,6 +26,10 @@ function App() {
     {
       path: "/home",
       element: <HomePage />
+    },
+    {
+      path: '/editvideo',
+      element: <VideoEdit />
     },
     {
       path: "/askai",

@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react"
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import CD from '../CSS/CardDesign.module.css'
 import axios from "axios"
 
 export default function TeacherHomePage() {
     const Navigate = useNavigate()
     const [allVideo, setAllVideo] = useState([])
+    const [id, setId] = useState()
     const token = JSON.parse(localStorage.getItem('token'))
     const fetchData = () => {
         const header = {
@@ -25,16 +26,15 @@ export default function TeacherHomePage() {
     }, [])
 
     const deleteVideo = () => {
-        
-        axios.post("/api/deletevideo", id).then((res) => {
+        axios.post("/api/deletevideo").then((res) => {
             Navigate('/home')
+            console.log("Naviagated to home page")
         }).catch((err) => {
             console.log("Error while deleting the video through frontend", err)
         })
     }
     return (
         <div className={CD.TeacherHomePagee}>
-            <h2 className={CD.h2}>My Vidoes</h2>
             <div className={CD.TeacherHomePage}>
                 {allVideo.map((video) => (
                     <div className={`${CD.cards} ${CD.THP}`} key={video._id}>
@@ -45,7 +45,7 @@ export default function TeacherHomePage() {
                             <div className={CD.classIn}>{video.forClass}</div>
                         </div>
                         <div className={CD.actionButton}>
-                            <button className={CD.uiBtnEdit}>Edit</button>
+                            <button onClick={() => Navigate('/editvideo', { state: video })} className={CD.uiBtnEdit}>Edit</button>
                             <button onClick={deleteVideo} className={CD.uiBtnDelete}>Delete</button>
                         </div>
                     </div>

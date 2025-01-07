@@ -442,8 +442,10 @@ router.post('/api/allvideo', async (req, res) => {
 
 router.post('/api/deletevideo', async (req, res) => {
     try {
-        const { id } = req.body;
-        const video = await uploadVideo.findOneAndDelete(id);
+        const { _id } = req.body;
+        const video = await uploadVideo.findOne(_id);
+        console.log(_id)
+        console.log(video)
         if (video) {
             return res.status(201).json({ status: true, message: "Video Deleted Successfully" })
         } else {
@@ -452,6 +454,46 @@ router.post('/api/deletevideo', async (req, res) => {
     } catch (err) {
         return res.status(500).json({ status: false, message: "Something went wrong while deleting the video from Backend" })
     }
+})
+
+//-------------------------------Edit Videos-----------------------------------------
+
+router.post("/api/editvideo", upload.fields([
+    { name: 'thumbnail', maxCount: 1 },
+    { name: 'video', maxCount: 1 },
+]), async (req, res) => {
+    try {
+        const { id, title, subjectName, classIn } = req.body;
+        const thumbnail = req.files?.thumbnail?.[0]
+        const video = req.files?.video?.[0]
+
+        const thumbnailPath = thumbnail?.path;
+        const videoPath = video?.path;
+
+        const thumbnailStored = await uploadOnCloudinary(thumbnailPath)
+        const videoStored = await uploadOnCloudinary(videoPath)
+
+        const updateData = await updateModel.updateOne(
+            { _id: id },
+            {
+                $set: {
+                    title: title,
+                    subjectName: subjectName,
+                    classIn: classIn,
+                    thumbnail: thumbnailStored?.secure_url,
+                    video: videoStored?.secure_url
+                },
+            }
+        );
+
+        if (updateData) {
+            return res.status(201).json({ status: true, message: "Video Updated Successfully" })
+        } else {
+            return res.status(404).json({ status: false, message: "Video Not Found" })
+        }
+    } catch (err) {
+    return res.status(500).json({ status: false, message: "Something went wrong while updating from Backend" })
+}
 })
 
 //---------------------------------Exporting-----------------------------------------
