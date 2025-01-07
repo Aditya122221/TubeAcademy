@@ -475,13 +475,6 @@ router.post("/api/editvideo", upload.fields([
         const { Video_ID, title, subjectName, forClass } = req.body;
         const thumbnail = req.files?.thumbnail?.[0]
         const video = req.files?.video?.[0]
-        console.log(Video_ID)
-        console.log(title)
-        console.log(subjectName)
-        console.log(forClass)
-        console.log(thumbnail)
-        console.log(video)
-        console.log(req.body)
 
         const thumbnailPath = thumbnail?.path;
         const videoPath = video?.path;
@@ -501,8 +494,6 @@ router.post("/api/editvideo", upload.fields([
                 },
             }
         );
-
-        console.log(updateData)
 
         if (updateData) {
             console.log("Video Updated")

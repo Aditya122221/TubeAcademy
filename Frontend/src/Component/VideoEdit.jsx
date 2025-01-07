@@ -32,12 +32,6 @@ export default function VideoEdit() {
         e.preventDefault()
         const val = validateForm()
         if (val) {
-            console.log(Video_Id)
-            console.log(VTitle)
-            console.log(SubjectName)
-            console.log(ClassIn)
-            console.log(thumbnail)
-            console.log(video)
             const formData = new FormData()
             formData.append('Video_ID', Video_Id)
             formData.append('title', VTitle)
