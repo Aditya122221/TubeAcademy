@@ -6,7 +6,6 @@ import axios from "axios"
 export default function TeacherHomePage() {
     const Navigate = useNavigate()
     const [allVideo, setAllVideo] = useState([])
-    const [id, setId] = useState()
     const token = JSON.parse(localStorage.getItem('token'))
     const fetchData = () => {
         const header = {
@@ -25,19 +24,20 @@ export default function TeacherHomePage() {
         fetchData()
     }, [])
 
-    const deleteVideo = () => {
-        axios.post("/api/deletevideo").then((res) => {
+    const deleteVideo = (e, Video_ID) => {
+        e.preventDefault()
+        axios.post("/api/deletevideo", {Video_ID}).then((res) => {
             Navigate('/home')
-            console.log("Naviagated to home page")
+            alert("Video deleted")
         }).catch((err) => {
-            console.log("Error while deleting the video through frontend", err)
+            console.log("Error while deleting the video from frontend", err)
         })
     }
     return (
         <div className={CD.TeacherHomePagee}>
             <div className={CD.TeacherHomePage}>
                 {allVideo.map((video) => (
-                    <div className={`${CD.cards} ${CD.THP}`} key={video._id}>
+                    <div className={`${CD.cards} ${CD.THP}`} key={video.Video_ID}>
                         <img className={CD.thumbnail} src={video.thumbnail} alt="Thumbnail" />
                         <h3 className={CD.title}>{video.title}</h3>
                         <div className={CD.details}>
@@ -46,7 +46,7 @@ export default function TeacherHomePage() {
                         </div>
                         <div className={CD.actionButton}>
                             <button onClick={() => Navigate('/editvideo', { state: video })} className={CD.uiBtnEdit}>Edit</button>
-                            <button onClick={deleteVideo} className={CD.uiBtnDelete}>Delete</button>
+                            <button onClick={(e)=>deleteVideo(e, video.Video_ID)} className={CD.uiBtnDelete}>Delete</button>
                         </div>
                     </div>
                 ))}

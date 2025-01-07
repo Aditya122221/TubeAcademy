@@ -337,7 +337,16 @@ router.post('/api/uploadVideo', upload.fields([
         const searchUser = await teacherUserData.findOne({ Registration_ID })
         const teacherName = searchUser?.fName + " " + searchUser?.lName
 
+        let Video_ID = Math.floor(Math.random() * (999999 - 100000)) + 100000
+        const eReg = await uploadVideo.findOne({ Video_ID });
+
+        while (Video_ID === eReg) {
+            Video_ID = Math.floor(Math.random() * (999999 - 100000)) + 100000
+            eReg = await studentUserData.findOne({ Video_ID });
+        }
+
         const newVideo = new uploadVideo({
+            Video_ID: Video_ID,
             Registration_ID: Registration_ID,
             thumbnail: thumbnailStored?.secure_url,
             title: VTitle,
@@ -440,19 +449,19 @@ router.post('/api/allvideo', async (req, res) => {
 
 //---------------------------------Delete Videos-------------------------------------
 
-router.post('/api/deletevideo', async (req, res) => {
+router.post("/api/deletevideo", async (req, res) => {
     try {
-        const { _id } = req.body;
-        const video = await uploadVideo.findOne(_id);
-        console.log(_id)
-        console.log(video)
-        if (video) {
+        const { Video_ID } = req.body
+        const video = await uploadVideo.findOne({ Video_ID: Video_ID })
+        const deleteVideo = await uploadVideo.deleteOne({ Video_ID: Video_ID });
+        if (deleteVideo) {
+            console.log("Video Deleted")
             return res.status(201).json({ status: true, message: "Video Deleted Successfully" })
         } else {
             return res.status(404).json({ status: false, message: "Video Not Found" })
         }
     } catch (err) {
-        return res.status(500).json({ status: false, message: "Something went wrong while deleting the video from Backend" })
+        return res.status(500).json({ status: false, message: "Something went wrong while deleting video from backend" })
     }
 })
 
@@ -463,9 +472,16 @@ router.post("/api/editvideo", upload.fields([
     { name: 'video', maxCount: 1 },
 ]), async (req, res) => {
     try {
-        const { id, title, subjectName, classIn } = req.body;
+        const { Video_ID, title, subjectName, forClass } = req.body;
         const thumbnail = req.files?.thumbnail?.[0]
         const video = req.files?.video?.[0]
+        console.log(Video_ID)
+        console.log(title)
+        console.log(subjectName)
+        console.log(forClass)
+        console.log(thumbnail)
+        console.log(video)
+        console.log(req.body)
 
         const thumbnailPath = thumbnail?.path;
         const videoPath = video?.path;
@@ -473,27 +489,30 @@ router.post("/api/editvideo", upload.fields([
         const thumbnailStored = await uploadOnCloudinary(thumbnailPath)
         const videoStored = await uploadOnCloudinary(videoPath)
 
-        const updateData = await updateModel.updateOne(
-            { _id: id },
+        const updateData = await updateModel.findOne(
+            { Video_ID: Video_ID },
             {
                 $set: {
                     title: title,
                     subjectName: subjectName,
-                    classIn: classIn,
-                    thumbnail: thumbnailStored?.secure_url,
-                    video: videoStored?.secure_url
+                    forClass: forClass,
+                    thumbnail: thumbnailStored?.secure_url || "",
+                    video: videoStored?.secure_url || ""
                 },
             }
         );
 
+        console.log(updateData)
+
         if (updateData) {
+            console.log("Video Updated")
             return res.status(201).json({ status: true, message: "Video Updated Successfully" })
         } else {
             return res.status(404).json({ status: false, message: "Video Not Found" })
         }
     } catch (err) {
-    return res.status(500).json({ status: false, message: "Something went wrong while updating from Backend" })
-}
+        return res.status(500).json({ status: false, message: "Something went wrong while updating from Backend" })
+    }
 })
 
 //---------------------------------Exporting-----------------------------------------

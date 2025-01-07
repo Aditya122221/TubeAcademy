@@ -7,7 +7,7 @@ export default function VideoEdit() {
     const location = useLocation()
     const Navigate = useNavigate()
 
-    const [id, setId] = useState()
+    const [Video_Id, setId] = useState()
     const [VTitle, setVTitle] = useState()
     const [SubjectName, setSubjectName] = useState()
     const [ClassIn, setClassIn] = useState()
@@ -18,29 +18,35 @@ export default function VideoEdit() {
     const unsuccRef = useRef()
 
     useEffect(() => {
-        setId(location.state._id)
+        console.log(location)
+        setId(location.state.Video_ID)
         setVTitle(location.state.title)
         setSubjectName(location.state.subjectName)
         setClassIn(location.state.forClass)
-        setThumbnail(location.state.thumbnail)
-        setVideo(location.state.video)
         if (localStorage.getItem('token') === null) {
             window.location.href = '/gotLost';
         }
     }, [])
 
-    const handleEdit = () => {
+    const handleEdit = (e) => {
+        e.preventDefault()
         const val = validateForm()
         if (val) {
+            console.log(Video_Id)
+            console.log(VTitle)
+            console.log(SubjectName)
+            console.log(ClassIn)
+            console.log(thumbnail)
+            console.log(video)
             const formData = new FormData()
-            formData.append.append('id', id)
+            formData.append('Video_ID', Video_Id)
             formData.append('title', VTitle)
             formData.append('subjectName', SubjectName)
             formData.append('forClass', ClassIn)
             formData.append('thumbnail', thumbnail)
             formData.append('video', video)
 
-            axios.post('/api/updatevideo', formData).then((res) => {
+            axios.post('/api/editvideo', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
                 Navigate('/home')
             }).catch((err) => {
                 console.log("Error while updating data from frontend", err)
@@ -57,15 +63,20 @@ export default function VideoEdit() {
             return false
         }
 
-        if (!fileTypeOne.includes(thumbnail.name.split('.').pop().toLowerCase())) {
-            alert("Invalid Image type. Upload only jpeg, jpg or png")
-            return false
-        }
+        // if (thumbnail.name !== null) {
+        //     if (!fileTypeOne.includes(thumbnail.name.split('.').pop().toLowerCase())) {
+        //         alert("Invalid Image type. Upload only jpeg, jpg or png")
+        //         return false
+        //     }
 
-        if (!fileTypeTwo.includes(video.name.split('.').pop().toLowerCase())) {
-            alert("Invalid Video type. Upload only mp4, mkv or avi")
-            return false
-        }
+        // }
+
+        // if (video.name !== null) {
+        //     if (!fileTypeTwo.includes(video.name.split('.').pop().toLowerCase())) {
+        //         alert("Invalid Video type. Upload only mp4, mkv or avi")
+        //         return false
+        //     }
+        // }
 
         setTitleError("")
         return true;
@@ -113,7 +124,7 @@ export default function VideoEdit() {
 
                 <button className={VE.uiBtnUpdate} type="submit">Update Data</button>
                 <button type="button" onClick={() => Navigate('/home')} className={VE.uiBtnCancel}>Cancel</button>
-                <div className={VE.errrr} ref={unsuccRef}>{ titleError}</div>
+                <div className={VE.errrr} ref={unsuccRef}>{titleError}</div>
             </form>
         </div>
     )
