@@ -19,7 +19,7 @@ export default function AboutPage() {
                 <div className={AI.b}>
                     <h2 className={AI.t}>Coming Soon...</h2>
                     <p className={AI.c}>We are working on it. Try our rest of the features with ease</p>
-                    <Link className={AI.d} to='/'>Back to Home</Link>
+                    <Link className={AI.d} to='/home'>Back to Home</Link>
                 </div>
                 <img src={DisBot} className={AI.dis} />
             </div>

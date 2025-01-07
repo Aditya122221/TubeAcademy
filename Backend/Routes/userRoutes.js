@@ -419,6 +419,41 @@ router.post('/api/slider', async (req, res) => {
     }
 })
 
+//--------------------------------Fetch All Video------------------------------------
+
+router.post('/api/allvideo', async (req, res) => {
+    try {
+        const token = req.headers?.authorization?.split(' ')[1];
+        if (!token) return res.status(404).json({ status: false, message: "Access Denied" })
+
+        jwt.verify(token, secretCode, async (err, decode) => {
+            const user = await teacherUserData.findById(decode?.id)
+            if (!user) return res.status(404).json({ status: false, message: "Invalid Token" })
+            const RegID = user.Registration_ID;
+            const allVideos = await uploadVideo.find({ Registration_ID: RegID });
+            return res.status(201).json({ status: true, data: allVideos });
+        })
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong while fetching all videos from Backend" })
+    }
+})
+
+//---------------------------------Delete Videos-------------------------------------
+
+router.post('/api/deletevideo', async (req, res) => {
+    try {
+        const { id } = req.body;
+        const video = await uploadVideo.findOneAndDelete(id);
+        if (video) {
+            return res.status(201).json({ status: true, message: "Video Deleted Successfully" })
+        } else {
+            return res.status(404).json({ status: false, message: "Video Not Found" })
+        }
+    } catch (err) {
+        return res.status(500).json({ status: false, message: "Something went wrong while deleting the video from Backend" })
+    }
+})
+
 //---------------------------------Exporting-----------------------------------------
 
 export default router;

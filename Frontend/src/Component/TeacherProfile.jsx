@@ -7,7 +7,7 @@ import TeacherRightOne from "../JSX/TeacherUI/TeacherRightOne";
 export default function TeacherProfile() {
     const Navigate = useNavigate();
     const [isAccount, setisAccount] = useState(true)
-    const [isUpload, setisUpload] = useState(false);
+    const [isUpload, setisUpload] = useState(false)
 
     const arightRef = useRef();
     const brightRef = useRef()

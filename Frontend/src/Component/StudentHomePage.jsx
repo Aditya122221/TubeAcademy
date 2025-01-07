@@ -1,12 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect} from 'react';
 import { Head } from '../JSX/Function';
 import { ClassArray } from '../JSX/Heading';
-import Navbar from '../JSX/Navbar';
 import Footer from '../JSX/Footer';
 import HE from '../CSS/Home.module.css';
 import B from '../CSS/Boxex.module.css';
-import S from '../CSS/Slider.module.css'
-import ImageSlider from '../JSX/ImageSlider';
+import S from '../CSS/Slider.module.css' //Needed but not used due to some error
+import ImageSlider from '../JSX/ImageSlider'; //Needed but not used due to some error
 import ClassNine from '../JSX/HomePage/ClassNine';
 import ClassTen from '../JSX/HomePage/ClassTen';
 import ClassEleven from '../JSX/HomePage/ClassEleven';
