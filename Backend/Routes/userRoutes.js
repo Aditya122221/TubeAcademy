@@ -489,15 +489,15 @@ router.post("/api/editvideo", upload.fields([
         const thumbnailStored = await uploadOnCloudinary(thumbnailPath)
         const videoStored = await uploadOnCloudinary(videoPath)
 
-        const updateData = await updateModel.findOne(
+        const updateData = await uploadVideo.findOneAndUpdate(
             { Video_ID: Video_ID },
             {
                 $set: {
                     title: title,
                     subjectName: subjectName,
                     forClass: forClass,
-                    thumbnail: thumbnailStored?.secure_url || "",
-                    video: videoStored?.secure_url || ""
+                    thumbnail: thumbnailStored?.secure_url,
+                    video: videoStored?.secure_url
                 },
             }
         );
