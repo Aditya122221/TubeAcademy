@@ -105,8 +105,8 @@ router.post('/api/signup', async (req, res) => {
 router.post('/api/login', async (req, res) => {
     try {
         // Validate required fields
-        const { pNumber, password, role } = req.body;
-        if (!pNumber || !password || !role) {
+        const { Reg_ID, password, role } = req.body;
+        if (!Reg_ID || !password || !role) {
             return res.status(400).json({ status: false, message: "All fields are required" });
         }
 
@@ -117,7 +117,7 @@ router.post('/api/login', async (req, res) => {
         else modelSchema = studentUserData;
 
         // Find user by pNumber
-        const user = await modelSchema.findOne({ pNumber });
+        const user = await modelSchema.findOne({ Registration_ID: Reg_ID });
 
         // Check user existence and password validity
         if (!user || !user.password || !(password === user.password)) {
@@ -212,7 +212,7 @@ router.post('/api/update', upload.single('avatar'), async (req, res) => {
             { pNumber: pNumber },
             {
                 $set: {
-                    avatar: isStored?.secure_url || "",
+                    avatar: isStored?.secure_url,
                     fName: fName,
                     lName: lName,
                     email: uEmail,
@@ -236,7 +236,6 @@ router.post('/api/update', upload.single('avatar'), async (req, res) => {
 router.post('/api/usercheck', async (req, res) => {
     try {
         const { fpnumber, regis, frole } = req.body
-        let r = Number(regis);
 
         let modelSchema;
 
@@ -244,16 +243,19 @@ router.post('/api/usercheck', async (req, res) => {
         else if (frole === "fTeacher") modelSchema = teacherUserData;
         else modelSchema = studentUserData;
 
-        const user = await modelSchema.findOne({ pNumber: fpnumber })
+        const user = await modelSchema.findOne({ 
+            $and: [
+              { Registration_ID: regis }, 
+              { pNumber: fpnumber }
+            ]
+          });
+          
         if (!user) {
             return res.status(404).json({ status: false, message: "User does not exists" })
         }
         else {
-            if (user.Registration_ID !== r) {
-                return res.status(404).json({ status: false, message: "Registration Id is incorrect" })
-            }
             const userData = {
-                fpnumber: user?.pNumber,
+                regis: user?.Registration_ID,
                 frole: user?.role
             }
             return res.status(201).json({ status: true, data: userData })
@@ -267,7 +269,8 @@ router.post('/api/usercheck', async (req, res) => {
 
 router.post('/api/passwordupdate', async (req, res) => {
     try {
-        const { pnumber, newpassword, urole } = req.body
+        const { regis, newpassword, urole } = req.body
+        console.log(req.body)
         // const hashPassword = await bcrypt.hash(newpassword, 10);
 
         let modelSchema;
@@ -276,7 +279,7 @@ router.post('/api/passwordupdate', async (req, res) => {
         else if (urole === "Teacher") modelSchema = teacherUserData;
         else modelSchema = studentUserData;
 
-        const upPas = await modelSchema.updateOne({ pNumber: pnumber }, { $set: { password: newpassword } })
+        const upPas = await modelSchema.updateOne({ Registration_ID: regis }, { $set: { password: newpassword } })
         if (!upPas) return res.status(404).json({ status: false, message: "Password not updated" })
         return res.status(201).json({ status: true, message: "Password Updated" })
 

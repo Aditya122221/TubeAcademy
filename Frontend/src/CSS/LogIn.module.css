@@ -7,351 +7,144 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
 
-.logger {
-    background-color: #cf9138;
+.main {
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
 }
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-    max-width: 1200px;
-    background-color: #cf9138;
-    border-radius: 10px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+.loggerandfor{
+    width: 350px;
+    height: 500px;
     overflow: hidden;
-}
-
-/* Left Section (Social Media Login) */
-.socialLogin {
-    flex: 1;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.looggo {
-    height: 1.5cm;
-    width: 1.5cm;
-    cursor: pointer;
-}
-
-.socialLogin header {
-    margin-bottom: 10px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-}
-
-.socialLogin h3 {
-    margin-bottom: 30px;
-    color: #000;
-    font-size: 20px;
-    text-align: center;
-    font-family: 'Lemon';
-}
-
-.socialLogin button {
-    background-color: #ffffff;
-    border: none;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-}
-
-.socialLogin button:hover {
-    background-color: #f4f4f4;
-}
-
-/* Right Section (Phone Number Login) */
-.loginForm {
-    flex: 1.5;
-    padding: 40px;
-    background-color: #ffffff;
+    background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
     border-radius: 10px;
+    box-shadow: 5px 20px 50px #000;
 }
 
-.loginForm h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    text-align: center;
-    font-family: 'Lemon';
-}
-
-.loginForm p {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #888;
-    font-family: 'Lemon';
-}
-
-.signer {
-    text-decoration: none;
-    color: black;
-
-    &:hover {
-        color: #cf9138;
-    }
-}
-
-.formm {
-    width: 70%;
-}
-
-.loginForm input {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: transparent;
-}
-
-.loginForm input:focus {
-    border-color: #e5a341;
-    outline: none;
-}
-
-.loginButton {
-    margin-top: 10px;
-    cursor: pointer;
-    width: 100%;
-    padding: 15px;
-    font-family: 'Black Ops One';
-    background-color: #cf9138;
-    color: white;
-    font-size: 1.2rem;
-
-    &:hover {
-        background-color: #7a4b04;
-    }
-}
-
-.radioInput {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    background-color: #908e8e;
-    padding: 4px;
-    border-radius: 10px;
-    width: fit-content;
-    z-index: -1;
-}
-
-.radioInput input {
+.chk {
     display: none;
 }
 
-.radioInput .label {
-    width: 90px;
-    height: 60px;
-    background: linear-gradient(to bottom, #fafafa, rgb(245, 149, 4));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    transition: all 0.1s linear;
-    border-top: 1px solid #4e4d4d;
-    background-color: #333333;
+.signup {
     position: relative;
-    cursor: pointer;
-    box-shadow: 0px 17px 5px 1px rgba(241, 182, 2, 0.2);
-}
-
-.label:has(input[type="radio"]:checked) {
-    box-shadow: 0px 17px 5px 1px rgba(0, 0, 0, 0);
-    background: linear-gradient(to bottom, #cf9138, #cf903841);
-    border-top: none;
-}
-
-.label:first-child {
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
-}
-
-.label:last-child {
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
-}
-
-.label::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 103%;
+    width: 100%;
     height: 100%;
-    border-radius: 10px;
-    background: linear-gradient(to bottom,
-            transparent 10%,
-            transparent,
-            transparent 90%);
-    transition: all 0.1s linear;
-    z-index: -1;
 }
 
-.label:has(input[type="radio"]:checked)::before {
-    background: linear-gradient(to bottom,
-            transparent 10%,
-            #cae2fd63,
-            transparent 90%);
-}
-
-.label .text {
-    color: black;
-    font-size: 15px;
-    line-height: 12px;
-    padding: 0px;
-    font-weight: 800;
-    text-transform: uppercase;
-    transition: all 0.1s linear;
-    text-shadow:
-        -1px -1px 1px rgb(224, 224, 224, 0.1),
-        0px 2px 3px rgb(0, 0, 0, 0.3);
-}
-
-.label input[type="radio"]:checked+.text {
-    color: rgb(202, 226, 253);
-    text-shadow: 0px 0px 12px #cae2fd;
-}
-
-
-.forgotPassword {
-    cursor: pointer;
-    width: 100%;
-    padding: 15px;
-    font-family: 'Black Ops One';
-    font-size: 1.2rem;
-    margin-top: 10px;
-
-    &:hover {
-        background-color: #7a4b04;
-        color: white;
-    }
-
-}
-
-.logFor {
+.label {
+    color: #fff;
+    font-size: 2.3em;
+    justify-content: center;
     display: flex;
-    gap: 25px;
-}
-
-.e {
-    display: none;
-    border-radius: 0.375rem;
-    color: red;
-    font-weight: 550;
-    font-style: italic;
-    font-family: "Source Code Pro", monospace;
-    font-size: 1rem;
-    padding: 10px 5px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-}
-
-.f {
-    font-family: "Source Code Pro", monospace;
-    font-size: 1.2rem;
-    padding: 10px 5px;
-    border-radius: 5px;
-    background-color: transparent;
-    width: 100%;
-}
-
-.error {
-    color: red;
-    font-family: monospace;
-    font-size: 15px;
-}
-
-.forgotPas {
-    display: none;
-    width: 70%;
-}
-
-.upP {
-    display: none;
+    margin: 50px;
+    font-weight: bold;
     cursor: pointer;
-    width: 100%;
-    padding: 15px;
-    font-family: 'Black Ops One';
-    background-color: #cf9138;
+    transition: .5s ease-in-out;
+}
+
+.input {
+    width: 60%;
+    height: 10px;
+    background: #e0dede;
+    justify-content: center;
+    display: flex;
+    margin: 20px auto;
+    padding: 12px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.button {
+    width: 60%;
+    height: 40px;
+    margin: 10px auto;
+    justify-content: center;
+    display: block;
+    color: #fff;
+    background: #573b8a;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 30px;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    transition: .2s ease-in;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #6d44b8;
+}
+
+.login {
+    height: 460px;
+    background: #eee;
+    border-radius: 60% / 10%;
+    transform: translateY(-200px);
+    transition: .8s ease-in-out;
+}
+
+.login label {
+    color: #573b8a;
+    transform: scale(.6);
+}
+
+.chk:checked~.login {
+    transform: translateY(-500px);
+}
+
+.chk:checked~.signup label {
+    transform: scale(.6);
+}
+
+.radioInputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 67%;
+    margin: auto;
+    font-size: .7rem;
+}
+
+.radioInputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.radioInputs .radio input {
+    display: none;
+}
+
+.radioInputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: .5rem 0;
+    color: rgba(51, 65, 85, 1);
+    transition: all .15s ease-in-out;
+}
+
+.radioInputs .radio input:checked+.name {
+    background-color: #573b8a;
     color: white;
-    font-size: 1.2rem;
-
-    &:hover {
-        background-color: #7a4b04;
-    }
+    font-weight: 600;
 }
 
-.forPas {
-    font-family: 'Russo One';
-}
-
-.like {
-    color: black;
-}
-
-/* Responsive Media Queries */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        width: 90%;
-    }
-
-    .socialLogin,
-    .loginForm {
-        padding: 20px;
-    }
-
-    .socialLogin button {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .loginForm input {
-        padding: 10px;
-        font-size: 14px;
-    }
-
-    .loginForm .loginBtn {
-        padding: 10px;
-        font-size: 16px;
-    }
-}
-
-@media (max-width: 480px) {
-
-    .looggo {
-        display: none;
-    }
-
-    .socialLogin h3 {
-        font-size: 18px;
-    }
-
-    .loginForm h2 {
-        font-size: 20px;
-    }
-
-    .loginForm input {
-        padding: 8px;
-        font-size: 12px;
-    }
-
-    .loginForm .loginBtn {
-        padding: 10px;
-        font-size: 14px;
-    }
+.err{
+    color: red;
 }

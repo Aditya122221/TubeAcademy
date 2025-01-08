@@ -1,23 +1,18 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import L from '../CSS/LogIn.module.css';
-import Logo from '../Images/Logo.png';
 import axios from 'axios';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
     const Navigate = useNavigate();
-    const [pNumber, setpNumber] = useState('');
+    var [Reg_ID, setReg_ID] = useState('');
     const [password, setPassword] = useState('');
     const [settingUp, setSettingUp] = useState(false);
     const [fpnumber, setfpnumber] = useState('')
-    const [regis, setRegis] = useState('')
+    var [regis, setRegis] = useState('')
     const [role, setRole] = useState();
     const [frole, setfRole] = useState();
     const [error, setError] = useState('');
-
-    const loginRef = useRef()
-    const forgotRef = useRef()
-    const EuserRef = useRef()
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -26,8 +21,8 @@ const LogIn = () => {
     })
 
     function validateLogIn() {
-        if (pNumber.length === 0) {
-            setError('Phone Number required')
+        if (Reg_ID.length === 0) {
+            setError('Registration ID required')
             return false
         }
         else if (password.length === 0) {
@@ -38,14 +33,18 @@ const LogIn = () => {
             setError('Role is required')
             return false;
         }
-        else return true
+        else {
+            setError("")
+            return true
+        }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        Reg_ID = parseInt(Reg_ID, 10);
         if (validateLogIn()) {
             const payload = {
-                pNumber,
+                Reg_ID,
                 password,
                 role
             };
@@ -56,31 +55,18 @@ const LogIn = () => {
                     setSettingUp(false);
                     localStorage.setItem('token', JSON.stringify(res.data.token));
                     localStorage.setItem('role', JSON.stringify(res.data.roleAction))
-                    EuserRef.current.style.display = "none"
                     Navigate('/home');
                 })
                 .catch((err) => {
                     setSettingUp(false);
-                    EuserRef.current.style.display = "block"
                     console.error("Server either not running or disconnected", err);
                 });
         }
     };
 
-    const handleShowHide = () => {
-        loginRef.current.style.display = "none"
-        forgotRef.current.style.display = "block"
-        EuserRef.current.style.display = "none"
-    }
-
-    const handleL = () => {
-        loginRef.current.style.display = "block"
-        forgotRef.current.style.display = "none"
-        EuserRef.current.style.display = "none"
-    }
-
     const handleForgot = (e) => {
         e.preventDefault()
+        regis = parseInt(regis, 10)
         const payload = { fpnumber: fpnumber, regis: regis, frole: frole }
         axios.post('/api/usercheck', payload).then((res) => {
             if (res.status) {
@@ -96,69 +82,72 @@ const LogIn = () => {
     }
 
     return (
-        <div className={L.logger}>
-            <div className={L.container}>
-                <div className={L.socialLogin}>
-                    <header>
-                        <Link to='/'><img className={L.looggo} src={Logo} alt="Logo" /></Link>
-                    </header>
+        <div className={L.main}>
+            <div className={L.loggerandfor}>
+                <input type="checkbox" className={L.chk} id="ccc" aria-hidden="true" />
+
+                <div className={L.signup}>
+                    <form onSubmit={handleSubmit}>
+                        <label className={L.label} htmlFor="ccc" aria-hidden="true">Log In</label>
+
+                        <span className={L.err}>{error}</span>
+
+                        <input className={L.input} type="text" name="Reg_ID" placeholder="Enter Registration_ID" required="" onChange={(e) => setReg_ID(e.target.value)} />
+
+                        <input className={L.input} type="password" name="password" placeholder="Enter Password" required="" onChange={(e) => setPassword(e.target.value)} />
+
+                        <div className={L.radioInputs}>
+
+                            <label className={L.radio}>
+                                <input value="admin" type="radio" name="role" onChange={(e) => setRole(e.target.value)} />
+                                <span className={L.name}>admin</span>
+                            </label>
+
+                            <label className={L.radio}>
+                                <input value="Teacher" type="radio" name="role" onChange={(e) => setRole(e.target.value)} />
+                                <span className={L.name}>Teacher</span>
+                            </label>
+
+                            <label className={L.radio}>
+                                <input value="Student" type="radio" name="role" onChange={(e) => setRole(e.target.value)} />
+                                <span className={L.name}>Student</span>
+                            </label>
+                        </div>
+
+                        <button className={L.button} type="submit">Log In</button>
+
+                    </form>
                 </div>
-                <div className={L.loginForm}>
-                    <h2>Login to your account</h2>
-                    <span ref={EuserRef} className={L.e}>User does not exist. SignUp first</span>
-                    <span className={L.error}>{error}</span>
-                    <div ref={loginRef} className={L.formm}>
-                        <input onChange={(e) => setpNumber(e.target.value)} type="text" placeholder="Enter Phone Number" required className={L.phoneNumberInput} value={pNumber} />
 
-                        <input onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Password" required className={L.passwordInput} value={password} />
+                <div className={L.login}>
+                    <form onSubmit={handleForgot}>
 
-                        <div className={L.radioInput}>
-                            <label className={L.label}>
-                                <input value="admin" name="role" className={L.value1} type="radio" onChange={(e) => setRole(e.target.value)} />
-                                <span className={L.text}>Admin</span>
+                        <label className={L.label} htmlFor="ccc" aria-hidden="true">Forgot Password</label>
+
+                        <input className={L.input} type="text" name="regis" placeholder="Enter Registration ID" required="" onChange={(e) => setRegis(e.target.value)} />
+
+                        <input className={L.input} type="text" name="pNumber" placeholder="Enter Phone Number" required="" onChange={(e) => setfpnumber(e.target.value)} />
+
+                        <div className={L.radioInputs}>
+                            <label className={L.radio}>
+                                <input value="fadmin" type="radio" name="frole" onChange={(e) => setfRole(e.target.value)} />
+                                <span className={L.name}>admin</span>
                             </label>
-                            <label className={L.label}>
-                                <input value="Teacher" name="role" className={L.value1} type="radio" onChange={(e) => setRole(e.target.value)} />
-                                <span className={L.text}>Teacher</span>
-                            </label>
-                            <label className={L.label}>
-                                <input value="Student" name="role" className={L.value1} type="radio" onChange={(e)=>setRole(e.target.value)} />
-                                <span className={L.text}>Student</span>
-                            </label>
-                        </div>
 
-                        <button onClick={handleSubmit} className={L.loginButton} disabled={settingUp}>Log In</button>
-
-                        <button onClick={handleShowHide} className={L.forgotPassword}>Forgot Password</button>
-                        {/* <div className={L.forPas}>
-                            <span className={L.like}>Don't Remember the password! </span>
-                            <Link to='/contact' className={L.like}>Contact admin</Link>
-                        </div> */}
-                    </div>
-                    <div ref={forgotRef} className={L.forgotPas}>
-                        <input onChange={(e) => setfpnumber(e.target.value)} type="text" placeholder="Enter phone number" required className={L.phoneNumberInput} />
-
-                        <input onChange={(e) => setRegis(e.target.value)} type="number" placeholder="Enter your Registration ID" required className={L.phoneNumberInput} />
-
-                        <div className={L.radioInput}>
-                            <label className={L.label}>
-                                <input value="admin" name="frole" className={L.value1} type="radio" onChange={(e) => setfRole(e.target.value)} />
-                                <span className={L.text}>Admin</span>
+                            <label className={L.radio}>
+                                <input value="fTeacher" type="radio" name="frole" onChange={(e) => setfRole(e.target.value)} />
+                                <span className={L.name}>Teacher</span>
                             </label>
-                            <label className={L.label}>
-                                <input value="Teacher" name="frole" className={L.value1} type="radio" onChange={(e) => setfRole(e.target.value)} />
-                                <span className={L.text}>Teacher</span>
-                            </label>
-                            <label className={L.label}>
-                                <input value="Student" name="frole" className={L.value1} type="radio" onChange={(e)=>setfRole(e.target.value)} />
-                                <span className={L.text}>Student</span>
+
+                            <label className={L.radio}>
+                                <input value="fStudent" type="radio" name="frole" onChange={(e) => setfRole(e.target.value)} />
+                                <span className={L.name}>Student</span>
                             </label>
                         </div>
 
-                        <button onClick={handleForgot} className={L.loginButton}>Next</button>
+                        <button className={L.button} type="submit">Next</button>
 
-                        <button onClick={handleL} className={L.forgotPassword}>Back to LogIn</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

@@ -10,11 +10,11 @@ export default function PasswordUpdate() {
     const [cpassword, setcpassword] = useState("")
     const [npassworderror, setnpassworderror] = useState("")
     const [cpassworderror, setcpassworderror] = useState()
-    const [pnumber, setpnumber] = useState()
+    const [regis, setRegis] = useState()
     const [urole, setuRole] = useState()
 
     useEffect(() => {
-        setpnumber(location.state.fpnumber)
+        setRegis(location.state.regis)
         setuRole(location.state.frole)
         if (localStorage.getItem('token') !== null) {
             window.location.href = '/gotLost';
@@ -38,12 +38,12 @@ export default function PasswordUpdate() {
             setnpassworderror('')
             setcpassworderror('')
             const payload = {
-                pnumber: pnumber,
+                regis: regis,
                 newpassword: newpassword,
                 urole: urole
             }
             axios.post('/api/passwordupdate', payload).then((res) => {
-                Navigate('/login')
+                Navigate('/')
             }).catch((e) => {
                 console.log(e)
             })
@@ -85,7 +85,7 @@ export default function PasswordUpdate() {
     }
 
     const handleNav = () => {
-        Navigate('/login')
+        Navigate('/')
     }
     return (
         <div className={PA.logger}>

@@ -18,7 +18,6 @@ export default function VideoEdit() {
     const unsuccRef = useRef()
 
     useEffect(() => {
-        console.log(location)
         setId(location.state.Video_ID)
         setVTitle(location.state.title)
         setSubjectName(location.state.subjectName)
