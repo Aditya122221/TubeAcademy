@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Logo from '../Images/Logo.png'
 import TP from '../CSS/TeacherProfile.module.css'
 import TeacherRightTwo from "../JSX/TeacherUI/TeacherRightTwo";
 import TeacherRightOne from "../JSX/TeacherUI/TeacherRightOne";
@@ -32,22 +33,36 @@ export default function TeacherProfile() {
     }
 
     return (
-        <div className={TP.adminProfile}>
-            <div className={TP.left}>
-                <div onClick={handleAccount} className={`${TP.left1} ${isAccount ? TP.selectedOne : ''}`}>Account</div>
-
-                <div onClick={handleUpload} className={`${TP.left1} ${isUpload ? TP.selectedOne : ''}`}>Upload Video</div>
-
-                <div onClick={handleLogOut} className={`${TP.left1} ${TP.left2}`}>Log Out</div>
-
-                <Link to='/home' className={`${TP.left1} ${TP.left3}`}>Home</Link>
+        <div className={TP.mainProfilePage}>
+            <div className={TP.top}>
+                <img src={Logo} alt="Logo" className={TP.logo} />
             </div>
-            <div className={TP.right}>
-                <div ref={arightRef} className={TP.aright}>
-                    <TeacherRightOne />
+            <div className={TP.adminProfile}>
+                <div className={TP.left}>
+                    <div onClick={handleAccount} className={`${TP.left1} ${isAccount ? TP.selectedOne : ''}`}>
+                        <i className={`fa-regular fa-user ${TP.icon}`}></i>
+                        <span className={TP.ttt}>Account</span>
+                    </div>
+
+                    <div onClick={handleUpload} className={`${TP.left1} ${isUpload ? TP.selectedOne : ''}`}>
+                        <i class={`fa-solid fa-file-arrow-up ${TP.icon}`}></i>
+                        <span className={TP.ttt}>Upload Video</span>
+                    </div>
+
+                    <div onClick={handleLogOut} className={`${TP.left1} ${TP.left2}`}>
+                        <i class={`fa-solid fa-arrow-right-from-bracket ${TP.icon}`}></i>
+                        <span className={TP.ttt}>Log Out</span>
+                    </div>
+
+                    <Link to='/home' className={`${TP.left1} ${TP.left3}`}>Home</Link>
                 </div>
-                <div ref={brightRef} className={TP.bright}>
-                    <TeacherRightTwo />
+                <div className={TP.right}>
+                    <div ref={arightRef} className={TP.aright}>
+                        <TeacherRightOne />
+                    </div>
+                    <div ref={brightRef} className={TP.bright}>
+                        <TeacherRightTwo />
+                    </div>
                 </div>
             </div>
         </div>

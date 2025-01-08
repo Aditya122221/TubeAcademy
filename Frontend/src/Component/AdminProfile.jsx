@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react"
 import AP from '../CSS/AdminProfile.module.css'
+import Logo from '../Images/Logo.png'
 import { Link, useNavigate } from "react-router-dom"
 import AdminRightOne from "../JSX/AdminUI/AdminRightOne"
 import AdminRightTwo from "../JSX/AdminUI/AdminRightTwo"
@@ -67,48 +68,68 @@ export default function AdminProfile() {
     }
 
     return (
-        <div className={AP.adminProfile}>
-            <div className={AP.left}>
-                <div onClick={handleAccount} className={`${AP.left1} ${isAccount ? AP.selectedOne : ''}`}>Account</div>
-
-                <div onClick={handleTeac} className={`${AP.left1} ${isTeach ? AP.selectedOne : ''}`}>Registered Teacher</div>
-
-                <div onClick={handleStud} className={`${AP.left1} ${isStud ? AP.selectedOne : ''}`}>Registered Student</div>
-
-                <Link to='/signup' className={`${AP.left1} ${AP.left2}`}>Register a Member</Link>
-
-                <div onClick={handleQuery} className={`${AP.left1} ${isQuery ? AP.selectedOne : ''}`}>Query</div>
-
-                <div onClick={handleLogOut} className={`${AP.left1} ${AP.left2}`}>Log Out</div>
-
-                <Link to='/home' className={`${AP.left1} ${AP.left3}`}>Home</Link>
+        <div className={AP.mainProfilePage}>
+            <div className={AP.top}>
+                <img src={Logo} alt="Logo" className={AP.logo} />
             </div>
+            <div className={AP.adminProfile}>
+                <div className={AP.left}>
+                    <div onClick={handleAccount} className={`${AP.left1} ${isAccount ? AP.selectedOne : ''}`}>
+                        <i className={`fa-regular fa-user ${AP.icon}`}></i>
+                        <span className={AP.ttt}>Account</span>
+                    </div>
 
-            {/* -----------------------Account Details--------------------------- */}
+                    <div onClick={handleTeac} className={`${AP.left1} ${isTeach ? AP.selectedOne : ''}`}>
+                        <i className={`fa-regular fa-address-card ${AP.icon}`}></i>
+                        <span className={AP.ttt}>Registered Teacher</span>
+                    </div>
 
-            <div className={AP.right}>
-                <div ref={arightRef} className={AP.aright}>
-                    <AdminRightOne />
+                    <div onClick={handleStud} className={`${AP.left1} ${isStud ? AP.selectedOne : ''}`}>
+                        <i className={`fa-regular fa-address-card ${AP.icon}`}></i>
+                        <span className={AP.ttt}>Registered Student</span>
+                    </div>
+
+                    <Link to='/signup' className={`${AP.left1} ${AP.left2}`}>Register a Member</Link>
+
+                    <div onClick={handleQuery} className={`${AP.left1} ${isQuery ? AP.selectedOne : ''}`}>
+                        <i class={`fa-solid fa-clipboard-question ${AP.icon}`}></i>
+                        <span className={AP.ttt}>Query</span>
+                    </div>
+
+                    <div onClick={handleLogOut} className={`${AP.left1} ${AP.left2}`}>
+                        <i class={`fa-solid fa-arrow-right-from-bracket ${AP.icon}`}></i>
+                        <span className={AP.ttt}>Log Out</span>
+                    </div>
+
+                    <Link to='/home' className={`${AP.left1} ${AP.left3}`}>Home</Link>
                 </div>
 
-                {/* ---------------------Teacher Details--------------------- */}
+                {/* -----------------------Account Details----------------------- */}
 
-                <div ref={brightRef} className={AP.bright}>
-                    <AdminRightTwo />
+                <div className={AP.right}>
+                    <div ref={arightRef} className={AP.aright}>
+                        <AdminRightOne />
+                    </div>
+
+                    {/* ---------------------Teacher Details--------------------- */}
+
+                    <div ref={brightRef} className={AP.bright}>
+                        <AdminRightTwo />
+                    </div>
+
+                    {/* -------------------------Student Details--------------------- */}
+
+                    <div ref={crightRef} className={AP.cright}>
+                        <AdminRightThree />
+                    </div>
+
+                    {/* --------------------Query-------------------------------- */}
+
+                    <div ref={drightRef} className={AP.dright}>
+                        <AdminRightFour />
+                    </div>
                 </div>
-
-                {/* -------------------------Student Details--------------------- */}
-
-                <div ref={crightRef} className={AP.cright}>
-                    <AdminRightThree />
-                </div>
-
-                {/* --------------------Query-------------------------------- */}
-
-                <div ref={drightRef} className={AP.dright}>
-                    <AdminRightFour />
-                </div>
-            </div>
-        </div >
+            </div >
+        </div>
     )
 }
