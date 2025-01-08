@@ -2,7 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
@@ -19,8 +18,8 @@
 }
 
 .loggerandfor{
-    width: 350px;
-    height: 500px;
+    width: 30%;
+    height: 600px;
     overflow: hidden;
     background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
     border-radius: 10px;
@@ -39,13 +38,14 @@
 
 .label {
     color: #fff;
-    font-size: 2.3em;
+    font-size: 1.9rem;
     justify-content: center;
     display: flex;
     margin: 50px;
     font-weight: bold;
     cursor: pointer;
     transition: .5s ease-in-out;
+    font-family: 'Black Ops One';
 }
 
 .input {
@@ -55,15 +55,17 @@
     justify-content: center;
     display: flex;
     margin: 20px auto;
-    padding: 12px;
+    padding: 25px;
     border: none;
     outline: none;
     border-radius: 5px;
+    font-family: 'Chakra Petch';
+    font-size: 1.2rem;
 }
 
 .button {
-    width: 60%;
-    height: 40px;
+    width: 75%;
+    height: 50px;
     margin: 10px auto;
     justify-content: center;
     display: block;
@@ -77,6 +79,8 @@
     border-radius: 5px;
     transition: .2s ease-in;
     cursor: pointer;
+    font-family: 'Source Code Pro';
+    font-size: 1.2rem;
 }
 
 button:hover {
@@ -97,7 +101,7 @@ button:hover {
 }
 
 .chk:checked~.login {
-    transform: translateY(-500px);
+    transform: translateY(-130%);
 }
 
 .chk:checked~.signup label {
@@ -113,9 +117,10 @@ button:hover {
     box-sizing: border-box;
     box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
     padding: 0.25rem;
-    width: 67%;
+    width: 72%;
     margin: auto;
-    font-size: .7rem;
+    font-family: 'Chakra Petch';
+    font-size: 1rem;
 }
 
 .radioInputs .radio {
