@@ -19,7 +19,6 @@ export default function StudentHomePage() {
 
     const fetchSlider = () => {
         axios.post("/api/slider").then((res) => {
-            console.log(res.data.data, "From inside the axios");
             setSlider(res.data.data);
         }).catch((err) => {
             console.log("Slider Fetching error from frontend", err);

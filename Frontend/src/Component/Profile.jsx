@@ -1,7 +1,8 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import AdminProfile from "./AdminProfile";
 import TeacherProfile from "./TeacherProfile";
 import StudentProfile from "./StudentProfile";
+import P from '../CSS/Profile.module.css'
 
 const Profile = () => {
     useEffect(() => {
@@ -12,7 +13,9 @@ const Profile = () => {
 
     if (localStorage.getItem('role') === '"admin"') {
         return (
-            <AdminProfile />
+            <div className={P.mmm}>
+                <AdminProfile />
+            </div>
         )
     }
     else if (localStorage.getItem('role') === '"Teacher"') {
@@ -22,7 +25,9 @@ const Profile = () => {
     }
     else if (localStorage.getItem('role') === '"Student"') {
         return (
-            <StudentProfile />
+            <div className={P.mmm}>
+                <StudentProfile />
+            </div>
         )
     }
 }

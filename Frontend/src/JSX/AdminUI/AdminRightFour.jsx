@@ -20,9 +20,9 @@ export default function AdminRightFour() {
     return (
         <div className={AP.rightFour}>
             <div className={AP.brightOne}>
-                <h2 className={AP.td}>Queries</h2>
+                <h2 className={AP.tetd}>Queries</h2>
                 <div className={AP.Ttdd}>
-                    <table className={AP.brightTwo}>
+                    <table className={`${AP.brightTwo} ${AP.ttable}`}>
                         <tr className={AP.TableHead}>
                             <td className={AP.teacher}>Name</td>
                             <td className={AP.teacher}>Email ID</td>
@@ -32,12 +32,12 @@ export default function AdminRightFour() {
                         </tr>
                         {query && query.map((teacher, index) => (
                             <tr key={index} className={AP.teacherDet}>
-                                <td>
+                                <td className={AP.ttd}>
                                     {teacher.fullName}
                                 </td>
-                                <td>{teacher.email}</td>
-                                <td>{teacher.message}</td>
-                                <td>{teacher.date}</td>
+                                <td className={AP.ttd}>{teacher.email}</td>
+                                <td className={AP.ttd}>{teacher.message}</td>
+                                <td className={AP.ttd}>{teacher.date}</td>
                             </tr>
                         ))}
                     </table>

@@ -51,29 +51,29 @@ export default function TeacherRightTwo() {
         const alpharegex = /^[a-zA-Z0-9 ]+$/
         const fileTypeOne = ["jpeg", "jpg", "png"]
         const fileTypeTwo = ["mp4", "mkv", "avi"]
-        if (!(alpharegex.test(upload.VTitle))) {
+        if (alpharegex.test(upload.VTitle)) {
+            if (fileTypeOne.includes(thumbnail.name.split('.').pop().toLowerCase())) {
+                if (fileTypeTwo.includes(video.name.split('.').pop().toLowerCase())) {
+                    setTitleError("")
+                    return true
+                } else {
+                    setTitleError("Invalid Video type. Upload only mp4, mkv or avi")
+                    return false
+                }
+            } else {
+                setTitleError("Invalid Image type. Upload only jpeg, jpg or png")
+                return false
+            }
+        }
+        else {
             setTitleError("Title should contain only alphabets and numbers")
             return false
         }
-
-        if (!fileTypeOne.includes(thumbnail.name.split('.').pop().toLowerCase())) {
-            alert("Invalid Image type. Upload only jpeg, jpg or png")
-            return false
-        }
-
-        if (!fileTypeTwo.includes(video.name.split('.').pop().toLowerCase())) {
-            alert("Invalid Video type. Upload only mp4, mkv or avi")
-            return false
-        }
-
-        setTitleError("")
-        return true;
 
     }
 
     return (
         <div className={TP.rigth2}>
-            <div className={TP.Tthh}>Upload Video</div>
             <div className={TP.account}>
                 <form onSubmit={handleForm} className={TP.form}>
 

@@ -27,23 +27,50 @@ export default function TeacherRightOne() {
         })
     }
 
-    if(userData.avatar === "") setUserData({...userData, avatar: TeamLeader})
+    if (userData.avatar === "") setUserData({ ...userData, avatar: TeamLeader })
 
     useEffect(() => {
         fetchData()
     }, [])
 
     RegId = userData.Registration_ID
-    
+
     return (
         <div className={TP.rightone}>
-            <div className={TP.aaa}>
-                <div className={TP.Tthh}>Account Details</div>
-                <img className={TP.profile} src={userData.avatar} alt="Profile Photo" />
-            </div>
-            <div className={TP.account}>
-                {userData.Registration_ID} {userData.fName} {userData.lName} {userData.email} {userData.address}
-                <div className={TP.update} onClick={() => Navigate('/updatedata', { state: userData })}>Update Data</div>
+            <div className={TP.card}>
+                <div className={TP.leftContainer}>
+                    <img
+                        src={userData.avatar}
+                        alt="Profile Image" className={TP.profile}
+                    />
+                    <h2 className={TP.gradienttext}>{userData.fName} {userData.lName}</h2>
+                    <button className={TP.rightOneButton} onClick={() => Navigate('/updatedata', { state: userData })}>Update Profile</button>
+                </div>
+                <div className={TP.rightContainer}>
+                    <h3 className={TP.gradienttext}>Profile Details</h3>
+                    <table className={TP.table}>
+                        <tr>
+                            <td className={TP.td}>Registration ID :</td>
+                            <td className={TP.td}>{userData.Registration_ID}</td>
+                        </tr>
+                        <tr>
+                            <td className={TP.td}>Name :</td>
+                            <td className={TP.td}>{userData.fName} {userData.lName}</td>
+                        </tr>
+                        <tr>
+                            <td className={TP.td}>Mobile :</td>
+                            <td className={TP.td}>{userData.pNumber}</td>
+                        </tr>
+                        <tr>
+                            <td className={TP.td}>Email :</td>
+                            <td className={TP.td}>{userData.email}</td>
+                        </tr>
+                        <tr>
+                            <td className={TP.td}>Address :</td>
+                            <td className={TP.td}>{userData.address}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     )

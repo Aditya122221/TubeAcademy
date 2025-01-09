@@ -10,9 +10,10 @@ const LogIn = () => {
     const [settingUp, setSettingUp] = useState(false);
     const [fpnumber, setfpnumber] = useState('')
     var [regis, setRegis] = useState('')
-    const [role, setRole] = useState();
-    const [frole, setfRole] = useState();
+    const [role, setRole] = useState('');
+    const [frole, setfRole] = useState('');
     const [error, setError] = useState('');
+    const [fError, setFError] = useState('')
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -21,28 +22,36 @@ const LogIn = () => {
     })
 
     function validateLogIn() {
-        if (Reg_ID.length === 0) {
-            setError('Registration ID required')
-            return false
-        }
-        else if (password.length === 0) {
-            setError('Password is required')
-            return false
-        }
-        else if (role.length === 0) {
-            setError('Role is required')
+        if (Reg_ID.length > 0) {
+            const numregex = /^[0-9]+$/
+            if (numregex.test(Reg_ID)) {
+                if (password.length > 0) {
+                    if (role.length === 0) {
+                        setError("Role is required")
+                        return false
+                    } else {
+                        setError('');
+                        return true
+                    }
+                } else {
+                    setError('Please enter your password')
+                    return false
+                }
+            } else {
+                console.log(Reg_ID)
+                setError('Registration Id should only contain number')
+                return false
+            }
+        } else {
+            setError('Please enter your Registration ID')
             return false;
-        }
-        else {
-            setError("")
-            return true
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        Reg_ID = parseInt(Reg_ID, 10);
         if (validateLogIn()) {
+            Reg_ID = parseInt(Reg_ID, 10);
             const payload = {
                 Reg_ID,
                 password,
@@ -64,21 +73,54 @@ const LogIn = () => {
         }
     };
 
+    const validateF = () => {
+        if (regis.length > 0) {
+            const numregex = /^[0-9]+$/
+            if (numregex.test(regis)) {
+                if (fpnumber.length > 0) {
+                    if (numregex.test(fpnumber)) {
+                        if (frole.length === 0) {
+                            setFError("Role is required")
+                            return false
+                        } else {
+                            setFError("")
+                            return true
+                        }
+                    } else {
+                        setFError("Phone Number should only contain number")
+                        return false
+                    }
+                } else {
+                    setFError("Phone Number required")
+                    return false
+                }
+            } else {
+                setFError('Registration Id should only contain number')
+                return false
+            }
+        } else {
+            setFError("Registration Id Required")
+            return false
+        }
+    }
+
     const handleForgot = (e) => {
         e.preventDefault()
-        regis = parseInt(regis, 10)
-        const payload = { fpnumber: fpnumber, regis: regis, frole: frole }
-        axios.post('/api/usercheck', payload).then((res) => {
-            if (res.status) {
-                Navigate('/forgotpas', { state: res.data.data })
-            }
-            else {
-                console.log(res.data.data)
-                setError(res.data.data);
-            }
-        }).catch((e) => {
-            console.log(e)
-        })
+        if (validateF()) {
+            regis = parseInt(regis, 10)
+            const payload = { fpnumber: fpnumber, regis: regis, frole: frole }
+            axios.post('/api/usercheck', payload).then((res) => {
+                if (res.status) {
+                    Navigate('/forgotpas', { state: res.data.data })
+                }
+                else {
+                    console.log(res.data.data)
+                    setError(res.data.data);
+                }
+            }).catch((e) => {
+                console.log(e)
+            })
+        }
     }
 
     return (
@@ -123,6 +165,8 @@ const LogIn = () => {
                     <form onSubmit={handleForgot}>
 
                         <label className={L.label} htmlFor="ccc" aria-hidden="true">Forgot Password</label>
+
+                        <span className={L.err}>{fError}</span>
 
                         <input className={L.input} type="text" name="regis" placeholder="Enter Registration ID" required="" onChange={(e) => setRegis(e.target.value)} />
 

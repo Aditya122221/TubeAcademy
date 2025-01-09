@@ -19,9 +19,9 @@ export default function AdminRightThree() {
     return (
         <div className={AP.rightThree}>
             <div className={AP.brightOne}>
-                <h2 className={AP.td}>Student Details</h2>
+                <h2 className={AP.tetd}>Student Details</h2>
                 <div className={AP.Ttdd}>
-                    <table className={AP.brightTwo}>
+                    <table className={`${AP.brightTwo} ${AP.ttable}`}>
                         <tr className={AP.TableHead}>
                             <td className={AP.teacher}>Registration ID</td>
                             <td className={AP.teacher}>Name</td>
@@ -31,13 +31,13 @@ export default function AdminRightThree() {
                         </tr>
                         {studentData && studentData.map((teacher, index) => (
                             <tr key={index} className={AP.teacherDet}>
-                                <td>{teacher.Registration_ID}</td>
-                                <td>
+                                <td className={AP.ttd}>{teacher.Registration_ID}</td>
+                                <td className={AP.ttd}>
                                     {teacher.fName} {teacher.lName}
                                 </td>
-                                <td>{teacher.pNumber}</td>
-                                <td>{teacher.email}</td>
-                                <td>{teacher.address}</td>
+                                <td className={AP.ttd}>{teacher.pNumber}</td>
+                                <td className={AP.ttd}>{teacher.email}</td>
+                                <td className={AP.ttd}>{teacher.address}</td>
                             </tr>
                         ))}
                     </table>

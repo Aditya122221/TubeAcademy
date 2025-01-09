@@ -151,5 +151,9 @@ button:hover {
 }
 
 .err{
+    display: block;
     color: red;
+    text-align: center;
+    width: 100%;
+    font-size: .7rem;
 }

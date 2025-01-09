@@ -27,7 +27,7 @@ export default function AdminRightOne() {
         })
     }
 
-    if(userData.avatar === "") setUserData({...userData, avatar: TeamLeader})
+    if (userData.avatar === "") setUserData({ ...userData, avatar: TeamLeader })
 
     useEffect(() => {
         fetchData()
@@ -47,14 +47,41 @@ export default function AdminRightOne() {
 
 
     return (
-        <div className={AP.rigthOne}>
-            <div className={AP.aaa}>
-                <div className={AP.td}>Account Details</div>
-                <img className={AP.profile} src={userData.avatar} alt="ProfilePhoto" />
-            </div>
-            <div className={AP.account}>
-                {userData.Registration_ID} {userData.fName} {userData.lName} {userData.email} {userData.address}
-                <div className={AP.update} onClick={() => Navigate('/updatedata', { state: userData })}>Update Data</div>
+        <div className={AP.rightone}>
+            <div className={AP.card}>
+                <div className={AP.leftContainer}>
+                    <img
+                        src={userData.avatar}
+                        alt="Profile Image" className={AP.profile}
+                    />
+                    <h2 className={AP.gradienttext}>{userData.fName} {userData.lName}</h2>
+                    <button className={AP.rightOneButton} onClick={() => Navigate('/updatedata', { state: userData })}>Update Profile</button>
+                </div>
+                <div className={AP.rightContainer}>
+                    <h3 className={AP.gradienttext}>Profile Details</h3>
+                    <table className={AP.otable}>
+                        <tr>
+                            <td className={AP.otd}>Registration ID :</td>
+                            <td className={AP.otd}>{userData.Registration_ID}</td>
+                        </tr>
+                        <tr>
+                            <td className={AP.otd}>Name :</td>
+                            <td className={AP.otd}>{userData.fName} {userData.lName}</td>
+                        </tr>
+                        <tr>
+                            <td className={AP.otd}>Mobile :</td>
+                            <td className={AP.otd}>{userData.pNumber}</td>
+                        </tr>
+                        <tr>
+                            <td className={AP.otd}>Email :</td>
+                            <td className={AP.otd}>{userData.email}</td>
+                        </tr>
+                        <tr>
+                            <td className={AP.otd}>Address :</td>
+                            <td className={AP.otd}>{userData.address}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
     )
