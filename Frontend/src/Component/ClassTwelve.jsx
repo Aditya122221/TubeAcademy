@@ -9,11 +9,13 @@ import { ClassArray } from '../JSX/Heading';
 import axios from "axios";
 
 export default function ClassTwelve() {
-    const [twelveVideos, settwelveVideos] = useState([])
+    const [twelveVideos, settwelveVideos] = useState([]) //To be constant
+    const [XIIData, setXIIData] = useState([])
 
     useEffect(() => {
         axios.post("/api/classTwelve").then((res) => {
             settwelveVideos(res.data.data)
+            setXIIData(res.data.data)
         }).catch((err) => {
             console.log("All Class twelve Videos fetching error from Frontend", err);
         })
@@ -21,9 +23,6 @@ export default function ClassTwelve() {
             window.location.href = '/gotLost';
         }
     }, [])
-
-    const [XIIData, setXIIData] = useState(twelveVideos)
-    console.log(XIIData, "From Main Page")
 
     const filterSubjectData = [...new Set(twelveVideos.map((val) => val.subjectName))]
     const teacherName = [...new Set(twelveVideos.map((val) => val.teacherName))]
@@ -45,11 +44,11 @@ export default function ClassTwelve() {
             </div>
             <div className={CN.contaner}>
                 <div className={CN.filterOption}>
-                    <Filter filterationMethod="Filter By Subject" item={filterSubjectData} filterItem={filterBySubject} setData={XIIData} vid={twelveVideos} />
+                    <Filter filterationMethod="Filter By Subject" item={filterSubjectData} filterItem={filterBySubject} setData={setXIIData} vid={twelveVideos} />
                     <Filter filterationMethod="Filter By Teacher Name" item={teacherName} filterItem={filterByTeacher} setData={setXIIData} vid={twelveVideos} />
                 </div>
                 <div className={CN.videosbyfilter}>
-                    {twelveVideos.map((video) => {
+                    {XIIData.map((video) => {
                         return (
                             <div className={CN.cards} key={video._id}>
                                 <img className={CN.thumbnail} src={video.thumbnail} alt="Thumbnail" />

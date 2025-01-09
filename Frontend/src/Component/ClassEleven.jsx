@@ -10,10 +10,12 @@ import axios from "axios";
 
 export default function ClassEleven() {
     const [elevenVideos, setelevenVideos] = useState([])
+    const [ElevenVideos, setElevenVideos] = useState([]) //Should be constact and not to be changed
 
     useEffect(() => {
         axios.post("/api/classEleven").then((res) => {
             setelevenVideos(res.data.data)
+            setElevenVideos(res.data.data)
         }).catch((err) => {
             console.log("All Class Nine Videos fetching error from Frontend", err);
         })
@@ -22,20 +24,17 @@ export default function ClassEleven() {
         }
     }, [])
 
-    const [XIData, setXIData] = useState(elevenVideos)
-    console.log(XIData, "From Main Page")
-
-    const filterSubjectData = [...new Set(elevenVideos.map((val) => val.subjectName))]
-    const teacherName = [...new Set(elevenVideos.map((val) => val.teacherName))]
+    const filterSubjectData = [...new Set(ElevenVideos.map((val) => val.subjectName))]
+    const teacherName = [...new Set(ElevenVideos.map((val) => val.teacherName))]
 
     const filterBySubject = (cat) => {
-        const newItem = elevenVideos.filter((newVal) => newVal.subjectName === cat)
-        setXIData(newItem)
+        const newItem = ElevenVideos.filter((newVal) => newVal.subjectName === cat)
+        setelevenVideos(newItem)
     }
 
     const filterByTeacher = (cat) => {
-        const newItem = elevenVideos.filter((newVal) => newVal.subjectName === cat)
-        setXIData(newItem)
+        const newItem = ElevenVideos.filter((newVal) => newVal.teacherName === cat)
+        setelevenVideos(newItem)
     }
     return (
         <div className={CN.Block}>
@@ -45,8 +44,8 @@ export default function ClassEleven() {
             </div>
             <div className={CN.contaner}>
                 <div className={CN.filterOption}>
-                    <Filter filterationMethod="Filter By Subject" item={filterSubjectData} filterItem={filterBySubject} setData={XIData} vid={elevenVideos} />
-                    <Filter filterationMethod="Filter By Teacher Name" item={teacherName} filterItem={filterByTeacher} setData={setXIData} vid={elevenVideos} />
+                    <Filter filterationMethod="Filter By Subject" item={filterSubjectData} filterItem={filterBySubject} setData={setelevenVideos} vid={ElevenVideos} />
+                    <Filter filterationMethod="Filter By Teacher Name" item={teacherName} filterItem={filterByTeacher} setData={setelevenVideos} vid={ElevenVideos} />
                 </div>
                 <div className={CN.videosbyfilter}>
                     {elevenVideos.map((video) => {
