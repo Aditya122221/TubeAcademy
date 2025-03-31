@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Logo from '../Images/Logo.png'
 import SP from '../CSS/StudentProfile.module.css';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StudentRightOne from "../JSX/StudentUI/StudentRightOne";
 
 export default function StudentProfile() {
+    const Navigate = useNavigate()
     const [isAccount, setisAccount] = useState(true)
     const [userData, setUserData] = useState()
 

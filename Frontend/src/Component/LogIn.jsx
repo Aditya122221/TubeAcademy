@@ -17,7 +17,7 @@ const LogIn = () => {
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
-            window.location.href = '/gotLost';
+            window.location.href = '/home';
         }
     })
 
