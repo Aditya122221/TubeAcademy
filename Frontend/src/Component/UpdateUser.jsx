@@ -20,6 +20,10 @@ export default function UpdateUser() {
     const updateERef = useRef()
 
     useEffect(() => {
+        if (localStorage.getItem('token') === null || !location.state) {
+            window.location.href = '/';
+            return;
+        }
         setfname(location.state.fName)
         setlname(location.state.lName)
         setemail(location.state.email)
@@ -27,9 +31,6 @@ export default function UpdateUser() {
         setaddress(location.state.address)
         setAvatar(location.state.avatar)
         setRole(JSON.parse(localStorage.getItem('role')))
-        if (localStorage.getItem('token') === null) {
-            window.location.href = '/gotLost';
-        }
     }, [])
 
     const updateData = (e) => {

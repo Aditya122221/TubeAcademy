@@ -21,7 +21,7 @@ const SignUp = () => {
 
     useEffect(() => {
         if (localStorage.getItem('role') !== '"admin"') {
-            window.location.href = '/gotLost';
+            window.location.href = '/';
         }
     })
 

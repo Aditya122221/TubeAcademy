@@ -8,7 +8,7 @@ export default function HomePage() {
     const role = localStorage.getItem('role');
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
-            window.location.href = '/gotLost';
+            window.location.href = '/';
         }
     })
 

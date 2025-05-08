@@ -16,6 +16,7 @@ import UpdateUser from './Component/UpdateUser';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
+import Logout from "./Component/Logout";
 
 function App() {
   const navbarRouter = createBrowserRouter([
@@ -75,6 +76,10 @@ function App() {
     {
       path: '*',
       element: <Error404 />
+    },
+    {
+      path: '/logout',
+      element: <Logout />
     }
   ])
   return (

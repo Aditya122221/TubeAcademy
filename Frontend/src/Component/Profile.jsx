@@ -7,7 +7,7 @@ import P from '../CSS/Profile.module.css'
 const Profile = () => {
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
-            window.location.href = '/gotLost';
+            window.location.href = '/';
         }
     })
 
