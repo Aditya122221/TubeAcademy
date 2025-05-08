@@ -4,26 +4,42 @@ import Logo from '../Images/Logo.png'
 import TP from '../CSS/TeacherProfile.module.css'
 import TeacherRightTwo from "../JSX/TeacherUI/TeacherRightTwo";
 import TeacherRightOne from "../JSX/TeacherUI/TeacherRightOne";
+import TeacherRightThree from "../JSX/TeacherUI/TeacherRightThree";
 
 export default function TeacherProfile() {
     const Navigate = useNavigate();
     const [isAccount, setisAccount] = useState(true)
     const [isUpload, setisUpload] = useState(false)
+    const [isQMS, setIsQMS] = useState(false)
 
     const arightRef = useRef();
     const brightRef = useRef()
+    const crightRef = useRef();
 
     const handleAccount = () => {
         setisAccount(true);
         setisUpload(false);
+        setIsQMS(false)
         arightRef.current.style.display = "flex";
         brightRef.current.style.display = "none";
+        crightRef.current.style.display = "none";
     }
     const handleUpload = () => {
         setisAccount(false);
         setisUpload(true);
+        setIsQMS(false)
         arightRef.current.style.display = "none";
         brightRef.current.style.display = "flex";
+        crightRef.current.style.display = "none";
+    }
+
+    const handleQMS = () => {
+        setisAccount(false);
+        setisUpload(false);
+        setIsQMS(true)
+        arightRef.current.style.display = "none";
+        brightRef.current.style.display = "none";
+        crightRef.current.style.display = "flex";
     }
 
     const handleLogOut = () => {
@@ -49,6 +65,11 @@ export default function TeacherProfile() {
                         <span className={TP.ttt}>Upload Video</span>
                     </div>
 
+                    <div onClick={handleQMS} className={`${TP.left1} ${isQMS ? TP.selectedOne : ''}`}>
+                        <i class={`fa-solid fa-file-arrow-up ${TP.icon}`}></i>
+                        <span className={TP.ttt}>QMS</span>
+                    </div>
+
                     <div onClick={handleLogOut} className={`${TP.left1} ${TP.left2}`}>
                         <i class={`fa-solid fa-arrow-right-from-bracket ${TP.icon}`}></i>
                         <span className={TP.ttt}>Log Out</span>
@@ -62,6 +83,9 @@ export default function TeacherProfile() {
                     </div>
                     <div ref={brightRef} className={TP.bright}>
                         <TeacherRightTwo />
+                    </div>
+                    <div ref={crightRef} className={TP.cright}>
+                        <TeacherRightThree />
                     </div>
                 </div>
             </div>

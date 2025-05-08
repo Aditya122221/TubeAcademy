@@ -27,8 +27,9 @@ export default function AdminRightFour() {
                             <td className={AP.teacher}>Name</td>
                             <td className={AP.teacher}>Email ID</td>
                             <td className={AP.teacher}>Message</td>
-                            <td className={AP.teacher}>Date and Time</td>
-                            <td className={AP.teacher}>Status</td>
+                            <td className={AP.teacher}>Query Date</td>
+                            <td className={AP.teacher}>Resolution</td>
+                            <td className={AP.teacher}>Resolution Date</td>
                         </tr>
                         {query && query.map((teacher, index) => (
                             <tr key={index} className={AP.teacherDet}>

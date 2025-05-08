@@ -88,7 +88,6 @@
 .rightone {
     display: flex;
     border-radius: 10px;
-    background-color: #00640079;
     padding-left: 2%;
     padding-top: 5%;
     padding-bottom: 5%;
@@ -207,7 +206,6 @@
 .rigth2{
     display: flex;
     border-radius: 10px;
-    background-color: #00640079;
     padding-left: 2%;
     padding-top: 5%;
     padding-bottom: 5%;

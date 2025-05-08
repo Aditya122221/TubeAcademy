@@ -18,13 +18,13 @@ export default function VideoEdit() {
     const unsuccRef = useRef()
 
     useEffect(() => {
+        if (localStorage.getItem('token') === null || !location.state) {
+            window.location.href = '/home';
+        }
         setId(location.state.Video_ID)
         setVTitle(location.state.title)
         setSubjectName(location.state.subjectName)
         setClassIn(location.state.forClass)
-        if (localStorage.getItem('token') === null) {
-            window.location.href = '/gotLost';
-        }
     }, [])
 
     const handleEdit = (e) => {
