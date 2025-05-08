@@ -6,7 +6,9 @@
     color: white;
     user-select: none;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-top: 2cm;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
 }
 
 .footerFooter {

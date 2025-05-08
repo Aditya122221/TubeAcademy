@@ -44,40 +44,20 @@ export default function StudentHomePage() {
             <div className={HE.HomeContainer}>
                 <div className={B.videosClassNine}>
                     <ClassNine />
-                    <div className={HE.fArrow}>
-                        <span className="material-symbols-outlined">
-                            arrow_forward_ios
-                        </span>
-                    </div>
                 </div>
                 <div className={B.videosClassNine}>
                     <div className={B.ClassNineVideos}>
                         <ClassTen />
-                    </div>
-                    <div className={HE.fArrow}>
-                        <span className="material-symbols-outlined">
-                            arrow_forward_ios
-                        </span>
                     </div>
                 </div>
                 <div className={B.videosClassNine}>
                     <div className={B.ClassNineVideos}>
                         <ClassEleven />
                     </div>
-                    <div className={HE.fArrow}>
-                        <span className="material-symbols-outlined">
-                            arrow_forward_ios
-                        </span>
-                    </div>
                 </div>
                 <div className={B.videosClassNine}>
                     <div className={B.ClassNineVideos}>
                         <ClassTwelve />
-                    </div>
-                    <div className={HE.fArrow}>
-                        <span className="material-symbols-outlined">
-                            arrow_forward_ios
-                        </span>
                     </div>
                 </div>
             </div>
