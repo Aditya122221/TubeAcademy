@@ -21,6 +21,8 @@ export default function Contact() {
         message: ""
     });
 
+    const Registration_ID = localStorage.getItem("RegID")
+
     const handleA = () => {
         aRef.current.style.backgroundColor = "#edecec"
         formRef.current.style.display = "flex";
@@ -47,6 +49,7 @@ export default function Contact() {
             succRef.current.style.display = "none"
         } else {
             let dataSend = {
+                Registration_ID,
                 name: contactData.fullname,
                 email: contactData.email,
                 message: contactData.message
@@ -76,7 +79,7 @@ export default function Contact() {
 
     useEffect(() => {
         if (localStorage.getItem('token') === null) {
-            window.location.href = '/gotLost';
+            window.location.href = '/';
         }
     })
     return (

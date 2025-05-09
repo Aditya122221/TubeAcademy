@@ -64,6 +64,7 @@ const LogIn = () => {
                     setSettingUp(false);
                     localStorage.setItem('token', JSON.stringify(res.data.token));
                     localStorage.setItem('role', JSON.stringify(res.data.roleAction))
+                    localStorage.setItem('RegID', JSON.stringify(res.data.RegID))
                     Navigate('/home');
                 })
                 .catch((err) => {

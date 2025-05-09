@@ -296,3 +296,11 @@
         color: black;
     }
 }
+
+.pending{
+    background-color: #eaea085a;
+}
+
+.resolved{
+    background-color: #0eeb803f;
+}

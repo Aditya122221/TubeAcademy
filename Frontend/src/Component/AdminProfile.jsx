@@ -92,12 +92,12 @@ export default function AdminProfile() {
                     <Link to='/signup' className={`${AP.left1} ${AP.left2}`}>Register a Member</Link>
 
                     <div onClick={handleQuery} className={`${AP.left1} ${isQuery ? AP.selectedOne : ''}`}>
-                        <i class={`fa-solid fa-clipboard-question ${AP.icon}`}></i>
+                        <i className={`fa-solid fa-clipboard-question ${AP.icon}`}></i>
                         <span className={AP.ttt}>Query</span>
                     </div>
 
                     <div onClick={handleLogOut} className={`${AP.left1} ${AP.left2}`}>
-                        <i class={`fa-solid fa-arrow-right-from-bracket ${AP.icon}`}></i>
+                        <i className={`fa-solid fa-arrow-right-from-bracket ${AP.icon}`}></i>
                         <span className={AP.ttt}>Log Out</span>
                     </div>
 
