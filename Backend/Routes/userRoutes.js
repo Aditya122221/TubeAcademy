@@ -509,6 +509,22 @@ router.post("/api/editvideo", upload.fields([
     }
 })
 
+//---------------------------------Staff Details------------------------------------
+
+router.post("/api/staff", async (req, res) => {
+    try {
+        const teacherData = await teacherUserData.find()
+        const studentData = await studentUserData.find()
+        const queryData = await email_from_client.find()
+
+        const allStaff = {teacherData, studentData, queryData}
+
+        return res.status(201).json({status: true, data: allStaff})
+    } catch (err) {
+        return res.status(500).json({status: false, message: "Something went wrong while fetching staff detail from server side"})
+    }
+})
+
 //---------------------------------Exporting-----------------------------------------
 
 export default router;
