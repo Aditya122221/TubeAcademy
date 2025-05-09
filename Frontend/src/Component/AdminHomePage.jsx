@@ -159,13 +159,7 @@ export default function AdminHomePage() {
           {queryData.length > 0 ? (
             queryData.map((query, index) => (
               <div className={AH.queryCard} key={index}>
-                <form
-                  className={AH.replyForm}
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    // handleReplySubmit(query.query_ID, replyMessage);
-                  }}
-                >
+                <form className={AH.replyForm}>
                   <div className={AH.inputmethod}>
                     <label htmlFor="queryID" className={AH.label}>
                       Query ID:
@@ -199,7 +193,7 @@ export default function AdminHomePage() {
                     <input
                       type="text"
                       name="fullName"
-                      value={query.fullName}
+                      value={query.fullname}
                       readOnly
                       className={AH.disabledInput}
                     />

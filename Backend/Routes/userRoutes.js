@@ -711,6 +711,12 @@ router.post("/api/staff", async (req, res) => {
   }
 });
 
+//---------------------------------replying query-----------------------------------
+
+router.post("/api/replyingquery", async (req, res) => {
+  
+})
+
 //---------------------------------Exporting-----------------------------------------
 
 export default router;

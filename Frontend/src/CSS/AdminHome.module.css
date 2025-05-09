@@ -1,8 +1,8 @@
-:focus {
+/* :focus {
     outline: 0;
     border-color: #f08d03;
     box-shadow: 0 0 0 4px #f08d0390;
-}
+} */
 
 .mydict div {
     display: flex;
@@ -198,6 +198,8 @@
 
 .disabledInput {
     border: none;
+    outline: none;
+    user-select: none;
 }
 
 textarea {
