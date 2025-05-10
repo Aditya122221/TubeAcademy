@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import AP from "../../CSS/AdminProfile.module.css";
 import axios from "axios";
 
@@ -27,6 +27,7 @@ export default function AdminRightFour() {
         <div className={AP.Ttdd}>
           <table className={`${AP.brightTwo} ${AP.ttable}`}>
             <tr className={AP.TableHead}>
+              <td className={AP.teacher}>Query ID</td>
               <td className={AP.teacher}>Name</td>
               <td className={AP.teacher}>Email ID</td>
               <td className={AP.teacher}>Message</td>
@@ -42,6 +43,7 @@ export default function AdminRightFour() {
                     teacher.status === "pending" ? AP.pending : AP.resolved
                   }`}
                 >
+                  <td className={AP.ttd}>{teacher.query_ID}</td>
                   <td className={AP.ttd}>{teacher.fullname}</td>
                   <td className={AP.ttd}>{teacher.email}</td>
                   <td className={AP.ttd}>{teacher.message}</td>
