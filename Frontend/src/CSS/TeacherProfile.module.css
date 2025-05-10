@@ -215,6 +215,7 @@
 
 .account{
     display: flex;
+    flex-direction: column;
     background: #006400;
     align-items: center;
     border-radius: 30px;

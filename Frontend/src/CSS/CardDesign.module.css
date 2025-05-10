@@ -80,10 +80,11 @@
 .TeacherHomePage {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
 }
 
 .THP {
+    margin-left: 15px;
+    margin-right: 15px;
     margin-top: 1cm;
 }
 
