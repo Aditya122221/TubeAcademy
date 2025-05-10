@@ -23,6 +23,33 @@ export default function AdminHomePage() {
       });
   });
 
+  const [replyMessage, setReplyMessage] = useState("");
+  const [errorR, setErrorR] = useState();
+
+  const handleReply = (e, queryID) => {
+    e.preventDefault();
+    if (replyMessage === "") {
+      setErrorR("Reply Message is required");
+      return;
+    }
+
+    setErrorR("");
+
+    const payload = {
+      query_ID: queryID,
+      replyMessage: replyMessage,
+    };
+
+    axios
+      .post("/api/replyingquery", payload)
+      .then((res) => {
+        console.log("Reply sent");
+      })
+      .catch((err) => {
+        console.log("Error from client side", err);
+      });
+  };
+
   // console.log(teacherData.length)
   return (
     <div>
@@ -159,7 +186,7 @@ export default function AdminHomePage() {
           {queryData.length > 0 ? (
             queryData.map((query, index) => (
               <div className={AH.queryCard} key={index}>
-                <form className={AH.replyForm}>
+                <form className={AH.replyForm} onSubmit={(e)=> handleReply(e, query.query_ID)}>
                   <div className={AH.inputmethod}>
                     <label htmlFor="queryID" className={AH.label}>
                       Query ID:
@@ -226,13 +253,14 @@ export default function AdminHomePage() {
                   </div>
 
                   {/* Optionally display validation error */}
-                  {/* <span>{error?.replyMessage}</span> */}
+                  {errorR && <span style={{ color: "red" }}>{errorR}</span>}
 
                   <textarea
                     name="replyMessage"
                     className={AH.enabledInput}
+                    value={replyMessage}
                     onChange={(e) => {
-                      // setReplyMessage(e.target.value)
+                      setReplyMessage(e.target.value);
                     }}
                   ></textarea>
 

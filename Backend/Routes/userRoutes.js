@@ -177,15 +177,13 @@ router.post("/api/login", async (req, res) => {
     const roleAction = user.role;
 
     // Send successful login response
-    return res
-      .status(200)
-      .json({
-        status: true,
-        message: "Login Successful!",
-        token,
-        roleAction,
-        RegID,
-      });
+    return res.status(200).json({
+      status: true,
+      message: "Login Successful!",
+      token,
+      roleAction,
+      RegID,
+    });
   } catch (err) {
     console.error(err); // Log the error for debugging
     return res
@@ -272,7 +270,7 @@ router.post("/api/email", cors(), async (req, res) => {
       })
       .replace(",", "");
 
-    console.log(formattedDate);
+    // console.log(formattedDate);
 
     const newUser = new email_from_client({
       query_ID: queryId,
@@ -697,7 +695,7 @@ router.post("/api/staff", async (req, res) => {
   try {
     const teacherData = await teacherUserData.find();
     const studentData = await studentUserData.find();
-    const queryData = await email_from_client.find();
+    const queryData = await email_from_client.find({ status: "pending" });
 
     const allStaff = { teacherData, studentData, queryData };
 
@@ -714,8 +712,35 @@ router.post("/api/staff", async (req, res) => {
 //---------------------------------replying query-----------------------------------
 
 router.post("/api/replyingquery", async (req, res) => {
-  
-})
+  const { query_ID, replyMessage } = req.body;
+
+  if (!replyMessage) {
+    return res.status(400);
+  }
+
+  const now = new Date();
+  const formattedDate = now
+    .toLocaleString("en-GB", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    })
+    .replace(",", "");
+
+  const upQuery = await email_from_client.updateOne(
+    { query_ID },
+    { $set: { replyMessage, resolveDate: formattedDate, status: "resolved"} }
+  );
+
+  if (!upQuery) {
+    return res.status(400)
+  }
+
+  return res.status(200)
+});
 
 //---------------------------------Exporting-----------------------------------------
 
