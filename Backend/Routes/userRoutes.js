@@ -423,13 +423,13 @@ router.post(
       const newVideo = new uploadVideo({
         Video_ID: Video_ID,
         Registration_ID: Registration_ID,
-        thumbnail: thumbnailStored?.secure_url,
+        thumbnail: thumbnailStored,
         title: VTitle,
         subjectName: SubjectName,
         forClass: classIn,
         teacherName: teacherName,
         duration: videoStored?.duration,
-        video: videoStored?.secure_url,
+        video: videoStored,
       });
 
       const isSave = await newVideo.save();
@@ -451,7 +451,7 @@ router.post(
       console.error(err);
       return res.status(500).json({
         status: false,
-        message: "Something went wrong",
+        message: "Server side",
         error: err.message,
       });
     }

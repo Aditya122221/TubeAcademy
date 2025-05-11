@@ -31,13 +31,13 @@ export default function TeacherRightTwo() {
             payload.append("thumbnail", thumbnail);
             payload.append("video", video);
 
-            axios.post("/api/uploadVideo", payload, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/uploadVideo`, payload, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
                 succRef.current.style.display = "flex";
                 unsuccRef.current.style.display = "none";
             }).catch((err) => {
                 unsuccRef.current.style.display = "flex";
                 succRef.current.style.display = "none";
-                console.log(err);
+                console.log("client side", err);
             })
         }
     }

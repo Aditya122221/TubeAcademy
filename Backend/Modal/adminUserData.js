@@ -7,6 +7,9 @@ const adminUserDataSchema = new mongoose.Schema({
     avatar: {
         type: String
     },
+    avatarID: {
+        type: String
+    },
     fName: {
         type: String
     },
