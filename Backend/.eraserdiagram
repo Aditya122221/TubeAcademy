@@ -4,6 +4,7 @@ adminUserData [icon: user, color: pink] {
   id Int
   Registration_ID Int
   avatar string
+  avatarID string
   fName string
   lName string
   pNumber string
@@ -17,6 +18,7 @@ teacherUserData [icon: user, color: green] {
   id Int
   Registration_ID Int
   avatar string
+  avatarID string
   fName string
   lName string
   pNumber string
@@ -30,6 +32,7 @@ studentUserData [icon: user, color: yellow]{
   id Int
   Registration_ID Int
   avatar string
+  avatarID string
   fName string
   lName string
   pNumber string
@@ -42,10 +45,15 @@ studentUserData [icon: user, color: yellow]{
 
 email_from_client [icon: mail, color: blue] {
   id Int
-  fullName string
+  query_ID Int
+  Registration_ID Int
+  fullname string
   email string
   message string
-  date date
+  queryDate string
+  replyMessage string
+  resolveDate string
+  status string
 }
 
 uploadVideos [color: green]{
