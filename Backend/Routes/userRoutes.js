@@ -1,5 +1,6 @@
 import express from "express";
 const router = express.Router();
+import { v2 as cloudinary } from "cloudinary";
 import email_from_client from "../Modal/email_from_client.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -12,8 +13,6 @@ import studentUserData from "../Modal/studentUserData.js";
 import uploadVideo from "../Modal/uploadVideo.js";
 
 const secretCode = process.env.ACCESS_TOKEN;
-
-
 
 //---------------------------Signup or Register--------------------------------------
 
@@ -58,7 +57,8 @@ router.post("/api/signup", async (req, res) => {
     let Registration_ID;
     let isDuplicate = true;
     while (isDuplicate) {
-      Registration_ID = Math.floor(Math.random() * (regMax - regMin + 1)) + regMin;
+      Registration_ID =
+        Math.floor(Math.random() * (regMax - regMin + 1)) + regMin;
       isDuplicate = await model.findOne({ Registration_ID });
     }
 
@@ -67,6 +67,7 @@ router.post("/api/signup", async (req, res) => {
     const newUser = new model({
       Registration_ID,
       avatar: "",
+      avatarID: "",
       fName,
       lName,
       pNumber,
@@ -78,11 +79,14 @@ router.post("/api/signup", async (req, res) => {
 
     await newUser.save();
 
-    return res.status(201).json({ status: true, message: "Registration Successful!" });
-
+    return res
+      .status(201)
+      .json({ status: true, message: "Registration Successful!" });
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ status: false, message: "Internal server error" });
+    return res
+      .status(500)
+      .json({ status: false, message: "Internal server error" });
   }
 });
 
@@ -243,35 +247,43 @@ router.post("/api/email", cors(), async (req, res) => {
 router.post("/api/update", upload.single("avatar"), async (req, res) => {
   try {
     const { fName, lName, pNumber, uEmail, uAddress, urole } = req.body;
-    const avatarLocalPath = req.file?.path;
+    const avatarPath = req.file?.path;
+    const isStored = await uploadOnCloudinary(avatarPath);
 
-    const isStored = await uploadOnCloudinary(avatarLocalPath);
+    const modelMap = {
+      admin: adminUserData,
+      Teacher: teacherUserData,
+      student: studentUserData,
+    };
+    const updateModel = modelMap[urole] || studentUserData;
 
-    let updateModel;
-    if (urole === "admin") updateModel = adminUserData;
-    else if (urole === "Teacher") updateModel = teacherUserData;
-    else updateModel = studentUserData;
+    if (isStored !== null) {
+      const existing = await updateModel.findOne({ pNumber });
+      if (existing.avatarID !== "")
+        await cloudinary.uploader.destroy(existing.avatarID, { resource_type: "image" });
+    }
 
-    const updateData = await updateModel.updateOne(
-      { pNumber: pNumber },
+    const updateResult = await updateModel.updateOne(
+      { pNumber },
       {
         $set: {
           avatar: isStored?.secure_url,
-          fName: fName,
-          lName: lName,
+          avatarID: isStored?.public_id,
+          fName,
+          lName,
           email: uEmail,
           address: uAddress,
         },
       }
     );
 
-    if (!updateData) {
+    if (updateResult.modifiedCount === 0) {
       return res.status(404).json({ status: false, message: "Updating Error" });
-    } else {
-      return res.status(201).json({ status: true, message: "Data Updated" });
     }
+
+    res.status(201).json({ status: true, message: "Data Updated" });
   } catch (err) {
-    return res.status(500).json({
+    res.status(500).json({
       status: false,
       message: "Something went wrong",
       error: err.message,
@@ -423,13 +435,15 @@ router.post(
       const newVideo = new uploadVideo({
         Video_ID: Video_ID,
         Registration_ID: Registration_ID,
-        thumbnail: thumbnailStored,
+        thumbnail: thumbnailStored?.secure_url,
+        thumbnailID: thumbnailStored?.public_id,
         title: VTitle,
         subjectName: SubjectName,
         forClass: classIn,
         teacherName: teacherName,
         duration: videoStored?.duration,
-        video: videoStored,
+        video: videoStored?.secure_url,
+        videoID: videoStored?.public_id,
       });
 
       const isSave = await newVideo.save();
@@ -560,18 +574,28 @@ router.post("/api/allvideo", async (req, res) => {
 router.post("/api/deletevideo", async (req, res) => {
   try {
     const { Video_ID } = req.body;
-    const deleteVideo = await uploadVideo.deleteOne({ Video_ID: Video_ID });
-    if (deleteVideo) {
-      console.log("Video Deleted");
-      return res
-        .status(201)
-        .json({ status: true, message: "Video Deleted Successfully" });
-    } else {
+    const video = await uploadVideo.findOne({ Video_ID });
+
+    if (!video) {
       return res
         .status(404)
         .json({ status: false, message: "Video Not Found" });
     }
+
+    await Promise.all([
+      cloudinary.uploader.destroy(video.thumbnailID, {
+        resource_type: "image",
+      }),
+      cloudinary.uploader.destroy(video.videoID, { resource_type: "video" }),
+    ]);
+
+    await uploadVideo.deleteOne({ Video_ID });
+
+    return res
+      .status(200)
+      .json({ status: true, message: "Video Deleted Successfully" });
   } catch (err) {
+    console.error("Delete error:", err);
     return res.status(500).json({
       status: false,
       message: "Something went wrong while deleting video from backend",
@@ -593,39 +617,56 @@ router.post(
       const thumbnail = req.files?.thumbnail?.[0];
       const video = req.files?.video?.[0];
 
-      const thumbnailPath = thumbnail?.path;
-      const videoPath = video?.path;
-
-      const thumbnailStored = await uploadOnCloudinary(thumbnailPath);
-      const videoStored = await uploadOnCloudinary(videoPath);
-
-      const updateData = await uploadVideo.findOneAndUpdate(
-        { Video_ID: Video_ID },
-        {
-          $set: {
-            title: title,
-            subjectName: subjectName,
-            forClass: forClass,
-            thumbnail: thumbnailStored?.secure_url,
-            video: videoStored?.secure_url,
-          },
-        }
-      );
-
-      if (updateData) {
-        console.log("Video Updated");
-        return res
-          .status(201)
-          .json({ status: true, message: "Video Updated Successfully" });
-      } else {
+      const existing = await uploadVideo.findOne({ Video_ID });
+      if (!existing) {
         return res
           .status(404)
           .json({ status: false, message: "Video Not Found" });
       }
+
+      const [thumbnailStored, videoStored] = await Promise.all([
+        thumbnail?.path ? uploadOnCloudinary(thumbnail.path) : null,
+        video?.path ? uploadOnCloudinary(video.path) : null,
+      ]);
+
+      if (thumbnailStored !== null) {
+        await cloudinary.uploader.destroy(existing.thumbnailID, {
+          resource_type: "image",
+        });
+      }
+      if (videoStored !== null) {
+        await cloudinary.uploader.destroy(existing.videoID, {
+          resource_type: "video",
+        });
+      }
+
+      // Update DB entry
+      const updated = await uploadVideo.findOneAndUpdate(
+        { Video_ID },
+        {
+          $set: {
+            title,
+            subjectName,
+            forClass,
+            thumbnail: thumbnailStored?.secure_url || existing.thumbnail,
+            thumbnailID: thumbnailStored?.public_id || existing.thumbnailID,
+            video: videoStored?.secure_url || existing.video,
+            videoID: videoStored?.public_id || existing.videoID,
+          },
+        },
+        { new: true }
+      );
+
+      return res.status(200).json({
+        status: true,
+        message: "Video Updated Successfully",
+        updatedVideo: updated,
+      });
     } catch (err) {
+      console.error("Edit video error:", err);
       return res.status(500).json({
         status: false,
-        message: "Something went wrong while updating from Backend",
+        message: "Something went wrong while updating from backend",
       });
     }
   }
@@ -674,14 +715,14 @@ router.post("/api/replyingquery", async (req, res) => {
 
   const upQuery = await email_from_client.updateOne(
     { query_ID },
-    { $set: { replyMessage, resolveDate: formattedDate, status: "resolved"} }
+    { $set: { replyMessage, resolveDate: formattedDate, status: "resolved" } }
   );
 
   if (!upQuery) {
-    return res.status(400)
+    return res.status(400);
   }
 
-  return res.status(200)
+  return res.status(200);
 });
 
 router.post("/api/queryAll", async (req, res) => {
@@ -689,9 +730,11 @@ router.post("/api/queryAll", async (req, res) => {
     const allQuery = await email_from_client.find();
     return res.status(200).json({ data: allQuery });
   } catch (err) {
-    return res.status(404).json({message: "Fetching data error from server side"})
+    return res
+      .status(404)
+      .json({ message: "Fetching data error from server side" });
   }
-})
+});
 
 //---------------------------------Exporting-----------------------------------------
 

@@ -53,7 +53,7 @@ export default function ClassNine() {
                     {nineVideos.map((video) => {
                         return (
                             <div className={CN.cards} key={video._id}>
-                                <img className={CN.thumbnail} src={video.thumbnail?.secure_url} alt="Thumbnail" />
+                                <img className={CN.thumbnail} src={video.thumbnail} alt="Thumbnail" />
                                 <h3 className={CN.title}>{video.title}</h3>
                                 <div className={CN.details}>
                                     <div className={CN.subject}>{video.subjectName}</div>

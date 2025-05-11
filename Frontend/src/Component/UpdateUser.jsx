@@ -48,13 +48,13 @@ export default function UpdateUser() {
             payload.append("urole", role)
             payload.append("avatar", avatar)
 
-            axios.post(`${import.meta.env.VITE_API_BASE_URL}api/update`, payload, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => {
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/update`, payload, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => {
                 updateRef.current.style.display = "block"
                 updateERef.current.style.display = "none"
             }).catch((err) => {
                 updateRef.current.style.display = "none"
                 updateERef.current.style.display = "block"
-                console.log(err);
+                console.log("Error from client side", err);
             })
         }
     }
@@ -66,7 +66,7 @@ export default function UpdateUser() {
                 <div className={U.left}>
                     <div className={U.left1}>
                         <div className={U.left2}>
-                            <img src={Leader} className={U.left3} alt="" />
+                            <img src={avatar == "" ? Leader : avatar} className={U.left3} alt="" />
                         </div>
                         <div className={U.left4}>{fname} {lname}</div>
                         <div className={U.left5}>{uemail}</div>

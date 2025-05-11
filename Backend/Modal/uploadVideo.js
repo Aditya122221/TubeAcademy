@@ -12,6 +12,9 @@ const uploadVideoSchema = new mongoose.Schema(
         thumbnail: {
             type: String
         },
+        thumbnailID: {
+            type: String
+        }, 
         title: {
             type: String
         },
@@ -28,6 +31,9 @@ const uploadVideoSchema = new mongoose.Schema(
             type: Number
         },
         video: {
+            type: String
+        },
+        videoID: {
             type: String
         },
         views: {
