@@ -22,6 +22,10 @@ app.use(cors({
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 app.use(cookieParser())
 
+app.get('/', function (req, res) {
+  res.send("Server Running");
+});
+
 app.use('/', userRoutes);
 
 (async () => {

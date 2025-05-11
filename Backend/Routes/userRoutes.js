@@ -13,9 +13,7 @@ import uploadVideo from "../Modal/uploadVideo.js";
 
 const secretCode = process.env.ACCESS_TOKEN;
 
-router.post("/api", async (req, res) => {
-  res.json("Server Running");
-});
+
 
 //---------------------------Signup or Register--------------------------------------
 
