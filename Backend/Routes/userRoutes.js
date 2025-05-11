@@ -7,6 +7,7 @@ import jwt from "jsonwebtoken";
 import cors from "cors";
 import upload from "./multer.js";
 import uploadOnCloudinary from "./cloudinary.js";
+import nodemailer from "nodemailer";
 import adminUserData from "../Modal/adminUserData.js";
 import teacherUserData from "../Modal/teacherUserData.js";
 import studentUserData from "../Modal/studentUserData.js";
@@ -45,8 +46,9 @@ router.post("/api/signup", async (req, res) => {
 
     const { model, regMin, regMax } = config;
 
-    const existingUser = await model.findOne({ pNumber });
-    if (existingUser) {
+    const existingPhone = await model.findOne({ pNumber });
+    const existingEmail = await model.findOne({ email });
+    if (existingPhone || existingEmail) {
       return res.status(409).json({
         status: false,
         message: "User with this phone number already exists",
@@ -78,6 +80,47 @@ router.post("/api/signup", async (req, res) => {
     });
 
     await newUser.save();
+
+    //-------------------------Sending Mail-----------------------------------
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.MAIL_FROM,
+        pass: process.env.APP_PASSWORD,
+      },
+    });
+
+    // Email options
+    const mailOptions = {
+      from: process.env.MAIL_FROM,
+      to: email,
+      subject: `Thank You for Joining TubeAcademy – ${Registration_ID}`,
+      text: `Dear ${fName} ${lName},
+
+Thank you for joining TubeAcademy! We’re thrilled to have you as part of our growing learning community.
+
+Your registration has been successfully completed.
+Registration Number: ${Registration_ID}
+Password: ${password}
+
+Please change the password before login!
+
+Click here to visit: http://localhost:5173
+
+We look forward to supporting you on your learning journey. If you have any questions or need assistance getting started, feel free to reach out to us at any time.
+
+Warm regards,
+Team TubeAcademy
+tubeacademy018@gmail.com`,
+    };
+
+    // Send email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        return console.log("Error:", error);
+      }
+    });
 
     return res
       .status(201)
@@ -260,7 +303,9 @@ router.post("/api/update", upload.single("avatar"), async (req, res) => {
     if (isStored !== null) {
       const existing = await updateModel.findOne({ pNumber });
       if (existing.avatarID !== "")
-        await cloudinary.uploader.destroy(existing.avatarID, { resource_type: "image" });
+        await cloudinary.uploader.destroy(existing.avatarID, {
+          resource_type: "image",
+        });
     }
 
     const updateResult = await updateModel.updateOne(

@@ -12,6 +12,7 @@ const SignUp = () => {
         fName: '',
         lName: '',
         pNumber: '',
+        email: '',
         role: '',
         password: '',
         cPassword: ''
@@ -34,6 +35,8 @@ const SignUp = () => {
 
         const numregex = /^[0-9]+$/
         if (!(numregex.test(formData.pNumber))) newErrors.pNumber = "Phone Number is not valid"
+
+        if(formData.email.length === 0) newErrors.email = "Email is not valid"
 
         if (formData.password.length < 8) newErrors.password = "Length should atleast be 8 character long"
         else if (!(lowerCaseE(formData.password))) newErrors.password = "Password should contain atleast one lowercase letter"
@@ -65,7 +68,7 @@ const SignUp = () => {
                 pNumber: formData.pNumber,
                 role: formData.role,
                 password: formData.password,
-                email: "",
+                email: formData.email,
                 address: ""
             }
             axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/signup`, payload).then((res) => {
@@ -139,6 +142,9 @@ const SignUp = () => {
 
                         <label className={S.label} htmlFor="pNumber">Phone Number:</label>{errors.pNumber && <span className={S.eeror}>{errors.pNumber}</span>}
                         <input type="text" id="phone" name="pNumber" required value={formData.pNumber} onChange={handleChange} className={S.inputField} minLength={10} maxLength={10} />
+
+                        <label className={S.label} htmlFor="email">Email:</label>{errors.lName && <span className={S.eeror}>{errors.email}</span>}
+                        <input type="text" id="email" name="email" required value={formData.email} onChange={handleChange} className={S.inputField} />
 
                         <div className={S.radioInput}>
                             <label className={S.label}>
