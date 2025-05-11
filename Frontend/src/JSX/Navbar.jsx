@@ -1,7 +1,7 @@
 import React, { useSatae, useRef, useState } from "react";
 import N from '../CSS/Navbar.module.css';
 import { Link } from "react-router-dom";
-import Logo from '../Images/logo.png';
+import Logo from '../Images/Logo.png';
 
 export default function Navbar() {
     const [isActiveH, setIsActiveH] = useState(false);
