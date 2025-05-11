@@ -8,7 +8,7 @@ export default function Footer() {
             <div className={F.footer}>
                 <div className={F.footerHeader}></div>
                 <div className={F.footerFooter}>
-                    <div className={F.copyright}>&copy; 2024 Best Channel</div>
+                    <div className={F.copyright}>&copy; 2024 TubeAcademy</div>
                     <div className={F.lang}>
                         <i className="fa-solid fa-globe"></i>
                         <span className={F.l}>English</span>

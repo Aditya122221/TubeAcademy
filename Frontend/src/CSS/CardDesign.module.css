@@ -3,7 +3,6 @@
 
 .MainClassNine {
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
     width: 100%;
 }
@@ -13,6 +12,7 @@
     flex-direction: column;
     width: 28%;
     height: 100%;
+    margin: 15px;
 }
 
 .cards:hover .thumbnail {

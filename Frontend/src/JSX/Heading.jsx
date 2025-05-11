@@ -22,11 +22,6 @@ export const ClassArray = [
         id: 4,
         standard: "Class 12",
         addr: '/classtwelve'
-    },
-    {
-        id: 5,
-        standard: "Competition",
-        addr: '/competition'
     }
 ]
 
