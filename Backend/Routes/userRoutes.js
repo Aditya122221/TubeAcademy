@@ -19,125 +19,70 @@ const secretCode = process.env.ACCESS_TOKEN;
 
 router.post("/api/signup", async (req, res) => {
   try {
-    // Validate required fields
     const { fName, lName, pNumber, role, password, email, address } = req.body;
 
-    // Check for existing user using findOne instead of find
+    const roleConfigs = {
+      admin: {
+        model: adminUserData,
+        regMin: 10,
+        regMax: 99,
+      },
+      Teacher: {
+        model: teacherUserData,
+        regMin: 1000,
+        regMax: 9999,
+      },
+      Student: {
+        model: studentUserData,
+        regMin: 100000,
+        regMax: 999999,
+      },
+    };
 
-    if (role === "admin") {
-      const existingUser = await adminUserData.findOne({ pNumber });
-
-      if (existingUser) {
-        return res.status(409).json({
-          status: false,
-          message: "User with this phone number already exists",
-        });
-      }
-
-      let Registration_ID = Math.floor(Math.random() * (99 - 10)) + 10;
-      const eReg = await adminUserData.findOne({ Registration_ID });
-
-      while (Registration_ID === eReg) {
-        Registration_ID = Math.floor(Math.random() * (99 - 10)) + 10;
-        eReg = await adminUserData.findOne({ Registration_ID });
-      }
-
-      // Hash password securely using bcrypt
-      const hashPassword = await bcrypt.hash(password, 10);
-
-      // Create and save new user using newUser.save()
-      const newUser = new adminUserData({
-        Registration_ID,
-        avatar: "",
-        fName,
-        lName,
-        pNumber,
-        role,
-        email,
-        address,
-        password,
-      });
-      await newUser.save();
-    } else if (role === "Teacher") {
-      const existingUser = await teacherUserData.findOne({ pNumber });
-
-      if (existingUser) {
-        return res.status(409).json({
-          status: false,
-          message: "User with this phone number already exists",
-        });
-      }
-
-      let Registration_ID = Math.floor(Math.random() * (9999 - 1000)) + 1000;
-      const eReg = await teacherUserData.findOne({ Registration_ID });
-
-      while (Registration_ID === eReg) {
-        Registration_ID = Math.floor(Math.random() * (9999 - 1000)) + 1000;
-        eReg = await teacherUserData.findOne({ Registration_ID });
-      }
-
-      // Hash password securely using bcrypt
-      const hashPassword = await bcrypt.hash(password, 10);
-
-      // Create and save new user using newUser.save()
-      const newUser = new teacherUserData({
-        Registration_ID,
-        avatar: "",
-        fName,
-        lName,
-        pNumber,
-        role,
-        email,
-        address,
-        password,
-      });
-      await newUser.save();
-    } else {
-      const existingUser = await studentUserData.findOne({ pNumber });
-
-      if (existingUser) {
-        return res.status(409).json({
-          status: false,
-          message: "User with this phone number already exists",
-        });
-      }
-
-      let Registration_ID =
-        Math.floor(Math.random() * (999999 - 100000)) + 100000;
-      const eReg = await studentUserData.findOne({ Registration_ID });
-
-      while (Registration_ID === eReg) {
-        Registration_ID =
-          Math.floor(Math.random() * (999999 - 100000)) + 100000;
-        eReg = await studentUserData.findOne({ Registration_ID });
-      }
-
-      // Hash password securely using bcrypt
-      const hashPassword = await bcrypt.hash(password, 10);
-
-      // Create and save new user using newUser.save()
-      const newUser = new studentUserData({
-        Registration_ID,
-        avatar: "",
-        fName,
-        lName,
-        pNumber,
-        role,
-        email,
-        address,
-        password,
-      });
-      await newUser.save();
+    const config = roleConfigs[role];
+    if (!config) {
+      return res.status(400).json({ status: false, message: "Invalid role" });
     }
 
-    return res
-      .status(201)
-      .json({ status: true, message: "Registration Successful!" });
+    const { model, regMin, regMax } = config;
+
+    const existingUser = await model.findOne({ pNumber });
+    if (existingUser) {
+      return res.status(409).json({
+        status: false,
+        message: "User with this phone number already exists",
+      });
+    }
+
+    // Generate unique Registration_ID
+    let Registration_ID;
+    let isDuplicate = true;
+    while (isDuplicate) {
+      Registration_ID = Math.floor(Math.random() * (regMax - regMin + 1)) + regMin;
+      isDuplicate = await model.findOne({ Registration_ID });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new model({
+      Registration_ID,
+      avatar: "",
+      fName,
+      lName,
+      pNumber,
+      role,
+      email,
+      address,
+      password,
+    });
+
+    await newUser.save();
+
+    return res.status(201).json({ status: true, message: "Registration Successful!" });
+
   } catch (err) {
-    console.error(err); // Log the error for debugging
-    return res
-      .status(500)
-      .json({ status: false, message: "Internal server error" });
+    console.error(err);
+    return res.status(500).json({ status: false, message: "Internal server error" });
   }
 });
 
@@ -615,7 +560,6 @@ router.post("/api/allvideo", async (req, res) => {
 router.post("/api/deletevideo", async (req, res) => {
   try {
     const { Video_ID } = req.body;
-    const video = await uploadVideo.findOne({ Video_ID: Video_ID });
     const deleteVideo = await uploadVideo.deleteOne({ Video_ID: Video_ID });
     if (deleteVideo) {
       console.log("Video Deleted");
@@ -739,6 +683,15 @@ router.post("/api/replyingquery", async (req, res) => {
 
   return res.status(200)
 });
+
+router.post("/api/queryAll", async (req, res) => {
+  try {
+    const allQuery = await email_from_client.find();
+    return res.status(200).json({ data: allQuery });
+  } catch (err) {
+    return res.status(404).json({message: "Fetching data error from server side"})
+  }
+})
 
 //---------------------------------Exporting-----------------------------------------
 

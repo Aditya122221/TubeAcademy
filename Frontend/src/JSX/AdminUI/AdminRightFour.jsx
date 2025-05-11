@@ -4,16 +4,15 @@ import axios from "axios";
 
 export default function AdminRightFour() {
   const [query, setQuery] = useState([]);
-  const Registration_ID = localStorage.getItem("RegID");
 
   const fetchData = () => {
     axios
-      .post("/api/queryDetails", { Registration_ID })
+      .post("/api/queryAll")
       .then((res) => {
         setQuery(res.data.data);
       })
       .catch((err) => {
-        console.log("Error while fetching the data", err);
+        console.log("Error while fetching the data from client side", err);
       });
   };
 

@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   server: {
     proxy: {
-      '/api': 'https://tubeacademy-server.onrender.com'
+      '/api': 'http://localhost:3000'
     }
   },
   plugins: [react()],
