@@ -106,7 +106,7 @@ Password: ${password}
 
 Please change the password before login!
 
-Click here to visit: http://localhost:5173
+Click here to visit: ${process.env.CORS_ORIGIN}
 
 We look forward to supporting you on your learning journey. If you have any questions or need assistance getting started, feel free to reach out to us at any time.
 
