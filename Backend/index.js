@@ -24,18 +24,14 @@ app.use(cookieParser())
 
 app.use('/', userRoutes);
 
-mongoose.connect('mongodb://localhost:27017/TubeAcademy')
-  .then(() => console.log('Connected to MongoDB...'))
-  .catch((err) => console.log("Failed to connect to Database", err));
-
-// (async () => {
-//   try {
-//     const c = await mongoose.connect("mongodb+srv://adityakumar:aditya123@tubeacademy.zn4s6.mongodb.net/TubeAcademy");
-//     console.log(`Database connected to ${c.connection.host}`);
-//   } catch (err) {
-//     console.error("Error connecting to MongoDB:", err);
-//   }
-// })();
+(async () => {
+  try {
+    const c = await mongoose.connect(process.env.MONGODB_URI);
+    console.log(`Database connected to ${c.connection.host}`);
+  } catch (err) {
+    console.error("Error connecting to MongoDB:", err);
+  }
+})();
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`)
