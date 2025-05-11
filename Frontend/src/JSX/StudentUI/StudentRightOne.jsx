@@ -17,7 +17,7 @@ export default function StudentRightOne() {
                 role: `${role}`
             }
         }
-        axios.post("/api/profile", {}, header).then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/profile`, {}, header).then((res) => {
             console.log(res.data.data)
             setUserData(res.data.data)
         }).catch((err) => {

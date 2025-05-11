@@ -8,7 +8,7 @@ export default function TeacherRightThree() {
     
     const fetchData = () => {
     axios
-      .post("/api/queryDetails", { Registration_ID })
+      .post(`${import.meta.env.VITE_API_BASE_URL}/api/queryDetails`, { Registration_ID })
       .then((res) => {
         setQuery(res.data.data);
       })

@@ -6,7 +6,7 @@ export default function ClassTwelve() {
     const [videos, setVideos] = useState([])
 
     const fetchVideos = async () => {
-        axios.post("api/classTwelve").then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/classTwelve`).then((res) => {
             setVideos(res.data.data);
         }).catch((err) => {
             console.log("Class Twelve Video fetching Error", err);

@@ -7,7 +7,7 @@ export default function AdminRightFour() {
 
   const fetchData = () => {
     axios
-      .post("/api/queryAll")
+      .post(`${import.meta.env.VITE_API_BASE_URL}/api/queryAll`)
       .then((res) => {
         setQuery(res.data.data);
       })

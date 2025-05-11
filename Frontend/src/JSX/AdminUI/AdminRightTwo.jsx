@@ -6,7 +6,7 @@ export default function AdminRightTwo() {
     const [teacherData, setTeacherData] = useState([])
 
     const fetchData = () => {
-        axios.post("/api/teacherDetails").then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/teacherDetails`).then((res) => {
             setTeacherData(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)

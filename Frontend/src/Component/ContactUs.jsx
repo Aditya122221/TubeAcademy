@@ -54,7 +54,7 @@ export default function Contact() {
                 email: contactData.email,
                 message: contactData.message
             }
-            axios.post("/api/email", dataSend).then((res) => {
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/email`, dataSend).then((res) => {
                 
                 setSucc("Email sent")
                 succRef.current.style.display = "block"

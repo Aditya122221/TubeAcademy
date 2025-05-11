@@ -20,7 +20,7 @@ export default function TeacherRightOne() {
                 role: `${role}`
             }
         }
-        axios.post("/api/profile", {}, header).then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/profile`, {}, header).then((res) => {
             setUserData(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)

@@ -13,7 +13,7 @@ export default function TeacherHomePage() {
                 Authorization: `Bearer ${token}`,
             }
         }
-        axios.post("/api/allvideo", {}, header).then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/allvideo`, {}, header).then((res) => {
             setAllVideo(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)
@@ -26,7 +26,7 @@ export default function TeacherHomePage() {
 
     const deleteVideo = (e, Video_ID) => {
         e.preventDefault()
-        axios.post("/api/deletevideo", {Video_ID}).then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/deletevideo`, {Video_ID}).then((res) => {
             Navigate('/home')
             alert("Video deleted")
         }).catch((err) => {

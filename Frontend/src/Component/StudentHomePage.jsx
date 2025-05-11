@@ -18,7 +18,7 @@ export default function StudentHomePage() {
     const [Slider, setSlider] = useState([]);
 
     const fetchSlider = () => {
-        axios.post("/api/slider").then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/slider`).then((res) => {
             setSlider(res.data.data);
         }).catch((err) => {
             console.log("Slider Fetching error from frontend", err);

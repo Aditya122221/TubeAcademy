@@ -6,7 +6,7 @@ export default function AdminRightThree() {
     const [studentData, setStudentData] = useState([])
 
     const fetchData = () => {
-        axios.post("/api/studentDetails").then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/studentDetails`).then((res) => {
             setStudentData(res.data.data)
         }).catch((err) => {
             console.log("Error while fetching the data", err)

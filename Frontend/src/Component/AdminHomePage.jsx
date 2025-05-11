@@ -12,7 +12,7 @@ export default function AdminHomePage() {
 
   useEffect(() => {
     axios
-      .post("/api/staff")
+      .post(`${import.meta.env.VITE_API_BASE_URL}/api/staff`)
       .then((res) => {
         setTeacherData(res.data.data.teacherData);
         setStudentData(res.data.data.studentData);
@@ -41,7 +41,7 @@ export default function AdminHomePage() {
     };
 
     axios
-      .post("/api/replyingquery", payload)
+      .post(`${import.meta.env.VITE_API_BASE_URL}/api/replyingquery`, payload)
       .then((res) => {
         console.log("Reply sent");
       })

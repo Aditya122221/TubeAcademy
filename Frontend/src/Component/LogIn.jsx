@@ -59,7 +59,7 @@ const LogIn = () => {
             };
 
             setSettingUp(true);
-            axios.post('/api/login', payload)
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/login`, payload)
                 .then((res) => {
                     setSettingUp(false);
                     localStorage.setItem('token', JSON.stringify(res.data.token));

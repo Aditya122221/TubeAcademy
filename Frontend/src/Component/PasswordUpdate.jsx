@@ -42,7 +42,7 @@ export default function PasswordUpdate() {
                 newpassword: newpassword,
                 urole: urole
             }
-            axios.post('/api/passwordupdate', payload).then((res) => {
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/passwordupdate`, payload).then((res) => {
                 Navigate('/')
             }).catch((e) => {
                 console.log(e)

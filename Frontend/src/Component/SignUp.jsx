@@ -68,7 +68,7 @@ const SignUp = () => {
                 email: "",
                 address: ""
             }
-            axios.post('/api/signup', payload).then((res) => {
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/signup`, payload).then((res) => {
                 toast("Registration Successful");
                 console.log("User register", res);
                 setSettingUp(false);

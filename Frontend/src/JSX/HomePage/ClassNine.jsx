@@ -6,7 +6,7 @@ export default function ClassNine() {
     const [videos, setVideos] = useState([])
 
     const fetchVideos = async () => {
-        axios.post("api/classNine").then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/classNine`).then((res) => {
             setVideos(res.data.data);
         }).catch((err) => {
             console.log("Class Nine Video fetching Error", err);

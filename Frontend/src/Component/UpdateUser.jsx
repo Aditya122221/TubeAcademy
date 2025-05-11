@@ -48,7 +48,7 @@ export default function UpdateUser() {
             payload.append("urole", role)
             payload.append("avatar", avatar)
 
-            axios.post("api/update", payload, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => {
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}api/update`, payload, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => {
                 updateRef.current.style.display = "block"
                 updateERef.current.style.display = "none"
             }).catch((err) => {

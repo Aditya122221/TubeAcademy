@@ -13,7 +13,7 @@ export default function ClassTwelve() {
     const [XIIData, setXIIData] = useState([])
 
     useEffect(() => {
-        axios.post("/api/classTwelve").then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/classTwelve`).then((res) => {
             settwelveVideos(res.data.data)
             setXIIData(res.data.data)
         }).catch((err) => {

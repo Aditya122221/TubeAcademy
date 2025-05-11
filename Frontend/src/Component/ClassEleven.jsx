@@ -13,7 +13,7 @@ export default function ClassEleven() {
     const [ElevenVideos, setElevenVideos] = useState([]) //Should be constact and not to be changed
 
     useEffect(() => {
-        axios.post("/api/classEleven").then((res) => {
+        axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/classEleven`).then((res) => {
             setelevenVideos(res.data.data)
             setElevenVideos(res.data.data)
         }).catch((err) => {

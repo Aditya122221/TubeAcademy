@@ -39,7 +39,7 @@ export default function VideoEdit() {
             formData.append('thumbnail', thumbnail)
             formData.append('video', video)
 
-            axios.post('/api/editvideo', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/editvideo`, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
                 Navigate('/home')
             }).catch((err) => {
                 console.log("Error while updating data from frontend", err)
