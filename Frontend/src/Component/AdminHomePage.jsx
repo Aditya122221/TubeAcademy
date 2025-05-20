@@ -16,7 +16,7 @@ export default function AdminHomePage() {
       .then((res) => {
         setTeacherData(res.data.data.teacherData);
         setStudentData(res.data.data.studentData);
-        setQueryData(res.data.data.queryData);
+        setQueryData(res.data.data.statusQuery);
       })
       .catch((err) => {
         console.log("Error in fetching staff details from client side", err);

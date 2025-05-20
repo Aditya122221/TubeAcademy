@@ -14,6 +14,13 @@ import studentUserData from "../Modal/studentUserData.js";
 import uploadVideo from "../Modal/uploadVideo.js";
 
 const secretCode = process.env.ACCESS_TOKEN;
+let teacherData = []
+let studentData = []
+let queryData = []
+let personalQuery = []
+let statusQuery = []
+let teacherVideo = []
+let studentVideo = []
 
 //---------------------------Signup or Register--------------------------------------
 
@@ -408,7 +415,9 @@ router.post("/api/passwordupdate", async (req, res) => {
 
 router.post("/api/teacherDetails", async (req, res) => {
   try {
-    const teacherData = await teacherUserData.find();
+    if (teacherData.length === 0) {
+      teacherData = await teacherUserData.find()
+    }
     return res.status(201).json({ status: true, data: teacherData });
   } catch (err) {
     return res.status(500).json({
@@ -421,7 +430,9 @@ router.post("/api/teacherDetails", async (req, res) => {
 
 router.post("/api/studentDetails", async (req, res) => {
   try {
-    const studentData = await studentUserData.find();
+    if (studentData.length === 0) {
+      studentData = await studentUserData.find()
+    }
     return res.status(201).json({ status: true, data: studentData });
   } catch (err) {
     return res.status(500).json({
@@ -435,8 +446,10 @@ router.post("/api/studentDetails", async (req, res) => {
 router.post("/api/queryDetails", async (req, res) => {
   try {
     const { Registration_ID } = req.body;
-    const Query = await email_from_client.find({ Registration_ID });
-    return res.status(201).json({ status: true, data: Query });
+    if (personalQuery.length === 0) {
+      personalQuery = await email_from_client.find({ Registration_ID });
+    }
+    return res.status(201).json({ status: true, data: personalQuery });
   } catch (err) {
     return res.status(500).json({
       status: false,
@@ -521,7 +534,11 @@ router.post(
 
 router.post("/api/classNine", async (req, res) => {
   try {
-    const classNineVideos = await uploadVideo.find({ forClass: "IX" });
+    if (studentVideo.length === 0) {
+      studentVideo = await uploadVideo.find()
+    }
+
+    const classNineVideos = studentVideo.filter((item) => (item.forClass === "IX"))
     return res.status(201).json({ status: true, data: classNineVideos });
   } catch (err) {
     return res.status(500).json({
@@ -534,7 +551,7 @@ router.post("/api/classNine", async (req, res) => {
 
 router.post("/api/classTen", async (req, res) => {
   try {
-    const classTenVideos = await uploadVideo.find({ forClass: "X" });
+    const classTenVideos = studentVideo.filter((item) => (item.forClass === "X"));
     return res.status(201).json({ status: true, data: classTenVideos });
   } catch (err) {
     return res.status(500).json({
@@ -547,7 +564,7 @@ router.post("/api/classTen", async (req, res) => {
 
 router.post("/api/classEleven", async (req, res) => {
   try {
-    const classElevenVideos = await uploadVideo.find({ forClass: "XI" });
+    const classElevenVideos = studentVideo.filter((item) => (item.forClass === "XI"));
     return res.status(201).json({ status: true, data: classElevenVideos });
   } catch (err) {
     return res.status(500).json({
@@ -560,7 +577,7 @@ router.post("/api/classEleven", async (req, res) => {
 
 router.post("/api/classTwelve", async (req, res) => {
   try {
-    const classTwelveVideos = await uploadVideo.find({ forClass: "XII" });
+    const classTwelveVideos = studentVideo.filter((item) => (item.forClass === "XII"));
     return res.status(201).json({ status: true, data: classTwelveVideos });
   } catch (err) {
     return res.status(500).json({
@@ -602,9 +619,11 @@ router.post("/api/allvideo", async (req, res) => {
         return res
           .status(404)
           .json({ status: false, message: "Invalid Token" });
-      const RegID = user.Registration_ID;
-      const allVideos = await uploadVideo.find({ Registration_ID: RegID });
-      return res.status(201).json({ status: true, data: allVideos });
+      if (teacherVideo.length === 0) {
+        const RegID = user.Registration_ID;
+        teacherVideo = await uploadVideo.find({ Registration_ID: RegID });
+      }
+      return res.status(201).json({ status: true, data: teacherVideo });
     });
   } catch (err) {
     return res.status(500).json({
@@ -721,11 +740,19 @@ router.post(
 
 router.post("/api/staff", async (req, res) => {
   try {
-    const teacherData = await teacherUserData.find();
-    const studentData = await studentUserData.find();
-    const queryData = await email_from_client.find({ status: "pending" });
+    if (teacherData.length === 0) {
+      teacherData = await teacherUserData.find()
+    }
 
-    const allStaff = { teacherData, studentData, queryData };
+    if (studentData.length === 0) {
+      studentData = await studentUserData.find()
+    }
+
+    if (statusQuery.length === 0) {
+      statusQuery = await email_from_client.find({status: "pending"})
+    }
+
+    const allStaff = { teacherData, studentData, statusQuery };
 
     return res.status(201).json({ status: true, data: allStaff });
   } catch (err) {
@@ -740,7 +767,8 @@ router.post("/api/staff", async (req, res) => {
 //---------------------------------replying query-----------------------------------
 
 router.post("/api/replyingquery", async (req, res) => {
-  const { query_ID, replyMessage } = req.body;
+  try {
+    const { query_ID, replyMessage } = req.body;
 
   if (!replyMessage) {
     return res.status(400);
@@ -765,15 +793,22 @@ router.post("/api/replyingquery", async (req, res) => {
 
   if (!upQuery) {
     return res.status(400);
-  }
+    }
+    
+    statusQuery = await email_from_client.find({status: "pending"})
 
   return res.status(200);
+  } catch (err) {
+    return res.status(500).send("Server side error", err)
+  }
 });
 
 router.post("/api/queryAll", async (req, res) => {
   try {
-    const allQuery = await email_from_client.find();
-    return res.status(200).json({ data: allQuery });
+    if (queryData.length === 0) {
+      queryData = await email_from_client.find()
+    }
+    return res.status(200).json({ data: queryData });
   } catch (err) {
     return res
       .status(404)
