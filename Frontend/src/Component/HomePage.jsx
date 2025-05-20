@@ -10,7 +10,7 @@ export default function HomePage() {
         if (localStorage.getItem('token') === null) {
             window.location.href = '/';
         }
-    })
+    }, [])
 
     if (role === '"Student"') {
         return (
