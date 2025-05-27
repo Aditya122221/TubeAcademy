@@ -16,4 +16,6 @@ Frontend: JavaScript, HTML, CSS
 
 Deployment: Vercel
 
-<pre> ## 📥 Clone the Repository To get a local copy up and running, run the following command in your terminal: ```bash git clone https://github.com/Aditya122221/TubeAcademy.git ``` </pre>
+<pre>## Clone the Repository ```bash git clone https://github.com/Aditya122221/TubeAcademy.git```</pre>
+
+```bash git clone https://github.com/Aditya122221/TubeAcademy.git```
