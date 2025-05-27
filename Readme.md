@@ -47,5 +47,7 @@ Create .env file in both Frontend and Backend directory and follow the .env.exam
 
 <h2>🛠️ Technologies Used</h2>
 
-*   Frontend: React JS CSS Express JS Mongo DB
-*   Deployment: Vercel
+*   Frontend: React JS
+*   Backend: Express
+*   Database: Mongo DB
+*   Deployment: Vercel, Render
