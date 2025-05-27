@@ -42,6 +42,9 @@ cd Backend
 npm install
 ```
 
+<p>4. .env Set up</p>
+Create .env file in both Frontend and Backend directory and follow the .env.example file to setup the .env file
+
 <h2>🛠️ Technologies Used</h2>
 
 *   Frontend: React JS CSS Express JS Mongo DB
