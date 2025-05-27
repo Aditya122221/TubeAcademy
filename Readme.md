@@ -13,7 +13,7 @@ Educational Content: Access to a range of learning materials and resources.
 
 🛠️ Technologies Used
 Frontend: JavaScript, HTML, CSS
+
 Deployment: Vercel
 
-```bash git clone https://github.com/Aditya122221/TubeAcademy.git
-```
+```bash git clone https://github.com/Aditya122221/TubeAcademy.git```
