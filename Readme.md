@@ -1,14 +1,3 @@
-## 🛠️ Technologies Used
-Frontend: JavaScript, HTML, CSS
-
-Deployment: Vercel
-
-## Clone the Repository
-
-```bash git clone https://github.com/Aditya122221/TubeAcademy.git```
-
-
-
 <h1 id="title">🎓 TubeAcademy</h1>
 
 <p id="description">TubeAcademy is a web-based educational platform designed to provide users with access to a variety of learning resources. The application is built using modern web technologies and offers a responsive and user-friendly interface.</p>
@@ -40,11 +29,17 @@ git clone https://github.com/Aditya122221/TubeAcademy.git
 ```
 cd Frontend
 ```
+```
+npm install
+```
 
 <p>3. Backend Installation</p>
 
 ```
 cd Backend
+```
+```
+npm install
 ```
 
 <h2>🛠️ Technologies Used</h2>
