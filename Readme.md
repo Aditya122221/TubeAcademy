@@ -29,7 +29,6 @@ Here're some of the project's best features:
 
 ```
 ª   Readme.md
-ª   structure.txt
 ª   
 +---Backend
 ª   ª   .env
