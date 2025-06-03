@@ -457,6 +457,10 @@
     font-weight: bold;
 }
 
+.bright{
+    display: none;
+}
+
 .cright {
     display: none;
 }
