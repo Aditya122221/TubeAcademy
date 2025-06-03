@@ -13,6 +13,8 @@ and Student.</li>
 
 <h2>🌐 Deployed Link</h2>
 
+<a href="https://tube-academy.vercel.app/" target="_blank">https://tube-academy.vercel.app/</a>
+
   
   
 <h2>🚀 Features</h2>
