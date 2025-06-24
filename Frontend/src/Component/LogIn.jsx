@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import L from '../CSS/LogIn.module.css';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -126,6 +126,7 @@ const LogIn = () => {
 
     return (
         <div className={L.main}>
+            <p className={L.userInfo}>Use <span className={L.greenText}>22</span> as Registration ID and <span className={L.greenText}>Admin@123</span> as Password</p>
             <div className={L.loggerandfor}>
                 <input type="checkbox" className={L.chk} id="ccc" aria-hidden="true" />
 
