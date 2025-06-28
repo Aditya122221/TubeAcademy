@@ -46,9 +46,9 @@ export default function UpdateUser() {
             payload.append("uEmail", uemail)
             payload.append("uAddress", uaddress)
             payload.append("urole", role)
-            payload.append("avatar", avatar)
+            if(avatar instanceof File) payload.append("avatar", avatar)
 
-            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/update`, payload, {headers: {'Content-Type': 'multipart/form-data'}}).then((res) => {
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/update`, payload).then((res) => {
                 updateRef.current.style.display = "block"
                 updateERef.current.style.display = "none"
             }).catch((err) => {
