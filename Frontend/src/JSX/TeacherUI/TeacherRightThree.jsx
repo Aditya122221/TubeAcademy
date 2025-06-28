@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
 import TP from "../../CSS/TeacherProfile.module.css";
 import axios from "axios";
+import { MessageCircle } from "lucide-react"
 
 export default function TeacherRightThree() {
   const [query, setQuery] = useState([]);
-    const Registration_ID = localStorage.getItem("RegID");
-    
-    const fetchData = () => {
+  const Registration_ID = localStorage.getItem("RegID");
+
+  const getStatusColor = (status) => {
+    switch (status.toLowerCase()) {
+      case "resolved":
+        return TP.statusSuccess
+      case "pending":
+        return TP.statusWarning
+      default:
+        return TP.statusDefault
+    }
+  }
+
+  const fetchData = () => {
     axios
       .post(`${import.meta.env.VITE_API_BASE_URL}/api/queryDetails`, { Registration_ID })
       .then((res) => {
@@ -21,39 +33,34 @@ export default function TeacherRightThree() {
     fetchData();
   }, []);
   return (
-    <div className={TP.rightFour}>
-      <div className={TP.brightOne}>
-        <h2 className={TP.tetd}>Queries</h2>
-        <div className={TP.Ttdd}>
-          <table className={`${TP.brightTwo} ${TP.ttable}`}>
-            <tr className={TP.TableHead}>
-              <td className={TP.teacher}>Query ID</td>
-              <td className={TP.teacher}>Name</td>
-              <td className={TP.teacher}>Email ID</td>
-              <td className={TP.teacher}>Message</td>
-              <td className={TP.teacher}>Query Date</td>
-              <td className={TP.teacher}>Resolution</td>
-              <td className={TP.teacher}>Resolution Date</td>
+    <div className={`${TP.section} ${TP.querySection}`}>
+      <div className={TP.sectionHeader}>
+        <h2><MessageCircle size={24} />My Queries</h2>
+      </div>
+
+      <div className={TP.tableContainer}>
+        <table className={TP.queriesTable}>
+          <thead>
+            <tr>
+              <th>Query ID</th>
+              <th>Message</th>
+              <th>Query Date</th>
+              <th>Resolution</th>
+              <th>Resolution Date</th>
             </tr>
-            {query &&
-              query.map((teacher, index) => (
-                <tr
-                  key={index}
-                  className={`${TP.teacherDet} ${
-                    teacher.status === "pending" ? TP.pending : TP.resolved
-                  }`}
-                >
-                  <td className={TP.ttd}>{teacher.query_ID}</td>
-                  <td className={TP.ttd}>{teacher.fullname}</td>
-                  <td className={TP.ttd}>{teacher.email}</td>
-                  <td className={TP.ttd}>{teacher.message}</td>
-                  <td className={TP.ttd}>{teacher.queryDate}</td>
-                  <td className={TP.ttd}>{teacher.replyMessage}</td>
-                  <td className={TP.ttd}>{teacher.resolveDate}</td>
-                </tr>
-              ))}
-          </table>
-        </div>
+          </thead>
+          <tbody>
+            {query.map((q, index) => (
+              <tr key={index} className={getStatusColor(q.status)}>
+                <td className={TP.queryText}>{q.query_ID}</td>
+                <td>{q.message}</td>
+                <td>{q.queryDate}</td>
+                <td>{q.replyMessage}</td>
+                <td>{q.resolveDate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

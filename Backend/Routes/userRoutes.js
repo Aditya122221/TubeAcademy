@@ -620,7 +620,7 @@ router.post("/api/allvideo", async (req, res) => {
 					.json({ status: false, message: "Invalid Token" })
 			
       const RegID = user.Registration_ID
-			teacherVideo = await uploadVideo.find({
+			const teacherVideo = await uploadVideo.find({
 				Registration_ID: RegID,
 			})
 			return res.status(201).json({ status: true, data: teacherVideo })

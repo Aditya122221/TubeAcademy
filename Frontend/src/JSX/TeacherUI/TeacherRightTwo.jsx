@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom"
 import TP from '../../CSS/TeacherProfile.module.css'
 import { RegId } from "./TeacherRightOne"
 import axios from 'axios'
+import { Upload } from "lucide-react"
 
 export default function TeacherRightTwo() {
     const [thumbnail, setThumbnail] = useState([])
     const [video, setVideo] = useState([])
+    const [uploadStatus, setUploadStatus] = useState("")
 
     const [titleError, setTitleError] = useState("")
 
@@ -23,6 +25,7 @@ export default function TeacherRightTwo() {
         e.preventDefault();
         const val = validateForm();
         if (val) {
+            setUploadStatus("Uploading")
             const payload = new FormData();
             payload.append('Registration_ID', RegId);
             payload.append('VTitle', upload.VTitle);
@@ -32,8 +35,7 @@ export default function TeacherRightTwo() {
             payload.append("video", video);
 
             axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/uploadVideo`, payload, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
-                succRef.current.style.display = "flex";
-                unsuccRef.current.style.display = "none";
+                setUploadStatus("File Uploaded Successfully")
             }).catch((err) => {
                 unsuccRef.current.style.display = "flex";
                 succRef.current.style.display = "none";
@@ -51,7 +53,7 @@ export default function TeacherRightTwo() {
         const alpharegex = /^[a-zA-Z0-9 ]+$/
         const fileTypeOne = ["jpeg", "jpg", "png"]
         const fileTypeTwo = ["mp4", "mkv", "avi"]
-        if (alpharegex.test(upload.VTitle)) {
+        if (alpharegex.test(upload.VTitle) && upload.VTitle !== "") {
             if (fileTypeOne.includes(thumbnail.name.split('.').pop().toLowerCase())) {
                 if (fileTypeTwo.includes(video.name.split('.').pop().toLowerCase())) {
                     setTitleError("")
@@ -66,6 +68,7 @@ export default function TeacherRightTwo() {
             }
         }
         else {
+            if (upload.VTitle === "") setTitleError("Title should not be empty")
             setTitleError("Title should contain only alphabets and numbers")
             return false
         }
@@ -73,50 +76,104 @@ export default function TeacherRightTwo() {
     }
 
     return (
-        <div className={TP.rigth2}>
-            <div className={TP.account}>
-                <form onSubmit={handleForm} className={TP.form}>
+        <div className={`${TP.section} ${TP.uploadSection}`}>
+            <div className={TP.sectionHeader}>
+                <h2><Upload size={24} />Upload Video</h2>
+            </div>
 
-                    <span className={TP.errrooor}>{titleError}</span>
-                    <input className={TP.input} type="text" name="VTitle" placeholder="Enter the title for the video" onChange={handleChange} value={upload.VTitle} required />
+            <span className={TP.error}>{titleError}</span>
+            <div className={TP.uploadForm}>
+                <div className={TP.formGroup}>
+                    <label htmlFor="title">Title</label>
+                    <input
+                        type="text"
+                        id="title"
+                        name="VTitle"
+                        value={upload.VTitle}
+                        onChange={handleChange}
+                        placeholder="Enter video title"
+                        required
+                    />
+                </div>
 
-                    <select required onChange={handleChange} value={upload.SubjectName} name="SubjectName" className={TP.select}>
-                        <option className={TP.option} value="">--- Select Subject ---</option>
-                        <option className={TP.option} value="Mathematics">Mathematics</option>
-                        <option className={TP.option} value="Physics">Physics</option>
-                        <option className={TP.option} value="Chemistry">Chemistry</option>
-                        <option className={TP.option} value="Biology">Biology</option>
-                    </select>
-
-                    <select required onChange={handleChange} value={upload.classIn} name="classIn" className={TP.select}>
-                        <option className={TP.option} value="">--- Select Class ---</option>
-                        <option className={TP.option} value="IX">IX</option>
-                        <option className={TP.option} value="X">X</option>
-                        <option className={TP.option} value="XI">XI</option>
-                        <option className={TP.option} value="XII">XII</option>
-                    </select>
-                    <div className={TP.uploader}>
-                        <div className={TP.formm}>
-                            <span className={TP.formTitle}>Upload Thumbnail</span>
-                            <label htmlFor="file-input" className={TP.dropContainer}>
-                                <input type="file" required="" className={TP.fileInput} onChange={(e)=>setThumbnail(e.target.files[0])} name="thumbnail" />
-                            </label>
-                        </div>
-
-
-                        <div className={TP.formm}>
-                            <span className={TP.formTitle}>Upload Video</span>
-                            <label htmlFor="file-input" className={TP.dropContainer}>
-                                <input type="file" required="" className={TP.fileInput} onChange={(e)=>setVideo(e.target.files[0])} name="video" />
-                            </label>
-                        </div>
+                <div className={TP.formRow}>
+                    <div className={TP.formGroup}>
+                        <label htmlFor="subject">Subject</label>
+                        <select
+                            id="subject"
+                            name="SubjectName"
+                            value={upload.SubjectName}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Subject</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Biology">Biology</option>
+                        </select>
                     </div>
 
-                    <button className={TP.button} type="submit">Upload Video</button>
-                </form>
-                <span ref={succRef} className={TP.succ}>Video Uploaded Succefully</span>
-                <span ref={unsuccRef} className={TP.unsucc}>Video was not uploaded</span>
+                    <div className={TP.formGroup}>
+                        <label htmlFor="class">Class</label>
+                        <select
+                            id="class"
+                            name="classIn"
+                            value={upload.classIn}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">Select Class</option>
+                            <option value="IX">IX</option>
+                            <option value="X">X</option>
+                            <option value="XI">XI</option>
+                            <option value="XII">XII</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className={TP.formGroup}>
+                    <label htmlFor="thumbnail">Thumbnail Upload</label>
+                    <input
+                        type="file"
+                        id="thumbnail"
+                        name="thumbnail"
+                        accept="image/*"
+                        onChange={(e) => setThumbnail(e.target.files[0])}
+                        className={TP.fileInput}
+                    />
+                </div>
+
+                <div className={TP.formGroup}>
+                    <label htmlFor="video">Video Upload</label>
+                    <input
+                        type="file"
+                        id="video"
+                        name="video"
+                        accept="video/*"
+                        onChange={(e) => setVideo(e.target.files[0])}
+                        className={TP.fileInput}
+                    />
+                </div>
+
+                <button type="button" className={TP.btnSubmit} onClick={handleForm}>
+                    <Upload size={16} />
+                    Submit
+                </button>
+
+                {uploadStatus && (
+                    <div
+                        className={`${TP.uploadStatus} ${uploadStatus.includes("Successfully")
+                            ? TP.success
+                            : uploadStatus.includes("Failed")
+                                ? TP.error
+                                : TP.info
+                            }`}
+                    >
+                        {uploadStatus}
+                    </div>
+                )}
             </div>
-        </div>
+        </div >
     )
 }

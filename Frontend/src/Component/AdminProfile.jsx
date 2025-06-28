@@ -1,135 +1,170 @@
-import React, { useState, useRef } from "react"
+import { useState } from 'react'
+import {User, Users, GraduationCap, MessageCircle, Home, UserPlus} from 'lucide-react'
 import AP from '../CSS/AdminProfile.module.css'
-import Logo from '../Images/Logo.png'
-import { Link, useNavigate } from "react-router-dom"
-import AdminRightOne from "../JSX/AdminUI/AdminRightOne"
-import AdminRightTwo from "../JSX/AdminUI/AdminRightTwo"
-import AdminRightThree from "../JSX/AdminUI/AdminRightThree"
-import AdminRightFour from "../JSX/AdminUI/AdminRightFour"
+import { useNavigate } from 'react-router-dom'
+import AdminRightOne from '../JSX/AdminUI/AdminRightOne'
+import AdminRightTwo from '../JSX/AdminUI/AdminRightTwo'
+import AdminRightThree from '../JSX/AdminUI/AdminRightThree'
+import AdminRightFour from '../JSX/AdminUI/AdminRightFour'
 
 export default function AdminProfile() {
-    const Navigate = useNavigate();
+	const [activeTab, setActiveTab] = useState('profile')
+	const Navigate = useNavigate()
 
-    const [isAccount, setisAccount] = useState(true)
-    const [isTeach, setisTeach] = useState(false)
-    const [isStud, setisStud] = useState(false)
-    const [isQuery, setisQuery] = useState(false)
+	const query = {
+		queryID: 185632,
+		regis: 785641,
+		name: 'Sarah Johnson',
+		email: 'aditya@gmail.com',
+		message: 'Login Issues',
+		qdate: '2024-06-25',
+		resolution: 'Issue solved',
+		rdate: '2024-06-29',
+		status: 'pending',
+	}
 
-    const arightRef = useRef()
-    const brightRef = useRef()
-    const crightRef = useRef()
-    const drightRef = useRef()
+	return (
+		<div className={AP.adminDashboard}>
+			<div className={AP.container}>
+				{/* Header */}
+				<div className={AP.header}>
+					<div className={AP.headerContent}>
+						<div className={AP.headerText}>
+							<h1>Dashboard</h1>
+						</div>
 
-    const handleAccount = () => {
-        setisAccount(true)
-        setisStud(false)
-        setisTeach(false)
-        setisQuery(false)
-        arightRef.current.style.display = "flex"
-        brightRef.current.style.display = "none"
-        crightRef.current.style.display = "none"
-        drightRef.current.style.display = "none"
-    }
-    const handleTeac = () => {
-        setisAccount(false)
-        setisStud(false)
-        setisTeach(true)
-        setisQuery(false)
-        arightRef.current.style.display = "none"
-        brightRef.current.style.display = "flex"
-        crightRef.current.style.display = "none"
-        drightRef.current.style.display = "none"
-    }
-    const handleStud = () => {
-        setisAccount(false)
-        setisStud(true)
-        setisTeach(false)
-        setisQuery(false)
-        arightRef.current.style.display = "none"
-        brightRef.current.style.display = "none"
-        crightRef.current.style.display = "flex"
-        drightRef.current.style.display = "none"
-    }
-    const handleQuery = () => {
-        setisAccount(false)
-        setisStud(false)
-        setisTeach(false)
-        setisQuery(true)
-        arightRef.current.style.display = "none"
-        brightRef.current.style.display = "none"
-        crightRef.current.style.display = "none"
-        drightRef.current.style.display = "flex"
-    }
+						{/* Action Buttons */}
+						<div className={AP.actionButtons}>
+							<button
+                                className={`${AP.btn} ${AP.btnPrimary}`} onClick={() => Navigate('/home')}>
+								<Home
+									size={18}
+								/>
+								Home
+							</button>
+							<button
+                                className={`${AP.btn} ${AP.btnSecondary}`}
+                                onClick={() =>
+										Navigate('/signup')
+									}
+							>
+								<UserPlus size={18} />
+								Register Member
+							</button>
+						</div>
+					</div>
+				</div>
 
-    const handleLogOut = () => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('role')
-        Navigate('/')
-    }
+				{/* Navigation Section */}
+				<div className={AP.navigationSection}>
+					<div className={AP.navContainer}>
+						<div className={AP.navTabs}>
+							{[
+								{
+									id: 'profile',
+									label: 'Profile',
+									icon: User,
+								},
+								{
+									id: 'teachers',
+									label: 'Teachers',
+									icon: GraduationCap,
+								},
+								{
+									id: 'students',
+									label: 'Students',
+									icon: Users,
+								},
+								{
+									id: 'queries',
+									label: 'Queries',
+									icon: MessageCircle,
+								},
+							].map((tab) => (
+								<button
+									key={tab.id}
+									onClick={() =>
+										setActiveTab(tab.id)
+									}
+									className={`${
+										AP.navTab
+									} ${
+										activeTab === tab.id
+											? AP.active
+											: ''
+									}`}
+								>
+									<div
+										className={
+											AP.tabContent
+										}
+									>
+										<div
+											className={
+												AP.tabInfo
+											}
+										>
+											<tab.icon
+												size={
+													20
+												}
+											/>
+											<span
+												className={
+													AP.tabLabel
+												}
+											>
+												{
+													tab.label
+												}
+											</span>
+										</div>
+										{tab.count && (
+											<div
+												className={
+													AP.tabCount
+												}
+											>
+												{
+													tab.count
+												}
+											</div>
+										)}
+									</div>
+									{activeTab === tab.id && (
+										<div
+											className={
+												AP.activeIndicator
+											}
+										></div>
+									)}
+								</button>
+							))}
+						</div>
+					</div>
+				</div>
 
-    return (
-        <div className={AP.mainProfilePage}>
-            <div className={AP.top}>
-                <img src={Logo} alt="Logo" className={AP.logo} />
-            </div>
-            <div className={AP.adminProfile}>
-                <div className={AP.left}>
-                    <div onClick={handleAccount} className={`${AP.left1} ${isAccount ? AP.selectedOne : ''}`}>
-                        <i className={`fa-regular fa-user ${AP.icon}`}></i>
-                        <span className={AP.ttt}>Account</span>
-                    </div>
+				{/* Content Sections */}
+				<div className={AP.contentContainer}>
+					{/* Profile Section */}
+					{activeTab === 'profile' && <AdminRightOne />}
 
-                    <div onClick={handleTeac} className={`${AP.left1} ${isTeach ? AP.selectedOne : ''}`}>
-                        <i className={`fa-regular fa-address-card ${AP.icon}`}></i>
-                        <span className={AP.ttt}>Registered Teacher</span>
-                    </div>
+					{/* Teachers Section */}
+					{activeTab === 'teachers' && (
+						<AdminRightTwo />
+					)}
 
-                    <div onClick={handleStud} className={`${AP.left1} ${isStud ? AP.selectedOne : ''}`}>
-                        <i className={`fa-regular fa-address-card ${AP.icon}`}></i>
-                        <span className={AP.ttt}>Registered Student</span>
-                    </div>
+					{/* Students Section */}
+					{activeTab === 'students' && (
+						<AdminRightThree />
+					)}
 
-                    <Link to='/signup' className={`${AP.left1} ${AP.left2}`}>Register a Member</Link>
-
-                    <div onClick={handleQuery} className={`${AP.left1} ${isQuery ? AP.selectedOne : ''}`}>
-                        <i className={`fa-solid fa-clipboard-question ${AP.icon}`}></i>
-                        <span className={AP.ttt}>Query</span>
-                    </div>
-
-                    <div onClick={handleLogOut} className={`${AP.left1} ${AP.left2}`}>
-                        <i className={`fa-solid fa-arrow-right-from-bracket ${AP.icon}`}></i>
-                        <span className={AP.ttt}>Log Out</span>
-                    </div>
-
-                    <Link to='/home' className={`${AP.left1} ${AP.left3}`}>Home</Link>
-                </div>
-
-                {/* -----------------------Account Details----------------------- */}
-
-                <div className={AP.right}>
-                    <div ref={arightRef} className={AP.aright}>
-                        <AdminRightOne />
-                    </div>
-
-                    {/* ---------------------Teacher Details--------------------- */}
-
-                    <div ref={brightRef} className={AP.bright}>
-                        <AdminRightTwo />
-                    </div>
-
-                    {/* -------------------------Student Details--------------------- */}
-
-                    <div ref={crightRef} className={AP.cright}>
-                        <AdminRightThree />
-                    </div>
-
-                    {/* --------------------Query-------------------------------- */}
-
-                    <div ref={drightRef} className={AP.dright}>
-                        <AdminRightFour />
-                    </div>
-                </div>
-            </div >
-        </div>
-    )
+					{/* Queries Section */}
+					{activeTab === 'queries' && (
+						<AdminRightFour />
+					)}
+				</div>
+			</div>
+		</div>
+	)
 }
