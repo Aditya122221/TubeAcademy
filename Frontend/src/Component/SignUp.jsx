@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import S from '../CSS/SignUp.module.css';
-import Logo from '../Images/Logo.png'
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import { toast } from "react-toastify";
 
 const SignUp = () => {
-    const Navigate = useNavigate()
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         fName: '',
         lName: '',
@@ -15,53 +13,55 @@ const SignUp = () => {
         email: '',
         role: '',
         password: '',
-        cPassword: ''
-    })
-    const [settingUp, setSettingUp] = useState(false);
+        cPassword: '',
+    });
+
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
         if (localStorage.getItem('role') !== '"admin"') {
             window.location.href = '/';
         }
-    })
+    }, []);
 
     const validateForm = () => {
-        let newErrors = {}
-        const alpharegex = /^[a-zA-Z]+$/
-        if (formData.fName.length < 3 || !(alpharegex.test(formData.fName))) newErrors.fName = "First Name is not valid"
+        let newErrors = {};
+        const alpharegex = /^[a-zA-Z]+$/;
 
-        if (formData.lName.length < 3 || !(alpharegex.test(formData.lName))) newErrors.lName = "Last Name is not valid"
+        if (formData.fName.length < 3 || !alpharegex.test(formData.fName))
+            newErrors.fName = "First Name is not valid";
 
-        const numregex = /^[0-9]+$/
-        if (!(numregex.test(formData.pNumber))) newErrors.pNumber = "Phone Number is not valid"
+        if (formData.lName.length < 3 || !alpharegex.test(formData.lName))
+            newErrors.lName = "Last Name is not valid";
 
-        if(formData.email.length === 0) newErrors.email = "Email is not valid"
+        const numregex = /^[0-9]+$/;
+        if (!numregex.test(formData.pNumber))
+            newErrors.pNumber = "Phone Number is not valid";
 
-        if (formData.password.length < 8) newErrors.password = "Length should atleast be 8 character long"
-        else if (!(lowerCaseE(formData.password))) newErrors.password = "Password should contain atleast one lowercase letter"
-        else if (!(upperCaseE(formData.password))) newErrors.password = "Password should contain atleast one uppercase letter"
-        else if (!(numberE(formData.password))) newErrors.password = "Password should contain atleast one digit"
-        else if (!(specialCharE(formData.password))) newErrors.password = "Password should contain atleast one special character"
+        if (!formData.email.includes('@'))
+            newErrors.email = "Email is not valid";
 
-        if (formData.password !== formData.cPassword) newErrors.cPassword = "Password did not matched"
+        if (formData.password.length < 8)
+            newErrors.password = "Length should be at least 8 characters long";
+        else if (!hasLower(formData.password))
+            newErrors.password = "Password should contain at least one lowercase letter";
+        else if (!hasUpper(formData.password))
+            newErrors.password = "Password should contain at least one uppercase letter";
+        else if (!hasNumber(formData.password))
+            newErrors.password = "Password should contain at least one digit";
+        else if (!hasSpecial(formData.password))
+            newErrors.password = "Password should contain at least one special character";
 
-        setErrors(newErrors)
+        if (formData.password !== formData.cPassword)
+            newErrors.cPassword = "Passwords do not match";
 
+        setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
-    }
-
-    useEffect(() => {
-        if (Object.keys(errors).length > 0) {
-            console.log(errors)
-        }
-    }, [errors]);
+    };
 
     const handleForm = (e) => {
-        setSettingUp(true);
         e.preventDefault();
-        const isValidate = validateForm();
-        if (isValidate) {
+        if (validateForm()) {
             const payload = {
                 fName: formData.fName,
                 lName: formData.lName,
@@ -70,114 +70,149 @@ const SignUp = () => {
                 password: formData.password,
                 email: formData.email,
                 address: ""
-            }
-            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/signup`, payload).then((res) => {
-                toast("Registration Successful");
-                console.log("User register", res);
-                setSettingUp(false);
-                Navigate('/profile')
-            }).catch((err) => {
-                toast("Registration failed");
-                console.log(err);
-                setSettingUp(false)
-            })
-            console.log(payload);
+            };
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/signup`, payload)
+                .then(() => navigate('/profile'))
+                .catch((err) => console.error(err));
         }
-    }
+    };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setFormData({ ...formData, [name]: value })
-    }
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
 
-    //---------------------Function to validate Password------------------------
-
-    function lowerCaseE(str) {
-        const lowerregex = /^[a-z]+$/
-        for (var i = 0; i < str.length; i++) {
-            if (lowerregex.test(str[i])) return true
-        }
-        return false
-    }
-
-    function upperCaseE(str) {
-        const upperregex = /^[A-Z]+$/
-        for (var i = 0; i < str.length; i++) {
-            if (upperregex.test(str[i])) return true
-        }
-        return false
-    }
-
-    function numberE(str) {
-        const numberregex = /^[0-9]+$/
-        for (var i = 0; i < str.length; i++) {
-            if (numberregex.test(str[i])) return true
-        }
-        return false
-    }
-
-    function specialCharE(str) {
-        const specialregex = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/
-        for (var i = 0; i < str.length; i++) {
-            if (specialregex.test(str[i])) return true
-        }
-        return false
-    }
-
+    // Password validation helpers
+    const hasLower = (str) => /[a-z]/.test(str);
+    const hasUpper = (str) => /[A-Z]/.test(str);
+    const hasNumber = (str) => /\d/.test(str);
+    const hasSpecial = (str) => /[!@#$%^&*(),.?":{}|<>]/.test(str);
 
     return (
-        <div className={S.sigern}>
-            <div className={S.container}>
-                <div className={S.illustration}>
-                    <Link to='/'> <img className={S.logoType} src={Logo} alt="Illustration" /></Link>
-                </div>
-                <div className={S.formContainer}>
-                    <h2 className={S.h2}>Create Account</h2>
-                    <form className={S.form} onSubmit={handleForm}>
-                        <label className={S.label} htmlFor="fName">First Name:</label>{errors.fName && <span className={S.eeror}>{errors.fName}</span>}
-                        <input type="text" id="first-name" name="fName" required value={formData.fName} onChange={handleChange} className={S.inputField} />
+        <div className={S.container}>
+            <div className={S.formWrapper}>
+                <h1 className={S.title}>Register a Member</h1>
+                <form className={S.form} onSubmit={handleForm}>
+                    <div className={S.inputGroup}>
+                        {errors.fName && <span className={S.error}>{errors.fName}</span>}
+                        <input
+                            type="text"
+                            name="fName"
+                            value={formData.fName}
+                            onChange={handleInputChange}
+                            placeholder="First Name"
+                            className={S.input}
+                            required
+                        />
+                    </div>
 
-                        <label className={S.label} htmlFor="lName">Last Name:</label>{errors.lName && <span className={S.eeror}>{errors.lName}</span>}
-                        <input type="text" id="last-name" name="lName" required value={formData.lName} onChange={handleChange} className={S.inputField} />
+                    <div className={S.inputGroup}>
+                        {errors.lName && <span className={S.error}>{errors.lName}</span>}
+                        <input
+                            type="text"
+                            name="lName"
+                            value={formData.lName}
+                            onChange={handleInputChange}
+                            placeholder="Last Name"
+                            className={S.input}
+                            required
+                        />
+                    </div>
 
-                        <label className={S.label} htmlFor="pNumber">Phone Number:</label>{errors.pNumber && <span className={S.eeror}>{errors.pNumber}</span>}
-                        <input type="text" id="phone" name="pNumber" required value={formData.pNumber} onChange={handleChange} className={S.inputField} minLength={10} maxLength={10} />
+                    <div className={S.inputGroup}>
+                        {errors.pNumber && <span className={S.error}>{errors.pNumber}</span>}
+                        <input
+                            type="tel"
+                            name="pNumber"
+                            value={formData.pNumber}
+                            onChange={handleInputChange}
+                            placeholder="Phone Number"
+                            className={S.input}
+                            required
+                        />
+                    </div>
 
-                        <label className={S.label} htmlFor="email">Email:</label>{errors.lName && <span className={S.eeror}>{errors.email}</span>}
-                        <input type="text" id="email" name="email" required value={formData.email} onChange={handleChange} className={S.inputField} />
+                    <div className={S.inputGroup}>
+                        {errors.email && <span className={S.error}>{errors.email}</span>}
+                        <input
+                            type="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            placeholder="Email Address"
+                            className={S.input}
+                            required
+                        />
+                    </div>
 
-                        <div className={S.radioInput}>
-                            <label className={S.label}>
-                                <input value="admin" name="role" className={S.value1} type="radio" onChange={handleChange} />
-                                <span className={S.text}>Admin</span>
-                            </label>
-                            <label className={S.label}>
-                                <input value="Teacher" name="role" className={S.value1} type="radio" onChange={handleChange} />
-                                <span className={S.text}>Teacher</span>
-                            </label>
-                            <label className={S.label}>
-                                <input value="Student" name="role" className={S.value1} type="radio" onChange={handleChange} />
-                                <span className={S.text}>Student</span>
-                            </label>
+                    <div className={S.inputGroup}>
+                        {errors.password && <span className={S.error}>{errors.password}</span>}
+                        <input
+                            type="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleInputChange}
+                            placeholder="Password"
+                            className={S.input}
+                            required
+                        />
+                    </div>
+
+                    <div className={S.inputGroup}>
+                        {errors.cPassword && <span className={S.error}>{errors.cPassword}</span>}
+                        <input
+                            type="password"
+                            name="cPassword"
+                            value={formData.cPassword}
+                            onChange={handleInputChange}
+                            placeholder="Confirm Password"
+                            className={S.input}
+                            required
+                        />
+                    </div>
+
+                    <div className={S.roleSelector}>
+                        <p className={S.roleLabel}>Select the role:</p>
+                        <div className={S.roleOptions} role="radiogroup" aria-label="User role selection">
+                            {['admin', 'Teacher', 'Student'].map((role) => (
+                                <label
+                                    key={role}
+                                    className={`${S.roleButton} ${formData.role === role ? S.roleButtonActive : ''}`}
+                                >
+                                    <input
+                                        type="radio"
+                                        name="role"
+                                        value={role}
+                                        checked={formData.role === role}
+                                        onChange={handleInputChange}
+                                        className={S.radioInput}
+                                    />
+                                    {role}
+                                </label>
+                            ))}
                         </div>
+                    </div>
 
-                        <label className={S.label} htmlFor="password">Password:</label>{errors.password && <span className={S.eeror}>{errors.password}</span>}
-                        <input type="password" id="password" name="password" required value={formData.password} onChange={handleChange}
-                            className={S.inputField} />
+                    <button type="submit" className={S.signUpButton}>
+                        Sign Up
+                    </button>
+                </form>
 
-                        <label className={S.label} htmlFor="cPassword">Confirm Password:</label>{errors.cPassword && <span className={S.eeror}>{errors.cPassword}</span>}
-                        <input type="password" id="confirm-password" name="cPassword" required
-                            value={formData.cPassword} onChange={handleChange}
-                            className={S.inputField} />
-
-                        <button className={S.button} type="submit">Sign Up</button>
-                    </form>
+                <div className={S.backLink}>
+                    <button
+                        type="button"
+                        className={S.backButton}
+                        onClick={() => navigate('/profile')}
+                    >
+                        ← Back to Profile
+                    </button>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default SignUp;
-
-//{error.fName ? S.errorClassName : Simple ClassName}

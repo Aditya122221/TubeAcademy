@@ -19,8 +19,7 @@ const secretCode = process.env.ACCESS_TOKEN
 
 router.post("/api/signup", async (req, res) => {
 	try {
-		const { fName, lName, pNumber, role, password, email, address } =
-			req.body
+		const { fName, lName, pNumber, role, password, email, address } = req.body
 
 		const roleConfigs = {
 			admin: {

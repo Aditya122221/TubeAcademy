@@ -1,228 +1,322 @@
-@import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+/* SignUp.module.css */
 
-/* styles.css */
-.sigern {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #ff7e5f, #feb47b);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
-.logoType {
-    width: 7cm;
-    height: 7cm;
-    animation: roundaboat 10s linear infinite;
-    transition: .5s;
-    cursor: pointer;
-
-    &:hover {
-        animation: none;
-    }
-}
-
-@keyframes roundaboat {
-
-    0% {
-        transform: rotate(0deg);
-    }
-
-    50% {
-        transform: rotate(180deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
+/* Main Container */
 .container {
-    display: flex;
-    background: transparent;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    max-width: 900px;
-    width: 100%;
-    overflow: hidden;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0D1B2A 0%, #1B263B 50%, #0D1B2A 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.illustration {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* Form Wrapper with Glassmorphism Effect */
+.formWrapper {
+  background: rgba(4, 166, 235, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
 }
 
-.formContainer {
-    flex: 1;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: white;
-    border-radius: 10px;
+/* Title Styling */
+.title {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  letter-spacing: -0.5px;
+  margin-top: 0;
 }
 
+/* Form Layout */
 .form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.h2 {
-    margin-bottom: 20px;
-    text-align: center;
-    font-family: 'Lemon';
+/* Input Group Container */
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
-.label {
-    margin-bottom: 5px;
+/* Input Field Styling */
+.input {
+  padding: 16px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 16px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.inputField {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 70%;
-    outline: none;
-
-    &:focus {
-        border: 2px solid #ff7e5f;
-    }
+/* Input Placeholder Styling */
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.button {
-    background: #ff7e5f;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-    width: 75%;
+/* Input Focus State */
+.input:focus {
+  border-color: #cdb14e;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(205, 182, 78, 0.2);
 }
 
-.button:hover {
-    background: #feb47b;
+/* Input Hover State */
+.input:hover {
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
-.p {
-    font-family: 'Lemon';
-    margin-top: 10px;
+/* Role Selector Container */
+.roleSelector {
+  margin: 10px 0;
 }
 
-.a {
-    color: #ff7e5f;
-    text-decoration: none;
+/* Role Label */
+.roleLabel {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  text-align: center;
+  margin-top: 0;
 }
 
-.a:hover {
-    text-decoration: underline;
+/* Role Options Container - Segmented Control Style */
+.roleOptions {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 4px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
 }
 
-.eeror {
-    color: red;
-    font-family: 'Ubuntu';
+/* Individual Role Button */
+.roleButton {
+  flex: 1;
+  padding: 12px 20px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+  position: relative;
+  z-index: 1;
 }
 
-.radioInput {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    background-color: #908e8e;
-    padding: 4px;
-    border-radius: 10px;
-    width: fit-content;
+/* Role Button Hover State */
+.roleButton:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.radioInput input {
-    display: none;
+/* Active Role Button */
+.roleButtonActive {
+  background: linear-gradient(135deg, #cda74e, #a08444) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(205, 177, 78, 0.3);
 }
 
-.radioInput .label {
-    width: 90px;
-    height: 60px;
-    background: linear-gradient(to bottom, #fafafa, rgb(245, 149, 4));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    transition: all 0.1s linear;
-    border-top: 1px solid #4e4d4d;
-    background-color: #333333;
-    position: relative;
-    cursor: pointer;
-    box-shadow: 0px 17px 5px 1px rgba(241, 182, 2, 0.2);
+/* Role Button Focus State for Accessibility */
+.roleButton:focus {
+  box-shadow: 0 0 0 2px rgba(205, 165, 78, 0.5);
 }
 
-.label:has(input[type="radio"]:checked) {
-    box-shadow: 0px 17px 5px 1px rgba(0, 0, 0, 0);
-    background: linear-gradient(to bottom, #cf9138, #cf903841);
-    border-top: none;
+/* Sign Up Button */
+.signUpButton {
+  padding: 18px 32px;
+  background: linear-gradient(135deg, #cda94e, #a08344);
+  border: none;
+  border-radius: 12px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.label:first-child {
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
+/* Sign Up Button Hover Effect */
+.signUpButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(205, 182, 78, 0.4);
 }
 
-.label:last-child {
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
+/* Sign Up Button Active State */
+.signUpButton:active {
+  transform: translateY(0);
 }
 
-.label::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 103%;
-    height: 100%;
-    border-radius: 10px;
-    background: linear-gradient(to bottom,
-            transparent 10%,
-            transparent,
-            transparent 90%);
-    transition: all 0.1s linear;
-    z-index: -1;
+/* Sign Up Button Focus State */
+.signUpButton:focus {
+  box-shadow: 0 0 0 3px rgba(205, 175, 78, 0.3);
 }
 
-.label:has(input[type="radio"]:checked)::before {
-    background: linear-gradient(to bottom,
-            transparent 10%,
-            #cae2fd63,
-            transparent 90%);
+/* Back Link Container */
+.backLink {
+  text-align: center;
+  margin-top: 25px;
 }
 
-.label .text {
-    color: black;
-    font-size: 15px;
-    line-height: 12px;
-    padding: 0px;
-    font-weight: 800;
-    text-transform: uppercase;
-    transition: all 0.1s linear;
-    text-shadow:
-        -1px -1px 1px rgb(224, 224, 224, 0.1),
-        0px 2px 3px rgb(0, 0, 0, 0.3);
+/* Back Button Styling */
+.backButton {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  outline: none;
+  padding: 8px 16px;
+  border-radius: 8px;
 }
 
-.label input[type="radio"]:checked+.text {
-    color: rgb(202, 226, 253);
-    text-shadow: 0px 0px 12px #cae2fd;
+/* Back Button Hover State */
+.backButton:hover {
+  color: #cdb14e;
 }
 
+/* Back Button Focus State */
+.backButton:focus {
+  color: #cd964e;
+  box-shadow: 0 0 0 2px rgba(205, 161, 78, 0.3);
+}
+
+/* Responsive Design - Tablet */
 @media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-    }
+  .container {
+    padding: 20px 15px;
+  }
+  
+  .formWrapper {
+    padding: 35px 30px;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+}
 
-    .illustration {
-        display: none;
-    }
+/* Responsive Design - Mobile */
+@media (max-width: 640px) {
+  .container {
+    padding: 15px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+  
+  .formWrapper {
+    padding: 30px 25px;
+    border-radius: 16px;
+  }
+  
+  .title {
+    font-size: 1.75rem;
+    margin-bottom: 25px;
+  }
+  
+  .input {
+    padding: 14px 18px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  .roleButton {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .signUpButton {
+    padding: 16px 28px;
+    font-size: 16px;
+  }
+}
+
+/* Responsive Design - Small Mobile */
+@media (max-width: 480px) {
+  .formWrapper {
+    padding: 25px 20px;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  /* Stack role buttons vertically on very small screens */
+  .roleOptions {
+    flex-direction: column;
+    gap: 2px;
+  }
+  
+  .roleButton {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Ensure no vertical scroll on large screens */
+@media (min-height: 800px) and (min-width: 1024px) {
+  .container {
+    min-height: 100vh;
+    padding: 20px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .input {
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  .input:focus {
+    border-color: #4ECDC4;
+  }
+  
+  .roleButton {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .input,
+  .roleButton,
+  .signUpButton,
+  .backButton {
+    transition: none;
+  }
+  
+  .signUpButton:hover {
+    transform: none;
+  }
+}
+
+.error {
+    color: red;
 }
