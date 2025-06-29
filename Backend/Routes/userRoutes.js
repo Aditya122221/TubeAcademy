@@ -335,6 +335,7 @@ router.post("/api/update", upload.single("avatar"), async (req, res) => {
 
 		res.status(201).json({ status: true, message: "Data Updated" })
 	} catch (err) {
+		console.log("Error is here is backend")
 		res.status(500).json({
 			status: false,
 			message: "Something went wrong",
