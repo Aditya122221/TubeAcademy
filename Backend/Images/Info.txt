@@ -1,0 +1,1 @@
+This is the directory where images and video is saved locally before saving to cloudinary. Cloudinary is the online web based cloud which help us to save our files on internet.
