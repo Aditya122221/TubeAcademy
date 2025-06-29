@@ -1,5 +1,4 @@
-import { useState, useRef } from "react"
-import { useNavigate } from "react-router-dom"
+import { useState} from "react"
 import TP from '../../CSS/TeacherProfile.module.css'
 import { RegId } from "./TeacherRightOne"
 import axios from 'axios'
@@ -18,9 +17,6 @@ export default function TeacherRightTwo() {
         classIn: "",
     })
 
-    const succRef = useRef()
-    const unsuccRef = useRef()
-
     const handleForm = (e) => {
         e.preventDefault();
         const val = validateForm();
@@ -37,8 +33,6 @@ export default function TeacherRightTwo() {
             axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/uploadVideo`, payload, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
                 setUploadStatus("File Uploaded Successfully")
             }).catch((err) => {
-                unsuccRef.current.style.display = "flex";
-                succRef.current.style.display = "none";
                 console.log("client side", err);
             })
         }
