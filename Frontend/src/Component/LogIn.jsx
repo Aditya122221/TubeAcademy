@@ -5,15 +5,68 @@ import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
     const Navigate = useNavigate();
-    var [Reg_ID, setReg_ID] = useState('');
-    const [password, setPassword] = useState('');
-    const [settingUp, setSettingUp] = useState(false);
-    const [fpnumber, setfpnumber] = useState('')
-    var [regis, setRegis] = useState('')
-    const [role, setRole] = useState('');
-    const [frole, setfRole] = useState('');
-    const [error, setError] = useState('');
-    const [fError, setFError] = useState('')
+    const [isLoginMode, setIsLoginMode] = useState(true);
+    const [loginData, setLoginData] = useState({
+        Reg_ID: '',
+        password: '',
+        role: ''
+    });
+    const [forgotPasswordData, setForgotPasswordData] = useState({
+        regis: '',
+        fpnumber: '',
+        frole: ''
+    });
+    const [error, setError] = useState("")
+    const [ferror, setfError] = useState("")
+
+    const handleLoginChange = (e) => {
+        const { name, value } = e.target;
+        setLoginData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleForgotPasswordChange = (e) => {
+        const { name, value } = e.target;
+        setForgotPasswordData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const switchToForgotPassword = () => {
+        setIsLoginMode(false);
+    };
+
+    const switchToLogin = () => {
+        setIsLoginMode(true);
+    };
+
+    const RoleSelector = ({ selectedRole, onRoleChange, name }) => {
+        const roles = [
+            { value: 'admin', label: 'Admin' },
+            { value: 'Teacher', label: 'Teacher' },
+            { value: 'Student', label: 'Student' }
+        ];
+
+        return (
+            <div className={L.roleSelector}>
+                {roles.map((role) => (
+                    <label key={role.value} className={`${L.roleOption} ${selectedRole === role.value ? L.selected : ''}`}>
+                        <input
+                            type="radio"
+                            name={name}
+                            value={role.value}
+                            checked={selectedRole === role.value}
+                            onChange={onRoleChange}
+                        />
+                        <span className={L.roleText}>{role.label}</span>
+                    </label>
+                ))}
+            </div>
+        );
+    };
 
     useEffect(() => {
         if (localStorage.getItem('token') !== null) {
@@ -22,11 +75,11 @@ const LogIn = () => {
     })
 
     function validateLogIn() {
-        if (Reg_ID.length > 0) {
+        if (loginData.Reg_ID.length > 0) {
             const numregex = /^[0-9]+$/
-            if (numregex.test(Reg_ID)) {
-                if (password.length > 0) {
-                    if (role.length === 0) {
+            if (numregex.test(loginData.Reg_ID)) {
+                if (loginData.password.length > 0) {
+                    if (loginData.role.length === 0) {
                         setError("Role is required")
                         return false
                     } else {
@@ -38,7 +91,7 @@ const LogIn = () => {
                     return false
                 }
             } else {
-                console.log(Reg_ID)
+                console.log(loginData.Reg_ID)
                 setError('Registration Id should only contain number')
                 return false
             }
@@ -51,56 +104,54 @@ const LogIn = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateLogIn()) {
-            Reg_ID = parseInt(Reg_ID, 10);
+            const Reg_ID = parseInt(loginData.Reg_ID, 10)
+            const password = loginData.password
+            const role = loginData.role
             const payload = {
                 Reg_ID,
                 password,
                 role
             };
-
-            setSettingUp(true);
             axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/login`, payload)
                 .then((res) => {
-                    setSettingUp(false);
                     localStorage.setItem('token', JSON.stringify(res.data.token));
                     localStorage.setItem('role', JSON.stringify(res.data.roleAction))
                     localStorage.setItem('RegID', JSON.stringify(res.data.RegID))
                     Navigate('/home');
                 })
                 .catch((err) => {
-                    setSettingUp(false);
                     console.error("Server either not running or disconnected", err);
                 });
         }
     };
 
     const validateF = () => {
-        if (regis.length > 0) {
+        if (forgotPasswordData.regis.length > 0) {
             const numregex = /^[0-9]+$/
-            if (numregex.test(regis)) {
-                if (fpnumber.length > 0) {
-                    if (numregex.test(fpnumber)) {
-                        if (frole.length === 0) {
-                            setFError("Role is required")
+            if (numregex.test(forgotPasswordData.regis)) {
+                if (forgotPasswordData.fpnumber.length > 0) {
+                    if (numregex.test(forgotPasswordData.fpnumber)) {
+                        if (forgotPasswordData.frole.length === 0) {
+                            setfError("Role is required")
                             return false
                         } else {
-                            setFError("")
+                            setfError("")
                             return true
                         }
                     } else {
-                        setFError("Phone Number should only contain number")
+                        setfError("Phone Number should only contain number")
                         return false
                     }
                 } else {
-                    setFError("Phone Number required")
+                    setfError("Phone Number required")
                     return false
                 }
             } else {
-                setFError('Registration Id should only contain number')
+                setfError('Registration Id should only contain number')
                 return false
             }
         } else {
-            setFError("Registration Id Required")
+            setfError("Registration Id Required")
             return false
         }
     }
@@ -108,9 +159,11 @@ const LogIn = () => {
     const handleForgot = (e) => {
         e.preventDefault()
         if (validateF()) {
-            regis = parseInt(regis, 10)
+            const regis = parseInt(forgotPasswordData.regis, 10)
+            const fpnumber = forgotPasswordData.fpnumber
+            const frole = forgotPasswordData.frole
             const payload = { fpnumber: fpnumber, regis: regis, frole: frole }
-            axios.post('/api/usercheck', payload).then((res) => {
+            axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/usercheck`, payload).then((res) => {
                 if (res.status) {
                     Navigate('/forgotpas', { state: res.data.data })
                 }
@@ -119,84 +172,123 @@ const LogIn = () => {
                     setError(res.data.data);
                 }
             }).catch((e) => {
-                console.log(e)
+                console.log("Front end error", e)
             })
         }
     }
 
     return (
-        <div className={L.main}>
-            <p className={L.userInfo}>Use <span className={L.greenText}>22</span> as Registration ID and <span className={L.greenText}>Admin@123</span> as Password</p>
-            <div className={L.loggerandfor}>
-                <input type="checkbox" className={L.chk} id="ccc" aria-hidden="true" />
+        <div className={L.loginContainer}>
+            <p className={L.userInfo}>
+                Use <span className={L.greenText}>22</span> as Registration ID and <span className={L.greenText}>Admin@123</span> as Password
+            </p>
+            <div className={L.loginCard}>
+                <div className={L.formContainer}>
+                    {isLoginMode ? (
+                        <div className={`${L.formSection} ${L.loginSection}`}>
+                            <h2 className={L.formTitle}>Login</h2>
+                            <form onSubmit={handleSubmit} className={L.loginForm}>
+                                <span className={L.error}>{error}</span>
+                                <div className={L.inputGroup}>
+                                    <input
+                                        type="text"
+                                        name="Reg_ID"
+                                        placeholder="Enter Registration ID"
+                                        value={loginData.Reg_ID}
+                                        onChange={handleLoginChange}
+                                        className={L.formInput}
+                                        required
+                                    />
+                                </div>
 
-                <div className={L.signup}>
-                    <form onSubmit={handleSubmit}>
-                        <label className={L.label} htmlFor="ccc" aria-hidden="true">Log In</label>
+                                <div className={L.inputGroup}>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        placeholder="Enter Password"
+                                        value={loginData.password}
+                                        onChange={handleLoginChange}
+                                        className={L.formInput}
+                                        required
+                                    />
+                                </div>
 
-                        <span className={L.err}>{error}</span>
+                                <div className={L.inputGroup}>
+                                    <RoleSelector
+                                        selectedRole={loginData.role}
+                                        onRoleChange={handleLoginChange}
+                                        name="role"
+                                    />
+                                </div>
 
-                        <input className={L.input} type="text" name="Reg_ID" placeholder="Enter Registration_ID" required="" onChange={(e) => setReg_ID(e.target.value)} />
+                                <button type="submit" className={L.submitBtn}>
+                                    Login
+                                </button>
 
-                        <input className={L.input} type="password" name="password" placeholder="Enter Password" required="" onChange={(e) => setPassword(e.target.value)} />
-
-                        <div className={L.radioInputs}>
-
-                            <label className={L.radio}>
-                                <input value="admin" type="radio" name="role" onChange={(e) => setRole(e.target.value)} />
-                                <span className={L.name}>admin</span>
-                            </label>
-
-                            <label className={L.radio}>
-                                <input value="Teacher" type="radio" name="role" onChange={(e) => setRole(e.target.value)} />
-                                <span className={L.name}>Teacher</span>
-                            </label>
-
-                            <label className={L.radio}>
-                                <input value="Student" type="radio" name="role" onChange={(e) => setRole(e.target.value)} />
-                                <span className={L.name}>Student</span>
-                            </label>
+                                <button
+                                    type="button"
+                                    className={L.linkBtn}
+                                    onClick={switchToForgotPassword}
+                                >
+                                    Forgot Password?
+                                </button>
+                            </form>
                         </div>
+                    ) : (
+                        <div className={`${L.formSection} ${L.forgotPasswordSection}`}>
+                            <h2 className={L.formTitle}>Forgot Password</h2>
+                                <form onSubmit={handleForgot} className={L.forgotPasswordForm}>
+                                    <span className={L.error}>{ ferror}</span>
+                                <div className={L.inputGroup}>
+                                    <input
+                                        type="text"
+                                        name="regis"
+                                        placeholder="Enter Registration ID"
+                                        value={forgotPasswordData.regis}
+                                        onChange={handleForgotPasswordChange}
+                                        className={L.formInput}
+                                        required
+                                    />
+                                </div>
 
-                        <button className={L.button} type="submit">Log In</button>
+                                <div className={L.inputGroup}>
+                                    <input
+                                        type="text"
+                                        name="fpnumber"
+                                        placeholder="Enter Phone Number"
+                                        value={forgotPasswordData.fpnumber}
+                                        onChange={handleForgotPasswordChange}
+                                        className={L.formInput}
+                                        required
+                                    />
+                                </div>
 
-                    </form>
-                </div>
+                                <div className={L.inputGroup}>
+                                    <RoleSelector
+                                        selectedRole={forgotPasswordData.frole}
+                                        onRoleChange={handleForgotPasswordChange}
+                                        name="frole"
+                                    />
+                                </div>
 
-                <div className={L.login}>
-                    <form onSubmit={handleForgot}>
+                                <button type="submit" className={L.submitBtn}>
+                                    Reset Password
+                                </button>
 
-                        <label className={L.label} htmlFor="ccc" aria-hidden="true">Forgot Password</label>
-
-                        <span className={L.err}>{fError}</span>
-
-                        <input className={L.input} type="text" name="regis" placeholder="Enter Registration ID" required="" onChange={(e) => setRegis(e.target.value)} />
-
-                        <input className={L.input} type="text" name="pNumber" placeholder="Enter Phone Number" required="" onChange={(e) => setfpnumber(e.target.value)} />
-
-                        <div className={L.radioInputs}>
-                            <label className={L.radio}>
-                                <input value="fadmin" type="radio" name="frole" onChange={(e) => setfRole(e.target.value)} />
-                                <span className={L.name}>admin</span>
-                            </label>
-
-                            <label className={L.radio}>
-                                <input value="fTeacher" type="radio" name="frole" onChange={(e) => setfRole(e.target.value)} />
-                                <span className={L.name}>Teacher</span>
-                            </label>
-
-                            <label className={L.radio}>
-                                <input value="fStudent" type="radio" name="frole" onChange={(e) => setfRole(e.target.value)} />
-                                <span className={L.name}>Student</span>
-                            </label>
+                                <button
+                                    type="button"
+                                    className={L.linkBtn}
+                                    onClick={switchToLogin}
+                                >
+                                    Back to Login
+                                </button>
+                            </form>
                         </div>
-
-                        <button className={L.button} type="submit">Next</button>
-
-                    </form>
+                    )}
                 </div>
             </div>
         </div>
+
     );
 };
 

@@ -1,51 +1,86 @@
-import React, { useSatae, useRef, useState } from "react";
+import { useState } from "react";
 import N from '../CSS/Navbar.module.css';
 import { Link } from "react-router-dom";
 import Logo from '../Images/Logo.png';
 
 export default function Navbar() {
-    const [isActiveH, setIsActiveH] = useState(false);
-    const [isActiveN, setIsActiveN] = useState(false)
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [activeItem, setActiveItem] = useState('Home');
+
+    const menuItems = [
+        ["Home", "/home"],
+        ["Ask AI", "/askai"],
+        ["Contact", "/contact"],
+        ["Profile", "/profile"]
+    ];
 
 
-    function mobileMenu() {
-        setIsActiveH(!setIsActiveH)
-        setIsActiveN(!isActiveN)
-    }
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+    };
 
-    function closeMenu() {
-        setIsActiveH(false)
-        setIsActiveN(false)
-    }
+    const handleMenuClick = (item) => {
+        setActiveItem(item);
+        setIsMobileMenuOpen(false); // Close mobile menu when item is clicked
+    };
     return (
-        <div className={N.navbarr}>
-            <header className={N.header}>
-                <nav className={N.navbar}>
-                    <Link to='/home' className={N.navLogo}>
-                        <img src={Logo} alt="Logo" className={N.logo} />
+        <nav className={N.navbar}>
+            <div className={N.navbarContainer}>
+                {/* Logo */}
+                <div className={N.navbarLogo}>
+                    <Link to="/home">
+                        <img src={Logo} alt="logo" width="60px" height="60px" />
                     </Link>
-                    <ul className={`${N.navMenu} ${isActiveN ? N.active : ""}`}>
-                        <li className={N.navItem}>
-                            <Link to="/home" onClick={closeMenu} className={N.navLink}>Home</Link>
+                </div>
+
+                {/* Desktop Navigation */}
+                <ul className={N.navbarMenu}>
+                    {menuItems.map((item) => (
+                        <li key={item} className={N.navbarItem}>
+                            <Link
+                                to={item[1]}
+                                className={`${N.navbarLink} ${activeItem === item ? N.active : ''}`}
+                                tabIndex="0"
+                            >
+                                {item[0]}
+                            </Link>
                         </li>
-                        <li className={N.navItem}>
-                            <Link to="/askai" onClick={closeMenu} className={N.navLink}>Ask AI</Link>
+                    ))}
+                </ul>
+
+                {/* Mobile Hamburger */}
+                <div className={N.navbarToggle} onClick={toggleMobileMenu}>
+                    <button
+                        className={N.hamburger}
+                        aria-label="Toggle navigation menu"
+                        aria-expanded={isMobileMenuOpen}
+                        tabIndex="0"
+                    >
+                        <span className={`${N.hamburgerLine} ${isMobileMenuOpen ? N.active : ''}`}></span>
+                        <span className={`${N.hamburgerLine} ${isMobileMenuOpen ? N.active : ''}`}></span>
+                        <span className={`${N.hamburgerLine} ${isMobileMenuOpen ? N.active : ''}`}></span>
+                    </button>
+                </div>
+            </div>
+
+            {/* Mobile Menu */}
+            <div className={`${N.mobileMenu} ${isMobileMenuOpen ? N.active : ''}`}>
+                <ul className={N.mobileMenuItems}>
+                    {menuItems.map((item) => (
+                        <li key={item} className={N.mobileMenuItem}>
+                            <Link
+                                to={item[1]}
+                                className={`${N.mobileMenuLink} ${activeItem === item ? N.active : ''}`}
+                                tabIndex="0"
+                            >
+                                {item[0]}
+                            </Link>
                         </li>
-                        <li className={N.navItem}>
-                            <Link to="/contact" onClick={closeMenu} className={N.navLink}>Contact Us</Link>
-                        </li>
-                        <li className={N.navItem}>
-                            <Link to='/profile' onClick={closeMenu} className={N.navLink}>Profile</Link>
-                        </li>
-                    </ul>
-                    <div onClick={mobileMenu} className={`${N.hamburger} ${isActiveH ? N.active : ""}`}>
-                        <span className={N.bar}></span>
-                        <span className={N.bar}></span>
-                        <span className={N.bar}></span>
-                    </div>
-                </nav>
-            </header>
-        </div>
+                    ))}
+                </ul>
+            </div>
+        </nav>
+
     )
 }
 

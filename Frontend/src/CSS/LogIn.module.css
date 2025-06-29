@@ -1,21 +1,19 @@
-/* importing */
-
-@import url('https://fonts.googleapis.com/css2?family=Lemon&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');
-
-
-.main {
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+.loginContainer {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1A237E 0%, #283593 100%);
+    min-height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    font-family: 'Jost', sans-serif;
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    justify-content: center;
+    padding: 20px;
 }
 
 .userInfo {
@@ -26,149 +24,341 @@
     margin: 10px;
 }
 
-.greenText{
+.greenText {
     color: green;
     text-decoration: underline;
     font-weight: bold;
 }
 
-.loggerandfor{
-    width: 30%;
-    height: 600px;
+.loginCard {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.loginCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+.formContainer {
+    position: relative;
     overflow: hidden;
-    background: url("https://doc-08-2c-docs.googleusercontent.com/docs/securesc/68c90smiglihng9534mvqmq1946dmis5/fo0picsp1nhiucmc0l25s29respgpr4j/1631524275000/03522360960922298374/03522360960922298374/1Sx0jhdpEpnNIydS4rnN4kHSJtU1EyWka?e=view&authuser=0&nonce=gcrocepgbb17m&user=03522360960922298374&hash=tfhgbs86ka6divo3llbvp93mg4csvb38") no-repeat center/ cover;
-    border-radius: 10px;
-    box-shadow: 5px 20px 50px #000;
 }
 
-.chk {
-    display: none;
+.formSection {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 0.4s ease-in-out;
 }
 
-.signup {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-.label {
-    color: #fff;
-    font-size: 1.9rem;
-    justify-content: center;
-    display: flex;
-    margin: 50px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: .5s ease-in-out;
-    font-family: 'Black Ops One';
-}
-
-.input {
-    width: 60%;
-    height: 10px;
-    background: #e0dede;
-    justify-content: center;
-    display: flex;
-    margin: 20px auto;
-    padding: 25px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-    font-family: 'Chakra Petch';
-    font-size: 1.2rem;
-}
-
-.button {
-    width: 75%;
-    height: 50px;
-    margin: 10px auto;
-    justify-content: center;
-    display: block;
-    color: #fff;
-    background: #573b8a;
-    font-size: 1em;
-    font-weight: bold;
-    margin-top: 30px;
-    outline: none;
-    border: none;
-    border-radius: 5px;
-    transition: .2s ease-in;
-    cursor: pointer;
-    font-family: 'Source Code Pro';
-    font-size: 1.2rem;
-}
-
-button:hover {
-    background: #6d44b8;
-}
-
-.login {
-    height: 460px;
-    background: #eee;
-    border-radius: 60% / 10%;
-    transform: translateY(-200px);
-    transition: .8s ease-in-out;
-}
-
-.login label {
-    color: #573b8a;
-    transform: scale(.6);
-}
-
-.chk:checked~.login {
-    transform: translateY(-130%);
-}
-
-.chk:checked~.signup label {
-    transform: scale(.6);
-}
-
-.radioInputs {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    border-radius: 0.5rem;
-    background-color: #EEE;
-    box-sizing: border-box;
-    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-    padding: 0.25rem;
-    width: 72%;
-    margin: auto;
-    font-family: 'Chakra Petch';
-    font-size: 1rem;
-}
-
-.radioInputs .radio {
-    flex: 1 1 auto;
-    text-align: center;
-}
-
-.radioInputs .radio input {
-    display: none;
-}
-
-.radioInputs .radio .name {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.5rem;
-    border: none;
-    padding: .5rem 0;
-    color: rgba(51, 65, 85, 1);
-    transition: all .15s ease-in-out;
-}
-
-.radioInputs .radio input:checked+.name {
-    background-color: #573b8a;
-    color: white;
+.formTitle {
+    color: #FFFFFF;
+    font-size: 2rem;
     font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.err{
-    display: block;
-    color: red;
-    text-align: center;
+.loginForm,
+.forgotPasswordForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.inputGroup {
+    position: relative;
+}
+
+.formInput {
     width: 100%;
-    font-size: .7rem;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    color: #FFFFFF;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.formInput::placeholder {
+    color: #E3F2FD;
+    opacity: 0.8;
+}
+
+.formInput:focus {
+    border-color: #64B5F6;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 3px rgba(100, 181, 246, 0.2);
+    transform: translateY(-2px);
+}
+
+.formInput:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Role Selector Styles */
+.roleSelector {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 4px;
+    gap: 0;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.roleSelector:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.roleOption {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.roleOption input[type="radio"] {
+    display: none;
+}
+
+.roleText {
+    display: block;
+    padding: 12px 16px;
+    text-align: center;
+    color: #E3F2FD;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    position: relative;
+    z-index: 1;
+}
+
+.roleOption:hover .roleText {
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.roleOption.selected .roleText {
+    background: #5C6BC0;
+    color: #FFFFFF;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(92, 107, 192, 0.4);
+    transform: translateY(-1px);
+}
+
+.roleOption.selected {
+    z-index: 2;
+}
+
+/* Button Styles */
+.submitBtn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #5C6BC0 0%, #7986CB 100%);
+    border: none;
+    border-radius: 12px;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(92, 107, 192, 0.3);
+}
+
+.submitBtn:hover {
+    background: linear-gradient(135deg, #7986CB 0%, #9FA8DA 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(92, 107, 192, 0.4);
+}
+
+.submitBtn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(92, 107, 192, 0.3);
+}
+
+.linkBtn {
+    background: none;
+    border: none;
+    color: #E3F2FD;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    border-radius: 8px;
+}
+
+.linkBtn:hover {
+    color: #FFFFFF;
+    text-decoration-color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .loginContainer {
+        padding: 15px;
+    }
+
+    .loginCard {
+        padding: 30px 25px;
+        max-width: 100%;
+        margin: 10px;
+    }
+
+    .formTitle {
+        font-size: 1.7rem;
+        margin-bottom: 25px;
+    }
+
+    .formInput {
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+
+    .roleText {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .submitBtn {
+        padding: 14px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .loginContainer {
+        padding: 10px;
+    }
+
+    .loginCard {
+        padding: 25px 20px;
+        border-radius: 16px;
+    }
+
+    .formTitle {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .loginForm,
+    .forgotPasswordForm {
+        gap: 16px;
+    }
+
+    .formInput {
+        padding: 12px 14px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+
+    .roleSelector {
+        border-radius: 10px;
+    }
+
+    .roleText {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .submitBtn {
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+
+    .linkBtn {
+        font-size: 13px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 320px) {
+    .loginCard {
+        padding: 20px 15px;
+    }
+
+    .formTitle {
+        font-size: 1.3rem;
+    }
+
+    .roleSelector {
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .roleOption {
+        flex: none;
+    }
+
+    .roleText {
+        padding: 10px;
+        text-align: center;
+    }
+}
+
+/* Animation for form transitions */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formSection {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* Focus visible for accessibility */
+.formInput:focus-visible,
+.submitBtn:focus-visible,
+.linkBtn:focus-visible,
+.roleOption:focus-visible {
+    outline: 2px solid #64B5F6;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .loginCard {
+        border: 2px solid #FFFFFF;
+        background: rgba(26, 35, 126, 0.95);
+    }
+
+    .formInput {
+        border-color: #FFFFFF;
+    }
+
+    .roleSelector {
+        border-color: #FFFFFF;
+    }
+}
+
+.error {
+    color: red;
 }

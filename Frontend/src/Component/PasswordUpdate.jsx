@@ -14,11 +14,14 @@ export default function PasswordUpdate() {
     const [urole, setuRole] = useState()
 
     useEffect(() => {
-        setRegis(location.state.regis)
-        setuRole(location.state.frole)
         if (localStorage.getItem('token') !== null) {
             window.location.href = '/gotLost';
         }
+        if (!location.state) {
+            window.location.href = '/gotLost';
+        }
+        setRegis(location.state.regis)
+        setuRole(location.state.frole)
     }, [])
 
     const handleUpdate = (e) => {

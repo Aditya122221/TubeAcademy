@@ -351,8 +351,8 @@ router.post("/api/usercheck", async (req, res) => {
 
 		let modelSchema
 
-		if (frole === "fadmin") modelSchema = adminUserData
-		else if (frole === "fTeacher") modelSchema = teacherUserData
+		if (frole === "admin") modelSchema = adminUserData
+		else if (frole === "Teacher") modelSchema = teacherUserData
 		else modelSchema = studentUserData
 
 		const user = await modelSchema.findOne({
