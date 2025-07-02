@@ -1,155 +1,280 @@
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Sofadi+One&display=swap');
-
-.MainClassNine {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
+.videoCard {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    height: fit-content;
 }
 
-.cards {
-    display: flex;
-    flex-direction: column;
-    width: 28%;
+.videoCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.videoCardThumbnail {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.videoCardImage {
+    width: 100%;
     height: 100%;
-    margin: 15px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-.cards:hover .thumbnail {
-    border-radius: 0;
+.videoCard:hover .videoCardImage {
+    transform: scale(1.05);
 }
 
-.thumbnail {
-    width: 100%;
-    height: 80%;
-    border-radius: 10px;
-}
-
-.title {
-    font-family: 'Rubik';
-}
-
-.details {
+.videoCardOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
     display: flex;
-    justify-content: space-between;
-    font-family: 'Exo 2';
-    color: #606060;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.teacherName {
-    font-family: 'Exo 2';
-    color: #606060;
+.videoCard:hover .videoCardOverlay {
+    opacity: 1;
 }
 
-.button {
-    cursor: pointer;
-    margin-top: 15px;
-    color: white;
-    border-style: solid;
-    background-color: #0e0e1a;
-    border: none;
-    width: 100%;
+.videoCardPlayBtn {
+    width: 60px;
     height: 60px;
-    transition: 0.2s ease;
-    text-transform: uppercase;
-    border-radius: 0.4rem;
-    font-weight: 500;
-    font-size: 18px;
-    letter-spacing: 2px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.8);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+}
 
-    &:hover {
-        color: rgb(247, 247, 247);
-        background: linear-gradient(270deg, #021d4eae 0%, #1fd7e8df 60%);
-        text-shadow: 0 0 50px white, 0 0 20px white, 0 0 15px white;
-        font-size: 20px;
-        letter-spacing: 3px;
+.videoCardPlayBtnVisible {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.videoCardPlayIcon {
+    width: 24px;
+    height: 24px;
+    color: #333;
+    margin-left: 2px;
+}
+
+.videoCardDuration {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.videoCardContent {
+    padding: 16px;
+}
+
+.videoCardTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.videoCardMeta {
+    margin-bottom: 16px;
+}
+
+.videoCardSubject,
+.videoCardClass {
+    font-size: 14px;
+    color: #666;
+    margin: 2px 0;
+}
+
+.videoCardSubject {
+    font-weight: 500;
+}
+
+.videoCardActions {
+    display: flex;
+    gap: 8px;
+}
+
+.videoCardBtn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.videoCardBtnIcon {
+    width: 16px;
+    height: 16px;
+}
+
+.videoCardBtnUpdate {
+    background: #f0f9ff;
+    color: #0369a1;
+}
+
+.videoCardBtnUpdate:hover {
+    background: #e0f2fe;
+    color: #0c4a6e;
+}
+
+.videoCardBtnDelete {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.videoCardBtnDelete:hover {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Grid Container Styles */
+.videoGridContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.videoGridTitle {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.videoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .videoGridContainer {
+        padding: 16px;
     }
 
-    &:active {
-        letter-spacing: 0px;
+    .videoGridTitle {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .videoGrid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .videoCardContent {
+        padding: 14px;
+    }
+
+    .videoCardTitle {
+        font-size: 15px;
+    }
+
+    .videoCardActions {
+        gap: 6px;
+    }
+
+    .videoCardBtn {
+        padding: 7px 10px;
+        font-size: 13px;
+    }
+
+    .videoCardPlayBtn {
+        width: 50px;
+        height: 50px;
+    }
+
+    .videoCardPlayIcon {
+        width: 20px;
+        height: 20px;
     }
 }
 
-/* -----------------------------Teacher Home Page Designing----------------------- */
+@media (max-width: 480px) {
+    .videoGridContainer {
+        padding: 12px;
+    }
 
-.h2 {
-    padding: 25px;
-    border: 2px solid black;
+    .videoCardContent {
+        padding: 12px;
+    }
+
+    .videoCardActions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .videoCardBtn {
+        padding: 10px;
+    }
 }
 
-.TeacherHomePage {
-    display: flex;
-    flex-wrap: wrap;
+@media (min-width: 1024px) {
+    .videoGrid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 32px;
+    }
 }
 
-.THP {
-    margin-left: 15px;
-    margin-right: 15px;
-    margin-top: 1cm;
-}
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .videoCard {
+        background: #1f2937;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
 
-.actionButton {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 25px;
-}
+    .videoCard:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
 
-.uiBtnEdit {
-    cursor: pointer;
-    border-radius: 5px;
-    color: black;
-    border-style: solid;
-    background-color: transparent;
-    border-color: rgb(219, 218, 218);
-    width: 48%;
-    height: 40px;
-    transition: 0.2s ease;
-    text-transform: uppercase;
-    border-width: 2px;
-    font-weight: 500;
-    font-size: 18px;
-    letter-spacing: 2px;
-}
+    .videoCardTitle {
+        color: #f9fafb;
+    }
 
-.uiBtnEdit:hover {
-    color: rgb(247, 247, 247);
-    background-color: #09f3ef;
-    border-color: #09f3ef;
-    text-shadow: 0 0 50px white, 0 0 20px white, 0 0 15px white;
-    font-size: 20px;
-    letter-spacing: 3px;
-}
+    .videoCardSubject,
+    .videoCardClass {
+        color: #d1d5db;
+    }
 
-.uiBtnEdit:active {
-    letter-spacing: 0px;
-}
-
-.uiBtnDelete {
-    cursor: pointer;
-    border-radius: 5px;
-    color: black;
-    border-style: solid;
-    background-color: transparent;
-    border-color: rgb(219, 218, 218);
-    width: 48%;
-    height: 40px;
-    transition: 0.2s ease;
-    text-transform: uppercase;
-    border-width: 2px;
-    font-weight: 500;
-    font-size: 18px;
-    letter-spacing: 2px;
-}
-
-.uiBtnDelete:hover {
-    color: rgb(247, 247, 247);
-    background-color: rgb(202, 25, 25);
-    border-color: rgb(202, 25, 25);
-    text-shadow: 0 0 50px white, 0 0 20px white, 0 0 15px white;
-    font-size: 20px;
-    letter-spacing: 3px;
-}
-
-.uiBtnDelete:active {
-    letter-spacing: 0px;
+    .videoGridTitle {
+        color: #f9fafb;
+    }
 }
