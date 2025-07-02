@@ -76,49 +76,122 @@ export default function VideoEdit() {
 
     }
     return (
-        <div className={VE.main}>
-
-            <form onSubmit={handleEdit} className={VE.form}>
-
-                <span className={VE.errrooor}>{titleError}</span>
-                <input className={VE.input} type="text" name="VTitle" placeholder="Enter the title for the video" onChange={(e) => setVTitle(e.target.value)} value={VTitle} required />
-
-                <select required onChange={(e) => setSubjectName(e.target.value)} value={SubjectName} name="SubjectName" className={VE.select}>
-                    <option className={VE.option} value="">--- Select Subject ---</option>
-                    <option className={VE.option} value="Mathematics">Mathematics</option>
-                    <option className={VE.option} value="Physics">Physics</option>
-                    <option className={VE.option} value="Chemistry">Chemistry</option>
-                    <option className={VE.option} value="Biology">Biology</option>
-                </select>
-
-                <select required onChange={(e) => setClassIn(e.target.value)} value={ClassIn} name="classIn" className={VE.select}>
-                    <option className={VE.option} value="">--- Select Class ---</option>
-                    <option className={VE.option} value="IX">IX</option>
-                    <option className={VE.option} value="X">X</option>
-                    <option className={VE.option} value="XI">XI</option>
-                    <option className={VE.option} value="XII">XII</option>
-                </select>
-                <div className={VE.uploader}>
-                    <div className={VE.formm}>
-                        <span className={VE.formTitle}>Upload Thumbnail</span>
-                        <label htmlFor="file-input" className={VE.dropContainer}>
-                            <input type="file" className={VE.fileInput} onChange={(e) => setThumbnail(e.target.files[0])} name="thumbnail" />
-                        </label>
-                    </div>
-
-
-                    <div className={VE.formm}>
-                        <span className={VE.formTitle}>Upload Video</span>
-                        <label htmlFor="file-input" className={VE.dropContainer}>
-                            <input type="file" className={VE.fileInput} onChange={(e) => setVideo(e.target.files[0])} name="video" />
-                        </label>
-                    </div>
+        <div className={VE.editVideoContainer}>
+            <div className={VE.editVideoWrapper}>
+                <div className={VE.header}>
+                    <h1 className={VE.title}>Edit Video</h1>
+                    <p className={VE.subtitle}>Update your video content and details</p>
                 </div>
 
-                <button className={VE.uiBtnUpdate} type="submit">Update Data</button>
-                <button type="button" onClick={() => Navigate('/home')} className={VE.uiBtnCancel}>Cancel</button>
-                <div className={VE.errrr} ref={unsuccRef}>{titleError}</div>
-            </form>
+                <form className={VE.editVideoForm} onSubmit={handleEdit}>
+                    <div className={VE.formGrid}>
+                        {/* Video Title */}
+                        <div className={`${VE.formGroup} ${VE.fullWidth}`}>
+                            <input
+                                type="text"
+                                name="VTitle"
+                                className={VE.formInput}
+                                placeholder="Enter video title"
+                                value={VTitle}
+                                onChange={(e) => setVTitle(e.target.value)}
+                            />
+                        </div>
+
+                        {/* Subject and Class */}
+                        <div className={VE.formGroup}>
+                            <select
+                                name="SubjectName"
+                                className={VE.formSelect}
+                                value={SubjectName}
+                                onChange={(e) => setSubjectName(e.target.value)}
+                            >
+                                <option value="" disabled>Select subject</option>
+                                <option value="mathematics">Mathematics</option>
+                                <option value="physics">Physics</option>
+                                <option value="chemistry">Chemistry</option>
+                                <option value="biology">Biology</option>
+                            </select>
+                        </div>
+
+                        <div className={VE.formGroup}>
+                            <select
+                                name="ClassIn"
+                                className={VE.formSelect}
+                                value={ClassIn}
+                                onChange={(e) => setClassIn(e.target.value)}
+                            >
+                                <option value="" disabled>Select class</option>
+                                <option value="IX">IX</option>
+                                <option value="X">X</option>
+                                <option value="XI">XI</option>
+                                <option value="XII">XII</option>
+                            </select>
+                        </div>
+
+                        {/* Thumbnail Upload */}
+                        <div className={`${VE.formGroup} ${VE.fullWidth}`}>
+                            <div className={VE.fileUploadContainer}>
+                                <label className={VE.fileUploadLabel} htmlFor="thumbnail">
+                                    <div className={VE.fileUploadContent}>
+                                        <svg className={VE.uploadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                            <polyline points="7,10 12,15 17,10" />
+                                            <line x1="12" y1="15" x2="12" y2="3" />
+                                        </svg>
+                                        <span>Upload Thumbnail</span>
+                                        <small>PNG, JPG up to 10MB</small>
+                                    </div>
+                                </label>
+                                <input
+                                    type="file"
+                                    id="thumbnail"
+                                    name="thumbnail"
+                                    accept="image/*"
+                                    onChange={(e) => setThumbnail(e.target.files[0])}
+                                    className={VE.fileInput}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Video Upload */}
+                        <div className={`${VE.formGroup} ${VE.fullWidth}`}>
+                            <div className={VE.fileUploadContainer}>
+                                <label className={VE.fileUploadLabel} htmlFor="video">
+                                    <div className={VE.fileUploadContent}>
+                                        <svg className={VE.uploadIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                            <polygon points="23,7 16,12 23,17" />
+                                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
+                                        </svg>
+                                        <span>Upload Video</span>
+                                        <small>MP4, AVI, MOV up to 100MB</small>
+                                    </div>
+                                </label>
+                                <input
+                                    type="file"
+                                    id="video"
+                                    name="video"
+                                    accept="video/*"
+                                    onChange={(e) => setVideo(e.target.files[0])}
+                                    className={VE.fileInput}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className={VE.buttonGroup}>
+                        <button type="button" className={`${VE.btn} ${VE.btnCancel}`} onClick={() => Navigate('/home')}>
+                            Cancel
+                        </button>
+                        <button type="submit" className={`${VE.btn} ${VE.btnUpdate}`}>
+                            <span>Update Video</span>
+                            <svg className={VE.btnIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M5 12l5 5L20 7" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }
