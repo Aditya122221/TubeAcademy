@@ -59,126 +59,218 @@
     margin-top: 25px;
 }
 
-.idcard {
-    width: 12cm;
-    height: 14cm;
-    border-radius: 10px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 10px;
+.userCard {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.fancyShape {
-    display: flex;
-    flex-direction: column;
+.userCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
-.square {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    background-color: darkgreen;
-    width: 100%;
-    height: 2cm;
+.userCardHeader {
+  background: linear-gradient(135deg, #2d7d2d 0%, #4a9f4a 100%);
+  height: 120px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.downTriangle {
-    width: 100%;
-    height: 2cm;
-    clip-path: polygon(50% 100%, 0 0, 100% 0);
-    background-color: darkgreen;
-    border-color: darkgreen;
+.hexagonContainer {
+  position: relative;
+  margin-top: 40px;
 }
 
 .hexagon {
-    height: 200px;
-    aspect-ratio: cos(30deg);
-    clip-path: polygon(-50% 50%, 50% 100%, 150% 50%, 50% 0);
-    background: #03da32;
-    position: relative;
-    top: -130px;
-    left: 144px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  transform: rotate(30deg);
+  border-radius: 15px;
+  overflow: hidden;
+  border: 4px solid #22c55e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.hexagon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  transform: rotate(-30deg);
+  border-radius: 15px;
 }
 
 .profileImage {
-    width: 150px;
-    height: 175px;
-    aspect-ratio: cos(30deg);
-    clip-path: polygon(-50% 50%, 50% 100%, 150% 50%, 50% 0);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-30deg);
+  border-radius: 15px;
 }
 
-.detail {
-    margin-top: -115px;
+.userCardBody {
+  padding: 60px 24px 24px;
+  text-align: center;
 }
 
-.nameAndDes {
-    display: flex;
+.userName {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.userRoleBadge {
+  background: #22c55e;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.userDetails {
+  text-align: left;
+  margin-bottom: 24px;
+}
+
+.detailItem {
+  display: flex;
+  margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.detailLabel {
+  color: #4b5563;
+  font-weight: 500;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.detailValue {
+  color: #1f2937;
+  font-weight: 400;
+  word-break: break-word;
+  margin-left: 4px;
+}
+
+.deleteButton {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.deleteButton:hover {
+  background: #dc2626;
+}
+
+.deleteButton:active {
+  transform: translateY(1px);
+}
+
+/* Demo styles */
+.demoContainer {
+  padding: 40px 20px;
+  background: #f9fafb;
+  min-height: 100vh;
+}
+
+.demoContainer h1 {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 40px;
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-top: 25px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0 16px;
+  }
+
+  .userCard {
+    max-width: 100%;
+  }
+
+  .userName {
+    font-size: 20px;
+  }
+
+  .userCardBody {
+    padding: 50px 20px 20px;
+  }
+
+  .hexagon {
+    width: 80px;
+    height: 80px;
+  }
+
+  .userCardHeader {
+    height: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detailItem {
     flex-direction: column;
-    align-items: center;
-}
+    margin-bottom: 12px;
+  }
 
-.name {
-    font-family: "Bangers", system-ui;
-    font-size: 25px;
-}
+  .detailLabel {
+    min-width: auto;
+    margin-bottom: 2px;
+    font-weight: 600;
+  }
 
-.desg {
-    font-family: "Playpen Sans", cursive;
-    background-color: #03da32;
-    padding: 5px;
-    border-radius: 10px;
-    color: white;
-}
+  .detailValue {
+    margin-left: 0;
+    padding-left: 16px;
+  }
 
-.personalDetail {
-    display: flex;
-    margin-top: 25px;
-    font-family: "Outfit", sans-serif;
-    padding: 25px;
-}
-
-.pTitle {
-    display: flex;
-    flex-direction: column;
-}
-
-.pinfo {
-    margin-left: 15px;
-}
-
-.hidden {
-    display: none;
-}
-
-.uiBtnDelete {
-    cursor: pointer;
-    border-radius: 5px;
-    color: black;
-    border-style: solid;
-    background-color: transparent;
-    border-color: rgb(219, 218, 218);
-    width: 48%;
-    height: 40px;
-    transition: 0.2s ease;
-    text-transform: uppercase;
-    border-width: 2px;
-    font-weight: 500;
+  .userName {
     font-size: 18px;
-    letter-spacing: 2px;
-
-    &:hover {
-        color: rgb(247, 247, 247);
-        background-color: rgb(202, 25, 25);
-        border-color: rgb(202, 25, 25);
-        text-shadow: 0 0 50px white, 0 0 20px white, 0 0 15px white;
-        font-size: 20px;
-        letter-spacing: 3px;
-    }
-
-    &:active {
-        letter-spacing: 0px;
-    }
+  }
 }
 
 /* Query Card Design */

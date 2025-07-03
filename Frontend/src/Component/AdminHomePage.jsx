@@ -92,41 +92,40 @@ export default function AdminHomePage() {
       </div>
 
       {selectedSection === "teacher" && (
-        <div className={`${AH.card} ${AH.teacher}`}>
+        <div className={`${AH.cardsGrid} ${AH.teacher}`}>
           {teacherData.length > 0 ? (
             teacherData.map((data, index) => (
-              <div className={AH.idcard} key={index}>
-                <div className={AH.fancyShape}>
-                  <div className={AH.square}></div>
-                  <div className={AH.downTriangle}></div>
-                </div>
-                <div className={AH.hexagon}>
-                  <img
-                    className={AH.profileImage}
-                    src={data.avatar === "" ? TeamLeader : data.avatar}
-                    alt="Profile"
-                  />
-                </div>
-                <div className={AH.detail}>
-                  <div className={AH.nameAndDes}>
-                    <div className={AH.name}>
-                      {data.fName} {data.lName}
-                    </div>
-                    <div className={AH.desg}>Teacher</div>
-                  </div>
-                  <div className={AH.personalDetail}>
-                    <div className={AH.pTitle}>
-                      <div className={AH.regt}>Registration ID</div>
-                      <div className={AH.emailt}>Email</div>
-                      <div className={AH.phonet}>Phone</div>
-                    </div>
-                    <div className={AH.pinfo}>
-                      <div className={AH.regi}>: {data.Registration_ID}</div>
-                      <div className={AH.emaili}>: {data.email}</div>
-                      <div className={AH.phonei}>: {data.pNumber}</div>
+              <div className={AH.userCard} key={index}>
+                <div className={AH.userCardHeader}>
+                  <div className={AH.hexagonContainer}>
+                    <div className={AH.hexagon}>
+                      <img src={data.avatar ? data.avatar : TeamLeader} alt="User Image" className={AH.profileImage} />
                     </div>
                   </div>
-                  <button className={AH.uiBtnDelete}>Delete User</button>
+                </div>
+
+                <div className={AH.userCardBody}>
+                  <h2 className={AH.userName}>{data.fName} {data.lName}</h2>
+                  <span className={AH.userRoleBadge}>{data.role}</span>
+
+                  <div className={AH.userDetails}>
+                    <div className={AH.detailItem}>
+                      <span className={AH.detailLabel}>Registration ID</span>
+                      <span className={AH.detailValue}>: {data.Registration_ID}</span>
+                    </div>
+                    <div className={AH.detailItem}>
+                      <span className={AH.detailLabel}>Email</span>
+                      <span className={AH.detailValue}>: {data.email}</span>
+                    </div>
+                    <div className={AH.detailItem}>
+                      <span className={AH.detailLabel}>Phone</span>
+                      <span className={AH.detailValue}>: {data.pNumber}</span>
+                    </div>
+                  </div>
+
+                  {/* <button className={AH.deleteButton}>
+                    DELETE USER
+                  </button> */}
                 </div>
               </div>
             ))
@@ -137,41 +136,40 @@ export default function AdminHomePage() {
       )}
 
       {selectedSection === "student" && (
-        <div className={`${AH.card} ${AH.student}`}>
+        <div className={`${AH.cardsGrid} ${AH.student}`}>
           {studentData.length > 0 ? (
             studentData.map((data, index) => (
-              <div className={AH.idcard} key={index}>
-                <div className={AH.fancyShape}>
-                  <div className={AH.square}></div>
-                  <div className={AH.downTriangle}></div>
-                </div>
-                <div className={AH.hexagon}>
-                  <img
-                    className={AH.profileImage}
-                    src={data.avatar === "" ? TeamLeader : data.avatar}
-                    alt="Profile"
-                  />
-                </div>
-                <div className={AH.detail}>
-                  <div className={AH.nameAndDes}>
-                    <div className={AH.name}>
-                      {data.fName} {data.lName}
-                    </div>
-                    <div className={AH.desg}>Student</div>
-                  </div>
-                  <div className={AH.personalDetail}>
-                    <div className={AH.pTitle}>
-                      <div className={AH.regt}>Registration ID</div>
-                      <div className={AH.emailt}>Email</div>
-                      <div className={AH.phonet}>Phone</div>
-                    </div>
-                    <div className={AH.pinfo}>
-                      <div className={AH.regi}>: {data.Registration_ID}</div>
-                      <div className={AH.emaili}>: {data.email}</div>
-                      <div className={AH.phonei}>: {data.pNumber}</div>
+              <div className={AH.userCard} key={index}>
+                <div className={AH.userCardHeader}>
+                  <div className={AH.hexagonContainer}>
+                    <div className={AH.hexagon}>
+                      <img src={data.avatar ? data.avatar : TeamLeader} alt="User Image" className={AH.profileImage} />
                     </div>
                   </div>
-                  <button className={AH.uiBtnDelete}>Delete User</button>
+                </div>
+
+                <div className={AH.userCardBody}>
+                  <h2 className={AH.userName}>{data.fName} {data.lName}</h2>
+                  <span className={AH.userRoleBadge}>{data.role}</span>
+
+                  <div className={AH.userDetails}>
+                    <div className={AH.detailItem}>
+                      <span className={AH.detailLabel}>Registration ID</span>
+                      <span className={AH.detailValue}>: {data.Registration_ID}</span>
+                    </div>
+                    <div className={AH.detailItem}>
+                      <span className={AH.detailLabel}>Email</span>
+                      <span className={AH.detailValue}>: {data.email}</span>
+                    </div>
+                    <div className={AH.detailItem}>
+                      <span className={AH.detailLabel}>Phone</span>
+                      <span className={AH.detailValue}>: {data.pNumber}</span>
+                    </div>
+                  </div>
+
+                  {/* <button className={AH.deleteButton}>
+                    DELETE USER
+                  </button> */}
                 </div>
               </div>
             ))
@@ -182,11 +180,11 @@ export default function AdminHomePage() {
       )}
 
       {selectedSection === "query" && (
-        <div className={`${AH.card} ${AH.query}`}>
+        <div className={`${AH.cardsGrid} ${AH.query}`}>
           {queryData.length > 0 ? (
             queryData.map((query, index) => (
               <div className={AH.queryCard} key={index}>
-                <form className={AH.replyForm} onSubmit={(e)=> handleReply(e, query.query_ID)}>
+                <form className={AH.replyForm} onSubmit={(e) => handleReply(e, query.query_ID)}>
                   <div className={AH.inputmethod}>
                     <label htmlFor="queryID" className={AH.label}>
                       Query ID:
