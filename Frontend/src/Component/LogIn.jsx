@@ -18,6 +18,8 @@ const LogIn = () => {
     });
     const [error, setError] = useState("")
     const [ferror, setfError] = useState("")
+    const [isDis, setIsDis] = useState(false)
+    const [isClass, setIsClass] = useState(2)
 
     const handleLoginChange = (e) => {
         const { name, value } = e.target;
@@ -37,10 +39,18 @@ const LogIn = () => {
 
     const switchToForgotPassword = () => {
         setIsLoginMode(false);
+        setIsClass(2)
+        setError("")
+        setIsDis(false)
+        setfError("")
     };
 
     const switchToLogin = () => {
         setIsLoginMode(true);
+        setIsDis(false)
+        setIsClass(2)
+        setError("")
+        setfError("")
     };
 
     const RoleSelector = ({ selectedRole, onRoleChange, name }) => {
@@ -81,29 +91,40 @@ const LogIn = () => {
                 if (loginData.password.length > 0) {
                     if (loginData.role.length === 0) {
                         setError("Role is required")
+                        setIsClass(1)
                         return false
                     } else {
                         setError('');
+                        setIsClass(2)
                         return true
                     }
                 } else {
                     setError('Please enter your password')
+                    setIsClass(1)
                     return false
                 }
             } else {
                 console.log(loginData.Reg_ID)
                 setError('Registration Id should only contain number')
+                setIsClass(1)
                 return false
             }
         } else {
             setError('Please enter your Registration ID')
+            setIsClass(1)
             return false;
         }
     }
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setError("Input Validating...")
+        setIsDis(true)
+        setIsClass(0)
+
         if (validateLogIn()) {
+            setError("User Verifying...")
+            setIsClass(0)
             const Reg_ID = parseInt(loginData.Reg_ID, 10)
             const password = loginData.password
             const role = loginData.role
@@ -114,10 +135,16 @@ const LogIn = () => {
             };
             axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/login`, payload)
                 .then((res) => {
-                    localStorage.setItem('token', JSON.stringify(res.data.token));
-                    localStorage.setItem('role', JSON.stringify(res.data.roleAction))
-                    localStorage.setItem('RegID', JSON.stringify(res.data.RegID))
-                    Navigate('/home');
+                    if (res.status !== 200) {
+                        setError(res.data.message)
+                        setIsClass(1)
+                        setIsDis(false)
+                    } else {
+                        localStorage.setItem('token', JSON.stringify(res.data.token));
+                        localStorage.setItem('role', JSON.stringify(res.data.roleAction))
+                        localStorage.setItem('RegID', JSON.stringify(res.data.RegID))
+                        Navigate('/home');
+                    }
                 })
                 .catch((err) => {
                     console.error("Server either not running or disconnected", err);
@@ -133,24 +160,30 @@ const LogIn = () => {
                     if (numregex.test(forgotPasswordData.fpnumber)) {
                         if (forgotPasswordData.frole.length === 0) {
                             setfError("Role is required")
+                            setIsClass(1)
                             return false
                         } else {
                             setfError("")
+                            setIsClass(2)
                             return true
                         }
                     } else {
                         setfError("Phone Number should only contain number")
+                        setIsClass(1)
                         return false
                     }
                 } else {
+                    setIsClass(1)
                     setfError("Phone Number required")
                     return false
                 }
             } else {
+                setIsClass(1)
                 setfError('Registration Id should only contain number')
                 return false
             }
         } else {
+            setIsClass(1)
             setfError("Registration Id Required")
             return false
         }
@@ -158,18 +191,22 @@ const LogIn = () => {
 
     const handleForgot = (e) => {
         e.preventDefault()
+        setfError("Input Validating...")
+        setIsDis(0)
         if (validateF()) {
+            setIsClass(0)
+            setfError("User Verifying...")
             const regis = parseInt(forgotPasswordData.regis, 10)
             const fpnumber = forgotPasswordData.fpnumber
             const frole = forgotPasswordData.frole
             const payload = { fpnumber: fpnumber, regis: regis, frole: frole }
             axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/usercheck`, payload).then((res) => {
-                if (res.status) {
+                if (res.status !== 200) {
+                    setfError(res.data.message);
+                    setIsClass(1)
+                    setIsDis(false)
+                } else {
                     Navigate('/forgotpas', { state: res.data.data })
-                }
-                else {
-                    console.log(res.data.data)
-                    setError(res.data.data);
                 }
             }).catch((e) => {
                 console.log("Front end error", e)
@@ -188,7 +225,7 @@ const LogIn = () => {
                         <div className={`${L.formSection} ${L.loginSection}`}>
                             <h2 className={L.formTitle}>Login</h2>
                             <form onSubmit={handleSubmit} className={L.loginForm}>
-                                <span className={L.error}>{error}</span>
+                                <span className={`${L.er} ${isClass === 1 ? L.error : isClass === 0 ? L.pending : ""}`}>{error}</span>
                                 <div className={L.inputGroup}>
                                     <input
                                         type="text"
@@ -221,7 +258,7 @@ const LogIn = () => {
                                     />
                                 </div>
 
-                                <button type="submit" className={L.submitBtn}>
+                                <button type="submit" className={L.submitBtn} disabled={isDis}>
                                     Login
                                 </button>
 
@@ -229,6 +266,7 @@ const LogIn = () => {
                                     type="button"
                                     className={L.linkBtn}
                                     onClick={switchToForgotPassword}
+                                    disabled={isDis}
                                 >
                                     Forgot Password?
                                 </button>
@@ -237,8 +275,8 @@ const LogIn = () => {
                     ) : (
                         <div className={`${L.formSection} ${L.forgotPasswordSection}`}>
                             <h2 className={L.formTitle}>Forgot Password</h2>
-                                <form onSubmit={handleForgot} className={L.forgotPasswordForm}>
-                                    <span className={L.error}>{ ferror}</span>
+                            <form onSubmit={handleForgot} className={L.forgotPasswordForm}>
+                                <span className={`${L.er} ${isClass === 1 ? L.error : isClass === 0 ? L.pending : ""}`}>{ferror}</span>
                                 <div className={L.inputGroup}>
                                     <input
                                         type="text"

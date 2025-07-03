@@ -143,7 +143,7 @@ router.post("/api/login", async (req, res) => {
 		const { Reg_ID, password, role } = req.body
 		if (!Reg_ID || !password || !role) {
 			return res
-				.status(400)
+				.status(210)
 				.json({ status: false, message: "All fields are required" })
 		}
 
@@ -157,10 +157,12 @@ router.post("/api/login", async (req, res) => {
 		const user = await modelSchema.findOne({ Registration_ID: Reg_ID })
 
 		// Check user existence and password validity
-		if (!user || !user.password || !(password === user.password)) {
+		if (!user) {
 			return res
-				.status(401)
-				.json({ status: false, message: "Invalid credentials" })
+				.status(215)
+				.json({ status: false, message: "User does not exists" })
+		} else if (user.password !== password) {
+			return res.status(215).send({status: false, message: "Password did not matched"})
 		}
 
 		// Generate JWT token with appropriate claims
@@ -355,20 +357,20 @@ router.post("/api/usercheck", async (req, res) => {
 		else if (frole === "Teacher") modelSchema = teacherUserData
 		else modelSchema = studentUserData
 
-		const user = await modelSchema.findOne({
-			$and: [{ Registration_ID: regis }, { pNumber: fpnumber }],
-		})
+		const user = await modelSchema.findOne({Registration_ID : regis})
 
 		if (!user) {
 			return res
-				.status(404)
+				.status(215)
 				.json({ status: false, message: "User does not exists" })
+		} else if (user.pNumber !== fpnumber) {
+			res.status(215).json({status: false, message: "Phone number is incorrect"})
 		} else {
 			const userData = {
 				regis: user?.Registration_ID,
 				frole: user?.role,
 			}
-			return res.status(201).json({ status: true, data: userData })
+			return res.status(200).json({ status: true, data: userData })
 		}
 	} catch (err) {
 		return res.status(500).json({
