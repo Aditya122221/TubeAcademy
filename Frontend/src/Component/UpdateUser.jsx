@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import U from '../CSS/UpdateUser.module.css'
 import Leader from '../Images/TeamLeader.png'
 import { Link, useLocation } from 'react-router-dom';
@@ -12,12 +12,10 @@ export default function UpdateUser() {
     const [phone, setphone] = useState('')
     const [uaddress, setaddress] = useState('')
     const [avatar, setAvatar] = useState('')
-    const [fnameerror, setfnameerror] = useState('')
-    const [lnameerror, setlnameerror] = useState('')
     const [role, setRole] = useState('')
-
-    const updateRef = useRef()
-    const updateERef = useRef()
+    const [info, setInfo] = useState("")
+    const [isClass, setIsClass] = useState(2)
+    const [isDis, setIsDis] = useState(false)
 
     useEffect(() => {
         if (localStorage.getItem('token') === null || !location.state) {
@@ -35,10 +33,19 @@ export default function UpdateUser() {
 
     const updateData = (e) => {
         e.preventDefault()
+        setIsDis(true)
+        setInfo("Input Validation")
+        setIsClass(0)
         const alpharegex = /^[a-zA-Z]+$/
-        if (fname.length < 3 || !alpharegex.test(fname)) setfnameerror("First Name is not valid")
-        else if (lname.length < 3 || !alpharegex.test(lname)) setlnameerror("Last Name is not a vailid")
-        else {
+        if (fname.length < 3 || !alpharegex.test(fname)) {
+            setInfo("First Name is not valid")
+            setIsClass(1)
+        } else if (lname.length < 3 || !alpharegex.test(lname)) {
+            setlnameerror("Last Name is not a vailid")
+            setIsClass(1)
+        } else {
+            setInfo("Updating Data...")
+            setIsClass(0)
             const payload = new FormData()
             payload.append("fname", fname)
             payload.append("lname", lname)
@@ -46,91 +53,157 @@ export default function UpdateUser() {
             payload.append("uEmail", uemail)
             payload.append("uAddress", uaddress)
             payload.append("urole", role)
-            if(avatar instanceof File) payload.append("avatar", avatar)
+            if (avatar instanceof File) payload.append("avatar", avatar)
 
             axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/update`, payload).then((res) => {
-                updateRef.current.style.display = "block"
-                updateERef.current.style.display = "none"
+                if (res.status !== 200) {
+                    setInfo(res.data.message)
+                    setIsClass(1)
+                    setIsDis(false)
+                } else {
+                    setInfo(res.data.message)
+                    setIsClass(0)
+                    setIsDis(false)
+                }
             }).catch((err) => {
-                updateRef.current.style.display = "none"
-                updateERef.current.style.display = "block"
+                setInfo("Updation failed")
+                setIsClass(1)
                 console.log("Error from client side", err);
             })
         }
     }
 
     return (
-        <div className={U.update}>
-            <div className={U.updateHeader}>
-                {/* --------------------------left------------------------------- */}
-                <div className={U.left}>
-                    <div className={U.left1}>
-                        <div className={U.left2}>
-                            <img src={avatar == "" ? Leader : avatar} className={U.left3} alt="" />
-                        </div>
-                        <div className={U.left4}>{fname} {lname}</div>
-                        <div className={U.left5}>{uemail}</div>
-                    </div>
-                    <div className={U.left6}>
-                        <Link to='/profile' className={U.left7}>
-                            <span className="material-symbols-outlined left8">
-                                account_circle
-                            </span>
-                            <div className={U.left9}>Account</div>
-                        </Link>
-                        <div className={U.left10}>
-                            <span className="material-symbols-outlined llee">
-                                edit
-                            </span>
-                            <div className={U.left11}>Edit</div>
-                        </div>
-                        <Link to='/home' className={U.left12}>
-                            <div className={U.left13}>Home</div>
-                        </Link>
+        <div className={U.container}>
+            <div className={U.formWrapper}>
+                <div className={U.header}>
+                    <h1 className={U.title}>Update Profile</h1>
+                    <div className={U.navigation}>
+                        <button
+                            type="button"
+                            className={U.navButton}
+                            disabled={isDis}
+                        >
+                            <Link className={U.link} to='/home'>← Back to Home</Link>
+                        </button>
+                        <button
+                            type="button"
+                            className={U.navButton}
+                            disabled={isDis}
+                        >
+                            <Link className={U.link} to='/profile'>View Profile →</Link>
+                        </button>
                     </div>
                 </div>
-                <div className={U.right}>
-                    <div className={U.right1}>Update Data</div>
 
-                    <form onSubmit={updateData} encType="multipart/form-data" className={U.right2} >
-                        <div className={U.right3}>
-
-                            <div className={U.right4}>
-                                <label htmlFor="fname" className={U.right5}>First Name</label>
-                                <span className={U.right10}>{fnameerror}</span>
-                                <input type="text" defaultValue={fname} onChange={(e) => setfname(e.target.value)} className={U.right6} name="fname" required />
-                            </div>
-
-                            <div className={U.right4}>
-                                <label htmlFor="lname" className={U.right5}>Last Name</label>
-                                <span className={U.right10}>{lnameerror}</span>
-                                <input type="text" defaultValue={lname} onChange={(e) => setlname(e.target.value)} className={U.right6} name="lname" required />
-                            </div>
+                <form className={U.form} onSubmit={updateData}>
+                    {/* Avatar Section */}
+                    <div className={U.avatarSection}>
+                        <div className={U.avatarPreview}>
+                            <img
+                                src={avatar == "" ? Leader : avatar}
+                                alt="Current avatar"
+                                className={U.avatarImage}
+                            />
                         </div>
-                        <div className={U.right3}>
+                        <div className={U.avatarUpload}>
+                            <label htmlFor="avatar" className={U.avatarLabel}>
+                                Change Avatar
+                            </label>
+                            <input
+                                type="file"
+                                id="avatar"
+                                name="avatar"
+                                accept="image/*"
+                                onChange={(e) => setAvatar(e.target.files[0])}
+                                className={U.avatarInput}
+                            />
+                        </div>
+                    </div>
 
-                            <div className={U.right4}>
-                                <label htmlFor="email" className={U.right5}>Email</label>
-                                <input type="text" defaultValue={uemail} onChange={(e) => setemail(e.target.value)} className={U.right6} name="email" />
-                            </div>
-
-                            <div className={U.right4}>
-                                <label htmlFor="pnumber" className={U.right5}>Phone Number</label>
-                                <input type="text" defaultValue={phone} className={U.right6} name="pnumber" disabled />
-                            </div>
+                    {/* Form Fields */}
+                    <div className={U.formGrid}>
+                        <div className={U.formGroup}>
+                            <label htmlFor="fname" className={U.label}>
+                                First Name
+                            </label>
+                            <input
+                                type="text"
+                                id="fname"
+                                name="fname"
+                                value={fname}
+                                onChange={(e) => setfname(e.target.value)}
+                                className={U.input}
+                                required
+                            />
                         </div>
 
-                        <label htmlFor="address" className={U.right5}>Address</label>
-                        <textarea defaultValue={uaddress} onChange={(e) => setaddress(e.target.value)} className={U.right7}></textarea>
+                        <div className={U.formGroup}>
+                            <label htmlFor="lastName" className={U.label}>
+                                Last Name
+                            </label>
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lname"
+                                value={lname}
+                                onChange={(e) => setlname(e.target.value)}
+                                className={U.input}
+                                required
+                            />
+                        </div>
 
-                        <input type="file" name="avatar" onChange={(e) => setAvatar(e.target.files[0])} />
+                        <div className={U.formGroup}>
+                            <label htmlFor="email" className={U.label}>
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={uemail}
+                                disabled
+                                className={U.input}
+                                required
+                            />
+                        </div>
 
-                        <button type="submit" className={U.right8}>Update</button>
-                    </form>
+                        <div className={U.formGroup}>
+                            <label htmlFor="phoneNumber" className={U.label}>
+                                Phone Number
+                            </label>
+                            <input
+                                type="tel"
+                                id="phoneNumber"
+                                name="pnumber"
+                                value={phone}
+                                className={`${U.input} ${U.disabled}`}
+                                disabled
+                            />
+                        </div>
 
-                    <span ref={updateRef} className={U.right9}>Updated</span>
-                    <span ref={updateERef} className={U.right11}>Updation Failed</span>
-                </div>
+                        <div className={U.formGroup}>
+                            <label htmlFor="address" className={U.label}>
+                                Address
+                            </label>
+                            <textarea
+                                id="address"
+                                name="address"
+                                value={uaddress}
+                                onChange={(e) => setaddress(e.target.value)}
+                                className={U.textarea}
+                                rows="3"
+                            />
+                        </div>
+                    </div>
+
+                    <div className={U.submitSection}>
+                        <button type="submit" className={U.submitButton} disabled={isDis}>
+                            Update Profile
+                        </button>
+                    </div>
+                </form>
+                <span className={`${U.er} ${isClass === 1 ? U.error : isClass === 0 ? U.pending : ""}`}>{info}</span>
             </div>
         </div>
     )
