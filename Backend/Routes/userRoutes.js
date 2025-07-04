@@ -512,13 +512,13 @@ router.post(
 			await searchUser.save()
 
 			if (isSave) {
-				return res.status(201).json({
+				return res.status(200).json({
 					status: true,
-					message: newVideo.title + " uploaded successfully",
+					message: "Video Uploaded Successfully",
 				})
 			} else {
 				return res
-					.status(404)
+					.status(204)
 					.json({ status: false, message: "Video not uploaded" })
 			}
 		} catch (err) {

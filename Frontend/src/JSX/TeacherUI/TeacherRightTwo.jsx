@@ -1,4 +1,4 @@
-import { useState} from "react"
+import { useState } from "react"
 import TP from '../../CSS/TeacherProfile.module.css'
 import { RegId } from "./TeacherRightOne"
 import axios from 'axios'
@@ -7,9 +7,10 @@ import { Upload } from "lucide-react"
 export default function TeacherRightTwo() {
     const [thumbnail, setThumbnail] = useState([])
     const [video, setVideo] = useState([])
-    const [uploadStatus, setUploadStatus] = useState("")
 
-    const [titleError, setTitleError] = useState("")
+    const [info, setInfo] = useState("")
+    const [isDis, setIsDis] = useState(false)
+    const [isClass, setIsClass] = useState(3)
 
     const [upload, setUpload] = useState({
         VTitle: "",
@@ -19,9 +20,13 @@ export default function TeacherRightTwo() {
 
     const handleForm = (e) => {
         e.preventDefault();
+        setIsDis(true)
+        setInfo("Input validating...")
+        setIsClass(2)
         const val = validateForm();
         if (val) {
-            setUploadStatus("Uploading")
+            setInfo("Uploading video...")
+            setIsClass(2)
             const payload = new FormData();
             payload.append('Registration_ID', RegId);
             payload.append('VTitle', upload.VTitle);
@@ -31,8 +36,17 @@ export default function TeacherRightTwo() {
             payload.append("video", video);
 
             axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/uploadVideo`, payload, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
-                setUploadStatus("File Uploaded Successfully")
+                if (res.status !== 200) {
+                    setInfo(res.data.message)
+                    setIsClass(1)
+                    setIsDis(false)
+                } else {
+                    setInfo(res.data.message)
+                    setIsClass(0)
+                    setIsDis(false)
+                }
             }).catch((err) => {
+                setIsDis(false)
                 console.log("client side", err);
             })
         }
@@ -50,20 +64,24 @@ export default function TeacherRightTwo() {
         if (alpharegex.test(upload.VTitle) && upload.VTitle !== "") {
             if (fileTypeOne.includes(thumbnail.name.split('.').pop().toLowerCase())) {
                 if (fileTypeTwo.includes(video.name.split('.').pop().toLowerCase())) {
-                    setTitleError("")
+                    setInfo("")
+                    setIsClass(3)
                     return true
                 } else {
-                    setTitleError("Invalid Video type. Upload only mp4, mkv or avi")
+                    setInfo("Invalid Video type. Upload only mp4, mkv or avi")
+                    setIsClass(1)
                     return false
                 }
             } else {
-                setTitleError("Invalid Image type. Upload only jpeg, jpg or png")
+                setInfo("Invalid Image type. Upload only jpeg, jpg or png")
+                setIsClass(1)
                 return false
             }
         }
         else {
-            if (upload.VTitle === "") setTitleError("Title should not be empty")
-            setTitleError("Title should contain only alphabets and numbers")
+            if (upload.VTitle === "") setInfo("Title should not be empty")
+            else setInfo("Title should contain only alphabets and numbers")
+            setIsClass(1)
             return false
         }
 
@@ -74,9 +92,7 @@ export default function TeacherRightTwo() {
             <div className={TP.sectionHeader}>
                 <h2><Upload size={24} />Upload Video</h2>
             </div>
-
-            <span className={TP.error}>{titleError}</span>
-            <div className={TP.uploadForm}>
+            <form className={TP.uploadForm} onSubmit={handleForm}>
                 <div className={TP.formGroup}>
                     <label htmlFor="title">Title</label>
                     <input
@@ -150,24 +166,12 @@ export default function TeacherRightTwo() {
                     />
                 </div>
 
-                <button type="button" className={TP.btnSubmit} onClick={handleForm}>
+                <button type="submit" className={TP.btnSubmit} disabled={isDis}>
                     <Upload size={16} />
-                    Submit
+                    Upload Video
                 </button>
-
-                {uploadStatus && (
-                    <div
-                        className={`${TP.uploadStatus} ${uploadStatus.includes("Successfully")
-                            ? TP.success
-                            : uploadStatus.includes("Failed")
-                                ? TP.error
-                                : TP.info
-                            }`}
-                    >
-                        {uploadStatus}
-                    </div>
-                )}
-            </div>
+            </form>
+            <span className={`${TP.er} ${isClass === 1 ? TP.error : isClass === 0 ? TP.succ : isClass === 2 ? TP.info : ""}`}>{info}</span>
         </div >
     )
 }

@@ -606,3 +606,35 @@
         padding: 1rem;
     }
 }
+
+.er {
+    display: none;
+    margin-top: 15px;
+}
+
+.error {
+    color: red;
+    border: 2 px solid red;
+    background: rgba(255, 0, 0, 0.155);
+    display: flex;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.info {
+    color: blue;
+    background-color: rgba(0, 0, 255, 0.193);
+    display: flex;
+    border: 2px solid blue;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.succ {
+    color: green;
+    background-color: rgba(0, 128, 0, 0.221);
+    display: flex;
+    border: 2px solid green;
+    padding: 15px;
+    border-radius: 10px;
+}
