@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { MessageSquare, Calendar } from 'lucide-react';
 import SP from "../../CSS/StudentProfile.module.css";
 
 export default function StudentRightTwo() {
-    const [query, setQuery] = useState([]);
-    const Registration_ID = localStorage.getItem("RegID");
-    
-    const fetchData = () => {
+  const [query, setQuery] = useState([]);
+  const Registration_ID = localStorage.getItem("RegID");
+
+  const fetchData = () => {
     axios
       .post(`${import.meta.env.VITE_API_BASE_URL}/api/queryDetails`, { Registration_ID })
       .then((res) => {
@@ -21,39 +22,63 @@ export default function StudentRightTwo() {
     fetchData();
   }, []);
   return (
-    <div className={SP.rightFour}>
-      <div className={SP.brightOne}>
-        <h2 className={SP.tetd}>Queries</h2>
-        <div className={SP.Ttdd}>
-          <table className={`${SP.brightTwo} ${SP.ttable}`}>
-            <tr className={SP.TableHead}>
-              <td className={SP.teacher}>Query ID</td>
-              <td className={SP.teacher}>Name</td>
-              <td className={SP.teacher}>Email ID</td>
-              <td className={SP.teacher}>Message</td>
-              <td className={SP.teacher}>Query Date</td>
-              <td className={SP.teacher}>Resolution</td>
-              <td className={SP.teacher}>Resolution Date</td>
+    <div className={SP.contentCard}>
+      <h2 className={SP.sectionTitle}>
+        <MessageSquare className={SP.sectionIcon} />
+        Query History
+      </h2>
+
+      <div className={SP.tableContainer}>
+        <table className={SP.table}>
+          <thead className={SP.tableHeader}>
+            <tr>
+              <th className={SP.tableHeaderCell}>Query ID</th>
+              <th className={SP.tableHeaderCell}>Message</th>
+              <th className={SP.tableHeaderCell}>Query Date</th>
+              <th className={SP.tableHeaderCell}>Resolution Message</th>
+              <th className={SP.tableHeaderCell}>Resolution Date</th>
             </tr>
-            {query &&
-              query.map((teacher, index) => (
-                <tr
-                  key={index}
-                  className={`${SP.teacherDet} ${
-                    teacher.status === "pending" ? SP.pending : SP.resolved
-                  }`}
-                >
-                  <td className={SP.ttd}>{teacher.query_ID}</td>
-                  <td className={SP.ttd}>{teacher.fullname}</td>
-                  <td className={SP.ttd}>{teacher.email}</td>
-                  <td className={SP.ttd}>{teacher.message}</td>
-                  <td className={SP.ttd}>{teacher.queryDate}</td>
-                  <td className={SP.ttd}>{teacher.replyMessage}</td>
-                  <td className={SP.ttd}>{teacher.resolveDate}</td>
+          </thead>
+          <tbody>
+            {query.length > 0 ? (
+              query.map((q) => (
+                <tr key={q.query_ID} className={`${SP.tableRow} ${q.status === "resolved" ? SP.resolved : SP.pending}`}>
+                  <td className={SP.tableCell}>
+                    <span className={SP.queryId}>{q.query_ID}</span>
+                  </td>
+                  <td className={SP.tableCell}>
+                    <div className={SP.messageCell} title={q.message}>
+                      {q.message}
+                    </div>
+                  </td>
+                  <td className={SP.tableCell}>
+                    <div className={SP.dateCell}>
+                      <Calendar className={SP.calendarIcon} />
+                      {q.queryDate}
+                    </div>
+                  </td>
+                  <td className={SP.tableCell}>
+                    <div className={SP.messageCell} title={q.replyMessage}>
+                      {q.replyMessage}
+                    </div>
+                  </td>
+                  <td className={SP.tableCell}>
+                    <div className={SP.dateCell}>
+                      <Calendar className={SP.calendarIconGreen} />
+                      {q.resolveDate}
+                    </div>
+                  </td>
                 </tr>
-              ))}
-          </table>
-        </div>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className={SP.noData}>
+                  No query history available
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
