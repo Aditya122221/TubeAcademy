@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import VE from '../CSS/VideoEdit.module.css'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -13,9 +13,9 @@ export default function VideoEdit() {
     const [ClassIn, setClassIn] = useState()
     const [thumbnail, setThumbnail] = useState()
     const [video, setVideo] = useState()
-    const [titleError, setTitleError] = useState("")
-
-    const unsuccRef = useRef()
+    const [info, setInfo] = useState("")
+    const [isDis, setIsDis] = useState(false)
+    const [isClass, setIsClass] = useState(3)
 
     useEffect(() => {
         if (localStorage.getItem('token') === null || !location.state) {
@@ -29,8 +29,13 @@ export default function VideoEdit() {
 
     const handleEdit = (e) => {
         e.preventDefault()
+        setIsDis(true)
+        setInfo("Input validating...")
+        setIsClass(2)
         const val = validateForm()
         if (val) {
+            setInfo("Video detail updating...")
+            setIsClass(2)
             const formData = new FormData()
             formData.append('Video_ID', Video_Id)
             formData.append('title', VTitle)
@@ -40,8 +45,20 @@ export default function VideoEdit() {
             formData.append('video', video)
 
             axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/editvideo`, formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then((res) => {
-                Navigate('/home')
+                if (res.status !== 200) {
+                    setInfo(res.data.message)
+                    setIsClass(1)
+                    setIsDis(false)
+                } else {
+                    setIsDis(false)
+                    setInfo(res.data.message)
+                    setIsClass(0)
+                    Navigate('/home')
+                }
             }).catch((err) => {
+                setIsDis(false)
+                setInfo("Failed to update")
+                setIsClass(1)
                 console.log("Error while updating data from frontend", err)
             })
         }
@@ -52,7 +69,8 @@ export default function VideoEdit() {
         const fileTypeOne = ["jpeg", "jpg", "png"]
         const fileTypeTwo = ["mp4", "mkv", "avi"]
         if (!(alpharegex.test(VTitle))) {
-            setTitleError("Title should contain only alphabets and numbers")
+            setInfo("Title should contain only alphabets and numbers")
+            setIsClass(1)
             return false
         }
 
@@ -70,8 +88,6 @@ export default function VideoEdit() {
         //         return false
         //     }
         // }
-
-        setTitleError("")
         return true;
 
     }
@@ -180,16 +196,17 @@ export default function VideoEdit() {
 
                     {/* Action Buttons */}
                     <div className={VE.buttonGroup}>
-                        <button type="button" className={`${VE.btn} ${VE.btnCancel}`} onClick={() => Navigate('/home')}>
+                        <button type="button" className={`${VE.btn} ${VE.btnCancel}`} onClick={() => Navigate('/home')} disabled={isDis}>
                             Cancel
                         </button>
-                        <button type="submit" className={`${VE.btn} ${VE.btnUpdate}`}>
+                        <button type="submit" className={`${VE.btn} ${VE.btnUpdate}`} disabled={isDis}>
                             <span>Update Video</span>
                             <svg className={VE.btnIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor">
                                 <path d="M5 12l5 5L20 7" />
                             </svg>
                         </button>
                     </div>
+                    <span className={`${VE.er} ${isClass === 0 ? VE.succ : isClass === 1 ? VE.error : isClass === 2 ? VE.info: ""}`}>{info}</span>
                 </form>
             </div>
         </div>

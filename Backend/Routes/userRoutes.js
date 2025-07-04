@@ -728,11 +728,15 @@ router.post(
 				{ new: true }
 			)
 
-			return res.status(200).json({
-				status: true,
-				message: "Video Updated Successfully",
-				updatedVideo: updated,
-			})
+			if (updated) {
+				return res.status(200).json({
+					status: true,
+					message: "Video Updated Successfully",
+					updatedVideo: updated,
+				})
+			}
+
+			return res.status(210).json({status: false, message: "Video updating failed"})
 		} catch (err) {
 			console.error("Edit video error:", err)
 			return res.status(500).json({

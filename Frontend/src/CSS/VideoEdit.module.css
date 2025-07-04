@@ -405,3 +405,35 @@
 .formSelect:focus-visible {
   outline: none;
 }
+
+.er {
+  display: none;
+  margin-top: 15px;
+}
+
+.error {
+    color: red;
+    border: 2 px solid red;
+    background: rgba(255, 0, 0, 0.155);
+    display: flex;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.info {
+  color: blue;
+  background-color: rgba(0, 0, 255, 0.223);
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  border: 2px solid blue;
+}
+
+.succ {
+    color: green;
+    background-color: rgba(0, 128, 0, 0.221);
+    display: flex;
+    border: 2px solid green;
+    padding: 15px;
+    border-radius: 10px;
+}
