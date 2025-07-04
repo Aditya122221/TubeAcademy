@@ -14,7 +14,7 @@ export default function UpdateUser() {
     const [avatar, setAvatar] = useState('')
     const [role, setRole] = useState('')
     const [info, setInfo] = useState("")
-    const [isClass, setIsClass] = useState(2)
+    const [isClass, setIsClass] = useState(3)
     const [isDis, setIsDis] = useState(false)
 
     useEffect(() => {
@@ -31,24 +31,32 @@ export default function UpdateUser() {
         setRole(JSON.parse(localStorage.getItem('role')))
     }, [])
 
-    const updateData = (e) => {
-        e.preventDefault()
-        setIsDis(true)
-        setInfo("Input Validation")
-        setIsClass(0)
+    const userValid = () => {
         const alpharegex = /^[a-zA-Z]+$/
         if (fname.length < 3 || !alpharegex.test(fname)) {
             setInfo("First Name is not valid")
             setIsClass(1)
+            return false
         } else if (lname.length < 3 || !alpharegex.test(lname)) {
-            setlnameerror("Last Name is not a vailid")
+            setInfo("Last Name is not a vailid")
             setIsClass(1)
-        } else {
+            return false
+        }
+
+        return true
+    }
+
+    const updateData = (e) => {
+        e.preventDefault()
+        setIsDis(true)
+        setInfo("Input Validating...")
+        setIsClass(2)
+        if(userValid()) {
             setInfo("Updating Data...")
-            setIsClass(0)
+            setIsClass(2)
             const payload = new FormData()
-            payload.append("fname", fname)
-            payload.append("lname", lname)
+            payload.append("fName", fname)
+            payload.append("lName", lname)
             payload.append("pNumber", phone)
             payload.append("uEmail", uemail)
             payload.append("uAddress", uaddress)
@@ -68,6 +76,7 @@ export default function UpdateUser() {
             }).catch((err) => {
                 setInfo("Updation failed")
                 setIsClass(1)
+                setIsDis(false)
                 console.log("Error from client side", err);
             })
         }
@@ -203,7 +212,7 @@ export default function UpdateUser() {
                         </button>
                     </div>
                 </form>
-                <span className={`${U.er} ${isClass === 1 ? U.error : isClass === 0 ? U.pending : ""}`}>{info}</span>
+                <span className={`${U.er} ${isClass === 0 ? U.succ : isClass === 1 ? U.error : isClass === 2 ? U.info : ""}`}>{info}</span>
             </div>
         </div>
     )
