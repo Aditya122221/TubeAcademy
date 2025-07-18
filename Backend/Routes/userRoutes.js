@@ -2,384 +2,29 @@ import express from "express"
 const router = express.Router()
 import { v2 as cloudinary } from "cloudinary"
 import email_from_client from "../Modal/email_from_client.js"
-import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import cors from "cors"
 import upload from "./multer.js"
 import uploadOnCloudinary from "./cloudinary.js"
-import nodemailer from "nodemailer"
 import adminUserData from "../Modal/adminUserData.js"
 import teacherUserData from "../Modal/teacherUserData.js"
 import studentUserData from "../Modal/studentUserData.js"
 import uploadVideo from "../Modal/uploadVideo.js"
+import Signup from "../Controller/SignupController.js"
+import Login from "../Controller/LoginController.js"
+import Profile from "../Controller/ProfileController.js"
+import EmailSend from "../Controller/EmailSendController.js"
+import ProfileUpdate from "../Controller/ProfileUpdateController.js"
+import UserCheck from "../Controller/UserCheckController.js"
 
 const secretCode = process.env.ACCESS_TOKEN
 
-//---------------------------Signup or Register--------------------------------------
-
-router.post("/api/signup", async (req, res) => {
-	try {
-		const { fName, lName, pNumber, role, password, email, address } = req.body
-
-		const roleConfigs = {
-			admin: {
-				model: adminUserData,
-				regMin: 10,
-				regMax: 99,
-			},
-			Teacher: {
-				model: teacherUserData,
-				regMin: 1000,
-				regMax: 9999,
-			},
-			Student: {
-				model: studentUserData,
-				regMin: 100000,
-				regMax: 999999,
-			},
-		}
-
-		const config = roleConfigs[role]
-		if (!config) {
-			return res
-				.status(400)
-				.json({ status: false, message: "Invalid role" })
-		}
-
-		const { model, regMin, regMax } = config
-
-		const existingPhone = await model.findOne({ pNumber })
-		const existingEmail = await model.findOne({ email })
-		if (existingPhone || existingEmail) {
-			return res.status(409).json({
-				status: false,
-				message: "User with this phone number already exists",
-			})
-		}
-
-		// Generate unique Registration_ID
-		let Registration_ID
-		let isDuplicate = true
-		while (isDuplicate) {
-			Registration_ID =
-				Math.floor(Math.random() * (regMax - regMin + 1)) + regMin
-			isDuplicate = await model.findOne({ Registration_ID })
-		}
-
-		const hashedPassword = await bcrypt.hash(password, 10)
-
-		const newUser = new model({
-			Registration_ID,
-			avatar: "",
-			avatarID: "",
-			fName,
-			lName,
-			pNumber,
-			role,
-			email,
-			address,
-			password,
-		})
-
-		await newUser.save()
-
-		//-------------------------Sending Mail-----------------------------------
-
-		const transporter = nodemailer.createTransport({
-			service: "gmail",
-			auth: {
-				user: process.env.MAIL_FROM,
-				pass: process.env.APP_PASSWORD,
-			},
-		})
-
-		// Email options
-		const mailOptions = {
-			from: process.env.MAIL_FROM,
-			to: email,
-			subject: `Thank You for Joining TubeAcademy – ${Registration_ID}`,
-			text: `Dear ${fName} ${lName},
-
-Thank you for joining TubeAcademy! We’re thrilled to have you as part of our growing learning community.
-
-Your registration has been successfully completed.
-Registration Number: ${Registration_ID}
-Password: ${password}
-
-Please change the password before login!
-
-Click here to visit: ${process.env.CORS_ORIGIN}
-
-We look forward to supporting you on your learning journey. If you have any questions or need assistance getting started, feel free to reach out to us at any time.
-
-Warm regards,
-Team TubeAcademy
-tubeacademy018@gmail.com`,
-		}
-
-		// Send email
-		transporter.sendMail(mailOptions, (error, info) => {
-			if (error) {
-				return console.log("Error:", error)
-			}
-		})
-
-		return res
-			.status(201)
-			.json({ status: true, message: "Registration Successful!" })
-	} catch (err) {
-		console.error(err)
-		return res
-			.status(500)
-			.json({ status: false, message: "Internal server error" })
-	}
-})
-
-//------------------------------------Log In-----------------------------------------
-
-router.post("/api/login", async (req, res) => {
-	try {
-		// Validate required fields
-		const { Reg_ID, password, role } = req.body
-		if (!Reg_ID || !password || !role) {
-			return res
-				.status(210)
-				.json({ status: false, message: "All fields are required" })
-		}
-
-		let modelSchema
-
-		if (role === "admin") modelSchema = adminUserData
-		else if (role === "Teacher") modelSchema = teacherUserData
-		else modelSchema = studentUserData
-
-		// Find user by pNumber
-		const user = await modelSchema.findOne({ Registration_ID: Reg_ID })
-
-		// Check user existence and password validity
-		if (!user) {
-			return res
-				.status(215)
-				.json({ status: false, message: "User does not exists" })
-		} else if (user.password !== password) {
-			return res.status(215).send({status: false, message: "Password did not matched"})
-		}
-
-		// Generate JWT token with appropriate claims
-		const token = jwt.sign({ id: user._id, role: user.role }, secretCode)
-		const RegID = user.Registration_ID
-		const roleAction = user.role
-
-		// Send successful login response
-		return res.status(200).json({
-			status: true,
-			message: "Login Successful!",
-			token,
-			roleAction,
-			RegID,
-		})
-	} catch (err) {
-		console.error(err) // Log the error for debugging
-		return res
-			.status(500)
-			.json({ status: false, message: "Internal server error" })
-	}
-})
-
-//---------------------------------Profile-------------------------------------------
-
-router.post("/api/profile", async (req, res) => {
-	try {
-		const token = req.headers?.authorization?.split(" ")[1]
-		const role = req.headers?.role
-
-		if (!token)
-			return res
-				.status(404)
-				.json({ status: false, message: "Access Denied" })
-
-		let modelSchema
-
-		if (role === "admin") modelSchema = adminUserData
-		else if (role === "Teacher") modelSchema = teacherUserData
-		else modelSchema = studentUserData
-
-		jwt.verify(token, secretCode, async (err, decode) => {
-			const user = await modelSchema.findById(decode?.id)
-			if (!user)
-				return res
-					.status(404)
-					.json({ status: false, message: "Invalid Token" })
-			const userData = {
-				id: user.id,
-				Registration_ID: user?.Registration_ID,
-				avatar: user?.avatar,
-				fName: user?.fName,
-				lName: user?.lName,
-				pNumber: user?.pNumber,
-				email: user?.email,
-				address: user?.address,
-			}
-
-			return res
-				.status(201)
-				.json({ status: true, message: "Profile Data", data: userData })
-		})
-	} catch (err) {
-		return res.status(404).json({
-			status: false,
-			message: "Something went wrong",
-			error: err.message,
-		})
-	}
-})
-
-//-------------------------------Email Sending-------------------------------------
-
-router.post("/api/email", cors(), async (req, res) => {
-	try {
-		const { Registration_ID, name, email, message } = req.body
-
-		if (!name || !email || !message) {
-			return res
-				.status(400)
-				.json({ status: false, message: "All fields are required" })
-		}
-
-		let queryId
-		let exists = true
-
-		while (exists) {
-			queryId = Math.floor(Math.random() * 900000) + 100000
-			exists = await email_from_client.findOne({ query_ID: queryId })
-		}
-
-		const now = new Date()
-		const formattedDate = now
-			.toLocaleString("en-GB", {
-				day: "2-digit",
-				month: "2-digit",
-				year: "numeric",
-				hour: "2-digit",
-				minute: "2-digit",
-				hour12: false,
-			})
-			.replace(",", "")
-
-		// console.log(formattedDate);
-
-		const newUser = new email_from_client({
-			query_ID: queryId,
-			Registration_ID,
-			fullname: name,
-			email,
-			message,
-			queryDate: formattedDate,
-			replyMessage: "",
-			resolveDate: "",
-			status: "pending",
-		})
-		await newUser.save()
-
-		return res.status(201).json({ status: true, message: "Email sent!" })
-	} catch (err) {
-		return res.status(500).json({
-			status: false,
-			message: "Something went wrong",
-			error: err.message,
-		})
-	}
-})
-
-//--------------------------------Update Data----------------------------------------
-
-router.post("/api/update", upload.single("avatar"), async (req, res) => {
-	try {
-		const { fName, lName, pNumber, uEmail, uAddress, urole } = req.body
-		const avatarPath = req.file?.path
-		const isStored = await uploadOnCloudinary(avatarPath)
-
-		const modelMap = {
-			admin: adminUserData,
-			Teacher: teacherUserData,
-			student: studentUserData,
-		}
-		const updateModel = modelMap[urole] || studentUserData
-
-		if (isStored !== null) {
-			const existing = await updateModel.findOne({ pNumber })
-			if (existing.avatarID !== "")
-				await cloudinary.uploader.destroy(existing.avatarID, {
-					resource_type: "image",
-				})
-		}
-
-		const updateResult = await updateModel.updateOne(
-			{ pNumber },
-			{
-				$set: {
-					avatar: isStored?.secure_url,
-					avatarID: isStored?.public_id,
-					fName,
-					lName,
-					email: uEmail,
-					address: uAddress,
-				},
-			}
-		)
-
-		if (updateResult.modifiedCount === 0) {
-			return res
-				.status(210)
-				.json({ status: false, message: "Updating Error from server side. Please try again later" })
-		}
-
-		res.status(200).json({ status: true, message: "Data Updated" })
-	} catch (err) {
-		console.log("Error is here is backend")
-		res.status(500).json({
-			status: false,
-			message: "Something went wrong",
-			error: err.message,
-		})
-	}
-})
-
-//--------------------------------User Check-----------------------------------------
-
-router.post("/api/usercheck", async (req, res) => {
-	try {
-		const { fpnumber, regis, frole } = req.body
-
-		let modelSchema
-
-		if (frole === "admin") modelSchema = adminUserData
-		else if (frole === "Teacher") modelSchema = teacherUserData
-		else modelSchema = studentUserData
-
-		const user = await modelSchema.findOne({Registration_ID : regis})
-
-		if (!user) {
-			return res
-				.status(215)
-				.json({ status: false, message: "User does not exists" })
-		} else if (user.pNumber !== fpnumber) {
-			res.status(215).json({status: false, message: "Phone number is incorrect"})
-		} else {
-			const userData = {
-				regis: user?.Registration_ID,
-				frole: user?.role,
-			}
-			return res.status(200).json({ status: true, data: userData })
-		}
-	} catch (err) {
-		return res.status(500).json({
-			status: false,
-			message: "Something went wrong",
-			error: err.message,
-		})
-	}
-})
+router.post("/api/signup", Signup)
+router.post("/api/login", Login)
+router.post("/api/profile", Profile)
+router.post("/api/email", cors(), EmailSend)
+router.post("/api/update", upload.single("avatar"), ProfileUpdate)
+router.post("/api/usercheck", UserCheck)
 
 //------------------------------Password Update--------------------------------------
 
@@ -549,7 +194,7 @@ router.post("/api/classNine", async (req, res) => {
 
 router.post("/api/classTen", async (req, res) => {
 	try {
-		const classTenVideos = uploadVideo.find({ forClass: "X" })
+		const classTenVideos = await uploadVideo.find({ forClass: "X" })
 		return res.status(201).json({ status: true, data: classTenVideos })
 	} catch (err) {
 		return res.status(500).json({
@@ -562,7 +207,7 @@ router.post("/api/classTen", async (req, res) => {
 
 router.post("/api/classEleven", async (req, res) => {
 	try {
-		const classElevenVideos = uploadVideo.find({ forClass: "XI" })
+		const classElevenVideos = await uploadVideo.find({ forClass: "XI" })
 		return res.status(201).json({ status: true, data: classElevenVideos })
 	} catch (err) {
 		return res.status(500).json({
@@ -575,7 +220,7 @@ router.post("/api/classEleven", async (req, res) => {
 
 router.post("/api/classTwelve", async (req, res) => {
 	try {
-		const classTwelveVideos = uploadVideo.find({ forClass: "XII" })
+		const classTwelveVideos = await uploadVideo.find({ forClass: "XII" })
 		return res.status(201).json({ status: true, data: classTwelveVideos })
 	} catch (err) {
 		return res.status(500).json({

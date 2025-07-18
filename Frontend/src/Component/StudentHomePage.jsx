@@ -1,16 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Head } from '../JSX/Function';
-import { ClassArray } from '../JSX/Heading';
 import Footer from '../JSX/Footer';
-import HE from '../CSS/Home.module.css';
 import B from '../CSS/Boxex.module.css';
 import S from '../CSS/Slider.module.css' //Needed but not used due to some error
 import ImageSlider from '../JSX/ImageSlider'; //Needed but not used due to some error
-import ClassNine from '../JSX/HomePage/ClassNine';
-import ClassTen from '../JSX/HomePage/ClassTen';
-import ClassEleven from '../JSX/HomePage/ClassEleven';
-import ClassTwelve from '../JSX/HomePage/ClassTwelve';
 import axios from 'axios';
+import BottomNavigation from './BottomNavigation';
 
 // let Slider = []
 
@@ -36,32 +30,8 @@ export default function StudentHomePage() {
     // }
 
     return (
-        <div className={HE.MainHome}>
-            <div className={HE.container}>
-                {ClassArray.map(Head)}
-            </div>
-
-            <div className={HE.HomeContainer}>
-                <div className={B.videosClassNine}>
-                    <ClassNine />
-                </div>
-                <div className={B.videosClassNine}>
-                    <div className={B.ClassNineVideos}>
-                        <ClassTen />
-                    </div>
-                </div>
-                <div className={B.videosClassNine}>
-                    <div className={B.ClassNineVideos}>
-                        <ClassEleven />
-                    </div>
-                </div>
-                <div className={B.videosClassNine}>
-                    <div className={B.ClassNineVideos}>
-                        <ClassTwelve />
-                    </div>
-                </div>
-            </div>
-            <Footer />
+        <div>
+            <BottomNavigation />
         </div>
     );
 }

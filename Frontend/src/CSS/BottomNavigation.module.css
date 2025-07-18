@@ -1,0 +1,193 @@
+/* BottomNav.module.css */
+
+.bottomNav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.bottomNavContainer {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 8px;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #6b7280;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.navItem::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  border-radius: 12px;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s ease;
+  z-index: -1;
+  opacity: 0;
+}
+
+.navItem:hover::before {
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+
+.navItem:hover {
+  color: #3b82f6;
+  transform: translateY(-2px);
+}
+
+.navItem.active {
+  color: #3b82f6;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(29, 78, 216, 0.05));
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.navItem.active::before {
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+}
+
+.navLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  margin-top: 4px;
+  line-height: 1.2;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .bottomNavContainer {
+    padding: 6px 12px;
+    gap: 4px;
+  }
+
+  .navItem {
+    padding: 6px 8px;
+    border-radius: 8px;
+  }
+
+  .navLabel {
+    font-size: 0.7rem;
+    margin-top: 2px;
+  }
+}
+
+@media (max-width: 360px) {
+  .navLabel {
+    font-size: 0.65rem;
+  }
+
+  .navItem {
+    padding: 5px 6px;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 768px) {
+  .bottomNavContainer {
+    max-width: 600px;
+    padding: 12px 24px;
+  }
+
+  .navItem {
+    padding: 12px 16px;
+    border-radius: 16px;
+  }
+
+  .navLabel {
+    font-size: 0.875rem;
+    margin-top: 6px;
+  }
+}
+
+/* Large tablets and small desktops */
+@media (min-width: 1024px) {
+  .bottomNavContainer {
+    max-width: 700px;
+  }
+
+  .navItem {
+    padding: 14px 20px;
+  }
+
+  .navLabel {
+    font-size: 0.9rem;
+  }
+}
+
+/* Animation for smooth transitions */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bottomNav {
+  animation: slideUp 0.3s ease-out;
+}
+
+/* Active state indicator dot */
+.navItem::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #3b82f6;
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navItem.active::after {
+  opacity: 1;
+}
+
+/* Safe area handling for devices with notches */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .bottomNav {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

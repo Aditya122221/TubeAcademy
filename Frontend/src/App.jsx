@@ -1,13 +1,10 @@
-import React from "react";
 import HomePage from './Component/HomePage';
 import VideoEdit from "./Component/VideoEdit";
 import AskAI from './Component/AskAI';
 import Contact from "./Component/ContactUs";
 import LogIn from "./Component/LogIn";
 import ClassNine from './Component/ClassNine';
-import ClassTen from "./Component/ClassTen";
-import ClassEleven from "./Component/ClassEleven"
-import ClassTwelve from "./Component/ClassTwelve";
+import ClassTen from './Component/ClassTen';
 import Error404 from "./Component/Error404";
 import SignUp from './Component/SignUp'
 import Profile from "./Component/Profile";
@@ -17,6 +14,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import Logout from "./Component/Logout";
+import ClassEleven from './Component/ClassEleven';
+import ClassTwelve from './Component/ClassTwelve';
 
 function App() {
   const navbarRouter = createBrowserRouter([

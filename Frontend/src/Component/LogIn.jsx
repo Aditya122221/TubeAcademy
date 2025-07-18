@@ -147,6 +147,9 @@ const LogIn = () => {
                     }
                 })
                 .catch((err) => {
+                    setError("Server is not active. Please refresh or wait for sometime")
+                    setIsClass(2)
+                    setIsDis(false)
                     console.error("Server either not running or disconnected", err);
                 });
         }

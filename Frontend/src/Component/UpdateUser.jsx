@@ -217,3 +217,8 @@ export default function UpdateUser() {
         </div>
     )
 }
+
+
+
+
+// Generate a prompt to create responsive ui in react and css for login form which contains fields like username and password. generate in such a way that i can copy it easily with one click
