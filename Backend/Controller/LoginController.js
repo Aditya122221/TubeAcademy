@@ -4,6 +4,8 @@ import teacherUserData from "../Modal/teacherUserData.js"
 import studentUserData from "../Modal/studentUserData.js"
 import bcrypt from "bcrypt"
 
+const secretCode = process.env.ACCESS_TOKEN
+
 const Login = async (req, res) => {
     try {
         // Validate required fields
