@@ -1,12 +1,3 @@
-import { v2 as cloudinary } from "cloudinary"
-import email_from_client from "../Modal/email_from_client.js"
-import jwt from "jsonwebtoken"
-import cors from "cors"
-import upload from "./multer.js"
-import uploadOnCloudinary from "./cloudinary.js"
-import adminUserData from "../Modal/adminUserData.js"
-import teacherUserData from "../Modal/teacherUserData.js"
-import studentUserData from "../Modal/studentUserData.js"
 import uploadVideo from "../Modal/uploadVideo.js"
 
 export const ClassNine = async (req, res) => {

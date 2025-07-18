@@ -1,4 +1,4 @@
-import uploadOnCloudinary from "./cloudinary.js"
+import uploadOnCloudinary from "../Routes/cloudinary.js"
 import teacherUserData from "../Modal/teacherUserData.js"
 import studentUserData from "../Modal/studentUserData.js"
 import uploadVideo from "../Modal/uploadVideo.js"

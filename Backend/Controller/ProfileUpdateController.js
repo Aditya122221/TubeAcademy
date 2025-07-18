@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from "cloudinary"
-import uploadOnCloudinary from "./cloudinary.js"
+import uploadOnCloudinary from "../Routes/cloudinary.js"
 import adminUserData from "../Modal/adminUserData.js"
 import teacherUserData from "../Modal/teacherUserData.js"
 import studentUserData from "../Modal/studentUserData.js"
