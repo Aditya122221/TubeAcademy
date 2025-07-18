@@ -2,6 +2,7 @@ import uploadOnCloudinary from "../Routes/cloudinary.js"
 import teacherUserData from "../Modal/teacherUserData.js"
 import studentUserData from "../Modal/studentUserData.js"
 import uploadVideo from "../Modal/uploadVideo.js"
+import {v2 as cloudinary} from 'cloudinary'
 
 export const UploadVideo = async (req, res) => {
     try {

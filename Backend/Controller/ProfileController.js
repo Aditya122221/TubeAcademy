@@ -3,6 +3,8 @@ import adminUserData from "../Modal/adminUserData.js"
 import teacherUserData from "../Modal/teacherUserData.js"
 import studentUserData from "../Modal/studentUserData.js"
 
+const secretCode = process.env.ACCESS_TOKEN
+
 const Profile = async (req, res) => {
     try {
 		const token = req.headers?.authorization?.split(" ")[1]

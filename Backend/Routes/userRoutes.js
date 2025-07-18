@@ -6,6 +6,8 @@ import upload from "./multer.js"
 import teacherUserData from "../Modal/teacherUserData.js"
 import uploadVideo from "../Modal/uploadVideo.js"
 
+const secretCode = process.env.ACCESS_TOKEN
+
 import Signup from "../Controller/SignupController.js"
 import Login from "../Controller/LoginController.js"
 import Profile from "../Controller/ProfileController.js"
