@@ -50,9 +50,14 @@ export default function AdminHomePage() {
       });
   };
 
+  const paddingStyle = {
+    paddingTop: "80px",
+    paddingBottom: "80px"
+  }
+
   // console.log(teacherData.length)
   return (
-    <div>
+    <div style={paddingStyle}>
       <div className={AH.mydict}>
         <div>
           <label className={AH.label}>

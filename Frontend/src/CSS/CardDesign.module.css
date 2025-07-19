@@ -167,7 +167,7 @@
 .videoGridContainer {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 24px;
+    padding-top: 80px;
 }
 
 .videoGridTitle {
