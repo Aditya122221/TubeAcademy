@@ -166,7 +166,7 @@ Create .env file in both Frontend and Backend directory and follow the .env.exam
 
 ## 🛠️ Technologies Used
 
-*   Frontend: React JS, CSS
-*   Backend: Express, Node JS
-*   Database: Mongo DB
-*   Deployment: Vercel, Render
+*   <strong>Frontend:</strong> React JS, CSS
+*   <strong>Backend:</strong> Express, Node JS
+*   <strong>Database:</strong> Mongo DB
+*   <strong>Deployment:</strong> Vercel, Render
