@@ -1,172 +1,293 @@
-## 🎓 TubeAcademy
+# 🎓 TubeAcademy
 
+A comprehensive full-stack web application designed for educational institutions, providing a complete learning management system with role-based access control for administrators, teachers, and students.
 
-* Developed a full-stack web application for a coaching institute, supporting three user roles: Admin, Teacher,
-and Student.
-* Implemented Admin functionalities to register students/teachers, manage salaries, and assign subjects.
-* Enabled Teachers to upload, edit, and delete educational videos for students.
-* Designed the Student experience to access and watch course videos seamlessly.
-* Created individual profile pages for all users, allowing them to update their information.
-* Built a secure authentication and authorization system for role-based access control.
-* Ensured a responsive and user-friendly UI using React and CSS.</li>
+## 📋 Table of Contents
 
-## 🌐 Deployed Link
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Live Demo](#-live-demo)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [API Documentation](#-api-documentation)
+- [Project Structure](#-project-structure)
+- [Contributing](#-contributing)
+- [License](#-license)
+- [Contact](#-contact)
 
-<a href="https://tube-academy.vercel.app/" target="_blank">https://tube-academy.vercel.app/</a>
+## ✨ Features
 
-## 📁 Directory Structure
+### 🔐 Authentication & Authorization
+- Secure user registration and login system
+- Role-based access control (Admin, Teacher, Student)
+- JWT-based authentication
+- Password update functionality
+- Profile management for all user types
+
+### 👨‍💼 Admin Features
+- Register and manage students and teachers
+- Assign subjects to teachers
+- Manage teacher salaries
+- View comprehensive user analytics
+- System-wide video content management
+
+### 👨‍🏫 Teacher Features
+- Upload educational videos with metadata
+- Edit and delete video content
+- Manage assigned subjects
+- Track student engagement
+- Profile customization
+
+### 👨‍🎓 Student Features
+- Access course videos by class (9th, 10th, 11th, 12th)
+- Watch educational content seamlessly
+- Update personal profile
+- Contact support system
+- AI-powered assistance
+
+### 🎥 Video Management
+- Cloud-based video storage (Cloudinary)
+- Video categorization by class and subject
+- Responsive video player
+- Video metadata management
+
+### 🎨 User Interface
+- Modern, responsive design
+- Mobile-friendly interface
+- Intuitive navigation
+- Role-specific dashboards
+- Toast notifications for user feedback
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **React 19.1.0** - Modern UI library
+- **React Router DOM 7.6.1** - Client-side routing
+- **Vite 6.3.5** - Fast build tool and dev server
+- **Axios 1.9.0** - HTTP client for API calls
+- **React Toastify 11.0.5** - Notification system
+- **Lucide React 0.525.0** - Icon library
+- **CSS Modules** - Scoped styling
+
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js 5.1.0** - Web framework
+- **MongoDB** - NoSQL database
+- **Mongoose 8.15.1** - MongoDB object modeling
+- **JWT** - Authentication tokens
+- **Bcrypt** - Password hashing
+- **Cloudinary** - Media storage and management
+- **Multer** - File upload handling
+- **Nodemailer** - Email functionality
+
+### Deployment
+- **Vercel** - Frontend hosting
+- **Render** - Backend hosting
+
+## 🌐 Live Demo
+
+**Frontend:** [https://tube-academy.vercel.app/](https://tube-academy.vercel.app/)
+
+## 🚀 Installation
+
+### Prerequisites
+- Node.js (v16 or higher)
+- npm or yarn
+- MongoDB database
+- Cloudinary account (for media storage)
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/Aditya122221/TubeAcademy.git
+cd TubeAcademy
+```
+
+### 2. Backend Setup
+```bash
+cd Backend
+npm install
+```
+
+Create a `.env` file in the Backend directory:
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret_key
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+EMAIL_USER=your_email
+EMAIL_PASS=your_email_password
+```
+
+Start the backend server:
+```bash
+npm start
+```
+
+### 3. Frontend Setup
+```bash
+cd Frontend
+npm install
+```
+
+Create a `.env` file in the Frontend directory:
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+Start the development server:
+```bash
+npm run dev
+```
+
+## 📖 Usage
+
+### Getting Started
+1. Visit the application URL
+2. Register as a new user or login with existing credentials
+3. Based on your role, you'll be redirected to the appropriate dashboard
+
+### User Roles
+
+#### Admin
+- Access admin dashboard
+- Register new teachers and students
+- Manage user accounts and permissions
+- View system analytics
+
+#### Teacher
+- Access teacher dashboard
+- Upload and manage educational videos
+- View assigned subjects
+- Monitor student progress
+
+#### Student
+- Access student dashboard
+- Browse videos by class (9th, 10th, 11th, 12th)
+- Watch educational content
+- Update profile information
+
+## 📚 API Documentation
+
+### Authentication Endpoints
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `POST /api/auth/logout` - User logout
+- `PUT /api/auth/update-password` - Update password
+
+### User Management
+- `GET /api/users/profile` - Get user profile
+- `PUT /api/users/update-profile` - Update user profile
+- `GET /api/users/check` - Check user existence
+
+### Video Management
+- `POST /api/videos/upload` - Upload video
+- `GET /api/videos/fetch` - Fetch videos
+- `PUT /api/videos/edit` - Edit video
+- `DELETE /api/videos/delete` - Delete video
+
+### Admin Operations
+- `GET /api/admin/staff-details` - Get staff details
+- `POST /api/admin/query-action` - Handle admin queries
+
+## 📁 Project Structure
 
 ```
-.
-├── README.md
+TubeAcademy/
 ├── Backend/
-│   ├── .env
-│   ├── .env.example
-│   ├── .eraserdiagram
-│   ├── .gitignore
-│   ├── index.js
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── Images/
-│   ├── Modal/
+│   ├── Controller/          # Route controllers
+│   │   ├── EmailSendController.js
+│   │   ├── LoginController.js
+│   │   ├── PasswordUpdateController.js
+│   │   ├── ProfileController.js
+│   │   ├── ProfileUpdateController.js
+│   │   ├── QueryActionController.js
+│   │   ├── SignupController.js
+│   │   ├── StaffDetailController.js
+│   │   ├── UserCheckController.js
+│   │   ├── UserDetailsController.js
+│   │   ├── VideoActionController.js
+│   │   └── VideoFetchController.js
+│   ├── Modal/              # Database models
 │   │   ├── adminUserData.js
 │   │   ├── email_from_client.js
 │   │   ├── studentUserData.js
 │   │   ├── teacherUserData.js
 │   │   └── uploadVideo.js
-│   └── Routes/
-│       ├── cloudinary.js
-│       ├── multer.js
-│       └── userRoutes.js
+│   ├── Routes/             # API routes
+│   │   ├── cloudinary.js
+│   │   ├── multer.js
+│   │   └── userRoutes.js
+│   ├── Images/             # Static images
+│   ├── index.js            # Server entry point
+│   └── package.json
 ├── Frontend/
-│   ├── .env
-│   ├── .env.example
-│   ├── .gitignore
-│   ├── eslint.config.js
+│   ├── src/
+│   │   ├── Component/      # React components
+│   │   │   ├── AdminHomePage.jsx
+│   │   │   ├── AdminProfile.jsx
+│   │   │   ├── AskAI.jsx
+│   │   │   ├── ClassEleven.jsx
+│   │   │   ├── ClassNine.jsx
+│   │   │   ├── ClassTen.jsx
+│   │   │   ├── ClassTwelve.jsx
+│   │   │   ├── ContactUs.jsx
+│   │   │   ├── Error404.jsx
+│   │   │   ├── HomePage.jsx
+│   │   │   ├── LogIn.jsx
+│   │   │   ├── Logout.jsx
+│   │   │   ├── PasswordUpdate.jsx
+│   │   │   ├── Profile.jsx
+│   │   │   ├── SignUp.jsx
+│   │   │   ├── StudentHomePage.jsx
+│   │   │   ├── StudentProfile.jsx
+│   │   │   ├── TeacherHomePage.jsx
+│   │   │   ├── TeacherProfile.jsx
+│   │   │   ├── UpdateUser.jsx
+│   │   │   └── VideoEdit.jsx
+│   │   ├── CSS/            # Styling files
+│   │   ├── Images/         # Static assets
+│   │   ├── JSX/            # Reusable components
+│   │   │   ├── AdminUI/
+│   │   │   ├── StudentUI/
+│   │   │   └── TeacherUI/
+│   │   ├── App.jsx         # Main app component
+│   │   └── main.jsx        # App entry point
+│   ├── public/             # Public assets
 │   ├── index.html
-│   ├── package-lock.json
-│   ├── package.json
-│   ├── vercel.json
-│   ├── vite.config.js
-│   ├── public/
-│   │   └── favicon.ico
-│   └── src/
-│       ├── App.css
-│       ├── App.jsx
-│       ├── main.jsx
-│       ├── Component/
-│       │   ├── AdminHomePage.jsx
-│       │   ├── AdminProfile.jsx
-│       │   ├── AskAI.jsx
-│       │   ├── ClassEleven.jsx
-│       │   ├── ClassNine.jsx
-│       │   ├── ClassTen.jsx
-│       │   ├── ClassTwelve.jsx
-│       │   ├── ContactUs.jsx
-│       │   ├── Error404.jsx
-│       │   ├── HomePage.jsx
-│       │   ├── LogIn.jsx
-│       │   ├── Logout.jsx
-│       │   ├── PasswordUpdate.jsx
-│       │   ├── Profile.jsx
-│       │   ├── SignUp.jsx
-│       │   ├── StudentHomePage.jsx
-│       │   ├── StudentProfile.jsx
-│       │   ├── TeacherHomePage.jsx
-│       │   ├── TeacherProfile.jsx
-│       │   ├── UpdateUser.jsx
-│       │   └── VideoEdit.jsx
-│       ├── CSS/
-│       │   ├── AdminHome.module.css
-│       │   ├── AdminProfile.module.css
-│       │   ├── AskAI.module.css
-│       │   ├── Boxex.module.css
-│       │   ├── CardDesign.module.css
-│       │   ├── ClassNine.module.css
-│       │   ├── ContactUs.module.css
-│       │   ├── Error404.module.css
-│       │   ├── Filter.module.css
-│       │   ├── Footer.module.css
-│       │   ├── Heading.module.css
-│       │   ├── Home.module.css
-│       │   ├── LogIn.module.css
-│       │   ├── Navbar.module.css
-│       │   ├── Profile.module.css
-│       │   ├── SendButton.module.css
-│       │   ├── SignUp.module.css
-│       │   ├── Slider.module.css
-│       │   ├── StudentProfile.module.css
-│       │   ├── TeacherProfile.module.css
-│       │   ├── update.module.css
-│       │   ├── UpdateUser.module.css
-│       │   └── VideoEdit.module.css
-│       ├── Images/
-│       │   ├── Aboutt.jpg
-│       │   ├── DismantledBot.png
-│       │   ├── grass.png
-│       │   ├── header_img.png
-│       │   ├── Logo.png
-│       │   ├── plane.png
-│       │   ├── SignUpImg.png
-│       │   └── TeamLeader.png
-│       └── JSX/
-│           ├── Filter.jsx
-│           ├── Footer.jsx
-│           ├── Function.jsx
-│           ├── Heading.jsx
-│           ├── ImageSlider.jsx
-│           ├── Navbar.jsx
-│           ├── AdminUI/
-│           │   ├── AdminRightFour.jsx
-│           │   ├── AdminRightOne.jsx
-│           │   ├── AdminRightThree.jsx
-│           │   └── AdminRightTwo.jsx
-│           ├── HomePage/
-│           │   ├── ClassEleven.jsx
-│           │   ├── ClassNine.jsx
-│           │   ├── ClassTen.jsx
-│           │   └── ClassTwelve.jsx
-│           ├── StudentUI/
-│           │   ├── StudentRightOne.jsx
-│           │   └── StudentRightTwo.jsx
-│           └── TeacherUI/
-│               ├── TeacherRightOne.jsx
-│               ├── TeacherRightThree.jsx
-│               └── TeacherRightTwo.jsx
+│   └── package.json
+└── README.md
 ```
 
-## 🛠️ Installation Steps:
+## 🤝 Contributing
 
-<p>1. Clone Repository</p>
+We welcome contributions to TubeAcademy! Please follow these steps:
 
-```
-git clone https://github.com/Aditya122221/TubeAcademy.git
-```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-<p>2. Frontend Installation</p>
+### Development Guidelines
+- Follow the existing code style
+- Write meaningful commit messages
+- Test your changes thoroughly
+- Update documentation as needed
 
-```
-cd Frontend
-```
-```
-npm install
-```
+## 📞 Contact
 
-<p>3. Backend Installation</p>
+**Project Maintainer:** Aditya
+- **GitHub:** [@Aditya122221](https://github.com/Aditya122221)
+- **Project Link:** [https://github.com/Aditya122221/TubeAcademy](https://github.com/Aditya122221/TubeAcademy)
 
-```
-cd Backend
-```
-```
-npm install
-```
+## 🙏 Acknowledgments
 
-<p>4. .env Set up</p>
-Create .env file in both Frontend and Backend directory and follow the .env.example file to setup the .env file
+- Thanks to all contributors who have helped improve this project
+- Special thanks to the open-source community for the amazing tools and libraries
+- Educational institutions for providing valuable feedback during development
 
-## 🛠️ Technologies Used
+---
 
-*   Frontend: React JS, CSS
-*   Backend: Express, Node JS
-*   Database: Mongo DB
-*   Deployment: Vercel, Render
+⭐ **Star this repository if you found it helpful!**
