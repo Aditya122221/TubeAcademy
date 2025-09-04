@@ -290,4 +290,11 @@ We welcome contributions to TubeAcademy! Please follow these steps:
 
 ---
 
+<<<<<<< HEAD
 ⭐ **Star this repository if you found it helpful!**
+=======
+*   <strong>Frontend:</strong> React JS, CSS
+*   <strong>Backend:</strong> Express, Node JS
+*   <strong>Database:</strong> Mongo DB
+*   <strong>Deployment:</strong> Vercel, Render
+>>>>>>> 07838bc0903e03a6395e60e87d56807e14334d6e
